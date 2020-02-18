@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
 
   constructor() { }
-  login(){
-    console.log("logging in");
+  login(email, password){
+    console.log(email.value);
   }
-  signup(){
-    console.log("signing up");
+  signup(email, password){
+    console.log(email.value);
   }
   ngOnInit(): void {
   }
