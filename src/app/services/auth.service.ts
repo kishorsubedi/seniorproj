@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
@@ -10,7 +11,7 @@ export class AuthService {
   private authState: Observable<firebase.User>
   private currentUser: firebase.User = null;
 
-  constructor(public afAuth: AngularFireAuth) {
+  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore) {
     this.authState = this.afAuth.authState;
     this.authState.subscribe(user => {
       if (user) {
@@ -33,7 +34,6 @@ export class AuthService {
       // ...
       window.alert(errorMessage);
     });
-    console.log("success logging in");
     return;
   }
 
@@ -46,6 +46,8 @@ export class AuthService {
       // ...
     });
     console.log("success signing up");
+    var usersCollectionRef = this.afs.collection('users'); // a ref to the users collection
+    usersCollectionRef.doc(this.currentUser.uid).set({ email: email });
     return;
   }
 }
