@@ -30,7 +30,12 @@ export class AuthService {
   }
 
   signInWithEmailPassword(email: string, password:string) {
-    this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+    this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {    
+      console.log("success logging in");
+      this.router.navigateByUrl('/dashboard');
+      console.log(this.afAuth.auth.currentUser.uid);
+      return;
+    }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -62,5 +67,7 @@ export class AuthService {
   signOut(){
     this.afAuth.auth.signOut();
     console.log("signOut successful");
+    this.router.navigateByUrl('/');
+    return;
   }
 }

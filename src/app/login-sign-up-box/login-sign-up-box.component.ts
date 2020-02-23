@@ -20,4 +20,5 @@ export class LoginSignUpBoxComponent implements OnInit {
   signUpWithEmailPassword(email:string, password:string) {
     this.auth.signUpWithEmailPassword(email, password);
   }
+  
 }

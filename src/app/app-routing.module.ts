@@ -3,11 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginSignUpBoxComponent } from './login-sign-up-box/login-sign-up-box.component';
 
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: '',      component: AppComponent },
+  { path: '',      component: LoginSignUpBoxComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
