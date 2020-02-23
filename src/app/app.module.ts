@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { AuthService } from './services/auth.service';
+import { LoginSignUpBoxComponent } from './login-sign-up-box/login-sign-up-box.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDqRAoNqLcT8LXeEHvkDo_0UB45WoPNeOo",
@@ -24,7 +25,7 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    LoginSignUpBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,7 @@ const firebaseConfig = {
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features 
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

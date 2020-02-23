@@ -1,0 +1,18 @@
+<br>
+<br>
+<br>
+Login Credentials
+<div> 
+  <input type="text" placeholder="Email" #loginEmail>
+  <input type="password" placeholder="Password" #loginPassword >
+  <button (click)="signInWithEmailPassword(loginEmail.value, loginPassword.value)"> login </button>   
+</div>
+
+<br>
+<br>
+SignUp Credentials
+<div> 
+  <input type="text" placeholder="Email" #signupEmail>
+  <input type="password" placeholder="Password" #signupPassword>
+  <button (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value)"> signup </button> 
+</div>
