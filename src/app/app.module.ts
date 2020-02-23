@@ -11,6 +11,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth.service';
 import { LoginSignUpBoxComponent } from './login-sign-up-box/login-sign-up-box.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDqRAoNqLcT8LXeEHvkDo_0UB45WoPNeOo",
@@ -27,6 +29,8 @@ const firebaseConfig = {
   declarations: [
     AppComponent,
     LoginSignUpBoxComponent,
+    DashboardComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
