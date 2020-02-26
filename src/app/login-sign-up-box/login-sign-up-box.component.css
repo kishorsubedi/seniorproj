@@ -5,7 +5,7 @@
 
 :host{
     /* display:block; */
-     margin-left:  20px; 
+     margin:  20px; 
 }
 
 .custom.mat-card{
@@ -17,6 +17,10 @@
 .mat-card-header{
     background-color: white;
     justify-content: center;
+}
+
+.mat-form-field{
+    width:100%;
 }
 
 /* For the text alongside the logo */
