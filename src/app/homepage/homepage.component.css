@@ -1,8 +1,20 @@
+*{
+    display: block;
+    justify-content: center;
+}
+
 :host{
-    display: block;  
+    display: grid;  
     width:100vw;
     justify-content: center;
     background-color:rgb(39, 152, 160);
     height: 100vh;
 }
+
+body{
+    display: flex;
+    justify-content: center;
+}
+
+
 
