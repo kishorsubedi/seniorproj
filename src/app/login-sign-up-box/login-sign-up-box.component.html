@@ -1,22 +1,32 @@
-OrgPro 
+<mat-card class = "custom">
+  <mat-card-header>
+    <div class="header">
+      <img mat-card-image src="../../assets/images/logo1.png" style="width:50px;height:50px;"> 
+      <h1>OrgPro</h1>
+    </div>
+  </mat-card-header>
 
-<br>
-<br>
-<br>
-Login Credentials
+  <mat-divider></mat-divider>
+  <mat-card-content>
+  <br>
+  
+  <mat-tab-group>
+    <mat-tab label="Login"> 
+      <div> 
+        <input type="text" placeholder="Email" #loginEmail>
+        <input type="password" placeholder="Password" #loginPassword >
+        <button (click)="signInWithEmailPassword(loginEmail.value, loginPassword.value)"> login </button>   
+      </div>
+    </mat-tab>
+    <mat-tab label="Sign Up"> 
+      <div> 
+        <input type="text" placeholder="Email" #signupEmail>
+        <input type="password" placeholder="Password" #signupPassword>
+        <button (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value)"> signup </button> 
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  </mat-card-content>
 
-<div> 
-  <input type="text" placeholder="Email" #loginEmail>
-  <input type="password" placeholder="Password" #loginPassword >
-  <button (click)="signInWithEmailPassword(loginEmail.value, loginPassword.value)"> login </button>   
-</div>
-
-<br>
-<br>
-SignUp Credentials
-<div> 
-  <input type="text" placeholder="Email" #signupEmail>
-  <input type="password" placeholder="Password" #signupPassword>
-  <button (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value)"> signup </button> 
-</div>
+</mat-card>
 

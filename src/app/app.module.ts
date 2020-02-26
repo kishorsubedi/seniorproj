@@ -13,6 +13,17 @@ import { AuthService } from './services/auth.service';
 import { LoginSignUpBoxComponent } from './login-sign-up-box/login-sign-up-box.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Angular material modules
+import { MatSliderModule } from '@angular/material/slider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDqRAoNqLcT8LXeEHvkDo_0UB45WoPNeOo",
@@ -38,7 +49,15 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features 
-    AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule.enablePersistence(), BrowserAnimationsModule,
+    // Angular Material Modules
+    MatSliderModule, 
+    MatMenuModule, 
+    MatIconModule, 
+    MatCardModule, 
+    MatDividerModule, 
+    MatTabsModule,
+    MatFormFieldModule,
   ],
   providers: [AuthService, AngularFirestore],
   bootstrap: [AppComponent]
