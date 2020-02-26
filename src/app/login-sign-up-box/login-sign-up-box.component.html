@@ -1,22 +1,65 @@
-OrgPro 
+<!-- <app-homepage-topbar></app-homepage-topbar> -->
 
-<br>
-<br>
-<br>
-Login Credentials
 
-<div> 
-  <input type="text" placeholder="Email" #loginEmail>
-  <input type="password" placeholder="Password" #loginPassword >
-  <button (click)="signInWithEmailPassword(loginEmail.value, loginPassword.value)"> login </button>   
-</div>
+<mat-card class = "custom">
+  <!-- The Header: Logo and Name -->
+  <mat-card-header>
+    <div class="header">
+      <img mat-card-image src="../../assets/images/logo1.png" style="width:50px;height:50px;"> 
+      <h1 class="title">OrgPro</h1>
+    </div>
+  </mat-card-header>
 
-<br>
-<br>
-SignUp Credentials
-<div> 
-  <input type="text" placeholder="Email" #signupEmail>
-  <input type="password" placeholder="Password" #signupPassword>
-  <button (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value)"> signup </button> 
-</div>
+  <!-- The Divider -->
+  <mat-divider></mat-divider>
+  
+  <!-- Card Contents -->
+  <mat-card-content>
 
+  <!-- The login tab -->
+  <mat-tab-group class ="mat-stretch-tabs">
+    <mat-tab label="Login" color="black"> 
+      <div>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput #loginEmail>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill" >
+          <mat-label>Password</mat-label>
+          <input matInput #loginPassword type="password">
+        </mat-form-field>
+      </div>
+      
+      <div> 
+        <button mat-stroked-button (click)="signInWithEmailPassword(loginEmail.value, loginPassword.value)"> Login </button>   
+      </div>
+    </mat-tab>
+
+    <!-- The Signup Tab -->
+    <mat-tab label="Sign Up"> 
+      <div>
+        <br>
+        <mat-form-field appearance="fill" >
+          <mat-label>Email</mat-label>
+          <input matInput #signupEmail>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput #signupPassword type="password">
+        </mat-form-field>
+      </div>
+      <div> 
+        <button mat-stroked-button color="black" (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value)"> SignUp </button> 
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  </mat-card-content>
+
+</mat-card>

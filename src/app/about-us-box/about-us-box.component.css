@@ -1,0 +1,40 @@
+:host{
+    /* display:block; */
+     margin:  20px; 
+}
+
+
+.mat-card-header{
+    justify-content: left;
+    height: 50px;
+}
+
+.custom.mat-card{
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+} 
+
+.mat-card-image{
+    margin-top: 0px !important;
+    width: 45px;
+    height: 45px;
+}
+
+.mat-card-content{
+    font-family: "Georgia";
+    font-size: medium;
+    margin: 20px;
+}
+
+
+/* For the text alongside the logo */
+.title {
+    margin-left: 20px;
+    margin-top: 8px;
+    float: right;
+    font-family: "Georgia";
+    font-size: x-large;
+    color:black;
+  }

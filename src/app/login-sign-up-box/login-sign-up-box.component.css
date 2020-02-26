@@ -1,0 +1,39 @@
+/* To remove mat-card-header-text which appears by default, it offsets the logo from the center */
+:host /deep/ .mat-card-header-text {
+    margin: 0;
+}
+
+:host{
+    /* display:block; */
+     margin:  20px; 
+}
+
+.custom.mat-card{
+    max-width: 350px;
+    height: 100%;
+    background-color: white;
+}
+
+.mat-card-header{
+    background-color: white;
+    justify-content: center;
+}
+
+.mat-form-field{
+    width:100%;
+}
+
+/* For the text alongside the logo */
+.title {
+    float: right;
+    font-family: "Lucida Console";
+    font-size: large;
+    color:black;
+    margin-left: 15px;
+  }
+
+
+
+
+
+  

@@ -1,0 +1,19 @@
+
+:host{
+    display: flex; 
+    flex-direction: column; 
+    width:100vw;
+    background-color:rgb(39, 152, 160);
+    height: 100%;
+}
+
+div.page-contents{
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color:rgb(39, 152, 160);
+}
+
+
+
