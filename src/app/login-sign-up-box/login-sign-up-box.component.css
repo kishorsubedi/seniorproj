@@ -4,18 +4,13 @@
 }
 
 :host{
-    display: flex;
-    justify-content: center;
-    background-color: skyblue;
-    max-height: 1000px;
+    display:block;
 }
 
 .custom.mat-card{
-    max-width: 400px;
+    max-width: 350px;
     height: 300px;
-    /* padding-top: 0px;
-    padding-left: 0px;
-    padding-right: 0px;  */
+    background-color: white;
 }
 
 .mat-card-header{
@@ -23,12 +18,17 @@
     justify-content: center;
 }
 
-  
 /* For the text alongside the logo */
 .header h1 {
     float: right;
     font-family: "Lucida Console";
     font-size: large;
-    color: rgb(54, 53, 53);
+    color:black;
     margin-left: 15px;
   }
+
+
+
+
+
+  

@@ -1,0 +1,8 @@
+:host{
+    display: block;  
+    width:100vw;
+    justify-content: center;
+    background-color:rgb(39, 152, 160);
+    height: 100vh;
+}
+

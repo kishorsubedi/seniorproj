@@ -1,0 +1,11 @@
+  :host{
+      display: block;
+      height: 40px;
+      width: 100vw;
+      /* margin-bottom:10px;  */
+  }
+
+  .mat-toolbar.mat-primary {
+    background-color: black;
+    color: white; 
+  }

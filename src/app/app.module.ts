@@ -23,6 +23,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { HomepageComponent } from './homepage/homepage.component';
+import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 const firebaseConfig = {
@@ -42,6 +47,8 @@ const firebaseConfig = {
     LoginSignUpBoxComponent,
     DashboardComponent,
     PageNotFoundComponent,
+    HomepageComponent,
+    HomepageTopbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +65,9 @@ const firebaseConfig = {
     MatDividerModule, 
     MatTabsModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatToolbarModule,
   ],
   providers: [AuthService, AngularFirestore],
   bootstrap: [AppComponent]
