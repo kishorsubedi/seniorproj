@@ -1,18 +1,16 @@
-*{
-    display: block;
-    justify-content: center;
-}
 
 :host{
-    display: grid;  
-    width:100vw;
-    justify-content: center;
+    display: flex; 
+    flex-direction: column; 
+    width:100%;
     background-color:rgb(39, 152, 160);
-    height: 100vh;
+    height: 100%;
 }
 
-body{
-    display: flex;
+div.page-contents{
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
 }
 

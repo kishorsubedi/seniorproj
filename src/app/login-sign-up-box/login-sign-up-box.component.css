@@ -4,12 +4,13 @@
 }
 
 :host{
-    display:block;
+    /* display:block; */
+     margin-left:  20px; 
 }
 
 .custom.mat-card{
     max-width: 350px;
-    height: 300px;
+    height: 100%;
     background-color: white;
 }
 
@@ -19,7 +20,7 @@
 }
 
 /* For the text alongside the logo */
-.header h1 {
+.title {
     float: right;
     font-family: "Lucida Console";
     font-size: large;

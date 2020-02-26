@@ -28,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 
 
 const firebaseConfig = {
@@ -49,6 +50,7 @@ const firebaseConfig = {
     PageNotFoundComponent,
     HomepageComponent,
     HomepageTopbarComponent,
+    AboutUsBoxComponent,
   ],
   imports: [
     BrowserModule,
