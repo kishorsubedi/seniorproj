@@ -29,6 +29,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 const firebaseConfig = {
@@ -51,6 +52,7 @@ const firebaseConfig = {
     HomepageComponent,
     HomepageTopbarComponent,
     AboutUsBoxComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

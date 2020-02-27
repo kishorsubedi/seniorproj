@@ -32,8 +32,10 @@
     margin-left: 15px;
   }
 
-
-
-
+.mat-stroked-button{
+    width: 100%;
+    background-color: black;
+    color: white;
+}
 
   

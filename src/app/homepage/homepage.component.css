@@ -1,7 +1,7 @@
 
 :host{
     display: flex; 
-    flex-direction: column; 
+    flex-direction: row; 
     width:100vw;
     background-color:rgb(39, 152, 160);
     height: 100%;

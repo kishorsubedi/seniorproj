@@ -1,0 +1,48 @@
+:host{
+    display: block;
+    height: 40px;
+    width: 100%;
+    margin-bottom:75px; 
+    position: fixed; 
+}
+
+.mat-toolbar.mat-primary {
+  background-color: black;
+  color: white; 
+}
+
+.mat-card-image{
+    margin:0px !important; /*to override the margin from library file*/
+    width: 30px;
+    height:30px;
+}
+
+.spacer {
+    flex: 0.97 1 auto;
+  }
+
+.logo-and-name{
+    display: flex;
+    margin: 10px;
+}
+
+.logo-and-name h1{
+    margin-left: 7px;
+    font-size: 20px;
+}
+
+.mat-toolbar-row h2{
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.mat-toolbar-row h3{
+    font-size: 15px;
+}
+
+.mat-stroked-button{
+    margin-left: 15px;
+    /* height: 30px; */
+    background-color: rgb(91, 91, 235);
+    border-radius: 5px;
+}
