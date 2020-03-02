@@ -48,14 +48,35 @@ export class AuthService {
     return;
   }
 
+  async loginWithGoogle(){
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    // if first time, add user to users table, else do nothing
+    this.afs.firestore.doc('/users/'+ credential.user.uid).get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
+          // do something
+          console.log("this user already exists in users table");
+        }
+        else{
+          this.createUser(credential.user.uid, credential.user.email)
+        }
+        this.router.navigateByUrl('/dashboard');
+      });
+  }
+
+  createUser(uid:string, email:string){
+    var usersCollectionRef = this.afs.collection('users'); // a ref to the users collection
+    usersCollectionRef.doc(uid).set({ email: email });
+  }
+
   signUpWithEmailPassword(email: string, password:string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
       
       console.log("success signing up");
       console.log(user.user.uid);
-      var usersCollectionRef = this.afs.collection('users'); // a ref to the users collection
-      usersCollectionRef.doc(this.afAuth.auth.currentUser.uid).set({ email: email });
-  
+
+      this.createUser(user.user.uid, email);
       this.router.navigateByUrl('/dashboard');
       return;
     }).catch(function(error) {

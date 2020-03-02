@@ -34,9 +34,15 @@
         </mat-form-field>
       </div>
       
-      <div> 
-        <button mat-stroked-button (click)="signInWithEmailPassword(loginEmail.value, loginPassword.value)"> Login </button>   
+      <div>
+        <div class="inner"> 
+          <button mat-stroked-button (click)="signInWithEmailPassword(loginEmail.value, loginPassword.value)"> Login </button>   
+        </div>
+        <div class="inner"> 
+          <button mat-stroked-button (click)="loginWithGoogle()"> Login With Google </button>   
+        </div>
       </div>
+     
     </mat-tab>
 
     <!-- The Signup Tab -->
