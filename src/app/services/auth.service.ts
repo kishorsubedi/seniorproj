@@ -14,15 +14,18 @@ export class AuthService {
 
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, private router: Router) {
     this.authState = this.afAuth.authState;
-/*
+
     this.authState.subscribe(user => {
       if (user) {
+        console.log("user id = ", afAuth.auth.currentUser.uid);
         this.currentUser = user;
+        this.router.navigateByUrl('/dashboard');
       } else {
+        console.log("if not user");
         this.currentUser = null;
       }
     });
-*/
+
    }
 
    getAuthState() {
