@@ -1,3 +1,9 @@
 <p>dashboard works!</p>
 
 <button (click)="signOut()"> SignOut </button>   
+<br>
+<br>
+
+<div *ngIf="Admin">
+    <app-dashboard-admin> </app-dashboard-admin>
+</div>

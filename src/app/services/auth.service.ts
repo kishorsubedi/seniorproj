@@ -71,21 +71,33 @@ export class AuthService {
   }
 
   signUpWithEmailPassword(email: string, password:string) {
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
-      
-      console.log("success signing up");
-      console.log(user.user.uid);
+    this.afs.firestore.doc('/invitedMembers/'+ email).get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
 
-      this.createUser(user.user.uid, email);
-      this.router.navigateByUrl('/dashboard');
-      return;
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      window.alert(errorMessage);
-      // ...
-    });
+          this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
+            //remove from invitedMembers 
+            this.afs.firestore.doc(`invitedMembers/${email}`).delete();
+            
+            this.createUser(user.user.uid, email);
+            console.log("success signing up");
+            console.log(user.user.uid);
+            this.router.navigateByUrl('/dashboard');
+            return;
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            window.alert(errorMessage);
+            // ...
+          });
+      
+        }
+        else{
+          window.alert(" NO invitation yet! ");
+          return;
+        }
+      });
   }
 
   signOut(){
