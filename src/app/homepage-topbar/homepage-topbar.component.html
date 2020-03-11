@@ -1,5 +1,30 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>Welcome</span>
-    </mat-toolbar-row>
-  </mat-toolbar>
+  <span class="fill-remaining-space">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item>
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>people_outline</mat-icon>
+        <span>About</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>calendar_today</mat-icon>
+        <span>Events</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>account_box</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item (click)="signOut()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </span>
+  <span class="fill-remaining-space">ORGPRO</span>
+</mat-toolbar>
