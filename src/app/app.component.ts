@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,11 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  title(title: any) {
+    throw new Error("Method not implemented.");
+  }
   user = null;
+  calendarPlugins = [dayGridPlugin];
 constructor(
     private auth: AuthService) { }
 

@@ -1,4 +1,5 @@
 /* To remove mat-card-header-text which appears by default, it offsets the logo from the center */
+
 :host /deep/ .mat-card-header-text {
     margin: 0;
 }
@@ -9,7 +10,9 @@
 }
 
 .custom.mat-card{
-    max-width: 350px;
+    margin: 0 auto;
+    max-width: 450px; 
+    width: 40%; 
     height: 100%;
     background-color: white;
 }
