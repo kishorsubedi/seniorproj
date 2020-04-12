@@ -1,4 +1,10 @@
 <div>
     <input #inviteEmail type="text"> 
     <button (click)="inviteMember(inviteEmail.value)"> Invite </button>
+
+    <br>
+    <br>
+
+    <input #adminEmail type="text">
+    <button (click)="makeAdmin(adminEmail.value)"> Make Admin </button>
 </div>
