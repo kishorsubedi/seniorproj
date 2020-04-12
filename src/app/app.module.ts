@@ -33,6 +33,8 @@ import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { from } from 'rxjs';
+import { MembersListComponent } from './members-list/members-list.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 const firebaseConfig = {
@@ -57,6 +59,7 @@ const firebaseConfig = {
     AboutUsBoxComponent,
     DashboardAdminComponent,
     CalendarComponent,
+    MembersListComponent,
   ],
   imports: [
     FullCalendarModule,
@@ -76,7 +79,8 @@ const firebaseConfig = {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatGridListModule,
   ],
   providers: [AuthService, AngularFirestore],
   bootstrap: [AppComponent]
