@@ -20,11 +20,11 @@
                 <mat-card class = "admins-list-card sub-card">
                     Admins List
                     <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
-                        <mat-grid-tile *ngFor='let admin of admins'
+                        <mat-grid-tile *ngFor='let admin of adminsInDisplay'
                             [colspan]="1"
                             [rowspan]="1">
                             {{ admin.email }};
-                            <button (click)="updateDisplay()">view</button>
+                            <button (click)="handleClick(admin)">view</button>
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-card>
@@ -32,7 +32,7 @@
                 <mat-card class = "users-list-card sub-card">
                     Users List
                     <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
-                        <mat-grid-tile *ngFor='let member of members'
+                        <mat-grid-tile *ngFor='let member of membersInDisplay'
                             [colspan]="1"
                             [rowspan]="1"
                         >
