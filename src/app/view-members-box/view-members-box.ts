@@ -14,18 +14,21 @@ export class ViewMembersBox implements OnInit {
   admins: User[];
   invited: User[];
   userInView: User;
+  membersInDisplay: User[];
+  adminsInDisplay: User[];
   searchText: string;
+
 
   constructor(private usersService: UsersService) {  }
  
   ngOnInit(){
     this.members = this.usersService.getMembers();
-    //console.log(this.members);
     this.admins = this.usersService.getAdmins();
-    //console.log(this.admins);
     this.invited = this.usersService.getInvitedUsers();
-    //console.log(this.invited);
     this.userInView = this.members[0];
+    this.membersInDisplay = this.usersService.getMembers();
+    this.adminsInDisplay = this.usersService.getAdmins();
+
   }
 
   handleClick(user: User){
@@ -46,6 +49,11 @@ export class ViewMembersBox implements OnInit {
     console.log(result);
     return result;
     }
+  
+  updateDisplay(){
+    this.membersInDisplay = this.searchInArray(this.members);
+    this.adminsInDisplay = this.searchInArray(this.admins);
+  }
 }
 
 export class AppComponent {
