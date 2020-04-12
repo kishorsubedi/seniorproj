@@ -1,0 +1,46 @@
+<div class= "container">
+    <!-- The Main Outer Box -->
+    <mat-card class = "main-card">
+        <!-- Card that shows members detail -->
+        <mat-card class = "detail-view-card sub-card">
+            Detail View Section <br>
+            {{this.userInView.email}}
+        </mat-card>
+        <!-- The card that has search, admins list and members list -->
+        <mat-card class = "list-view-card sub-card">
+            <!-- The card containing search -->
+            <mat-card class = "search-card ">
+                Search
+            </mat-card>
+            <!-- The container coontaining adimns list and members list -->
+            <div class="lists-container">
+                <!-- The card displaying admins list -->
+                <mat-card class = "admins-list-card sub-card">
+                    Admins List
+                    <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
+                        <mat-grid-tile *ngFor='let admin of admins'
+                            [colspan]="1"
+                            [rowspan]="1">
+                            {{ admin.email }};
+                            <button (click)="handleClick(admin)">view</button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card>
+                <!-- The card displaying users list -->
+                <mat-card class = "users-list-card sub-card">
+                    Users List
+                    <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
+                        <mat-grid-tile *ngFor='let member of members'
+                            [colspan]="1"
+                            [rowspan]="1"
+                        >
+                            {{ member.email }};
+                            <button (click)="handleClick(member)">view</button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card>
+            </div>
+        </mat-card>
+    </mat-card>
+</div>
+

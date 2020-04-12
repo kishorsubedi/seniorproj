@@ -16,6 +16,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { UsersService } from './services/users-service';
+
 // Angular material modules
 import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
@@ -33,7 +35,7 @@ import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { from } from 'rxjs';
-import { MembersListComponent } from './members-list/members-list.component';
+import { ViewMembersBox } from './view-members-box/view-members-box';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 
@@ -59,7 +61,7 @@ const firebaseConfig = {
     AboutUsBoxComponent,
     DashboardAdminComponent,
     CalendarComponent,
-    MembersListComponent,
+    ViewMembersBox,
   ],
   imports: [
     FullCalendarModule,
@@ -82,7 +84,7 @@ const firebaseConfig = {
     MatToolbarModule,
     MatGridListModule,
   ],
-  providers: [AuthService, AngularFirestore],
+  providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -52,7 +52,7 @@ export class AuthService {
     const provider = new firebase.auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
     // if first time, add user to users table, else do nothing
-    this.afs.firestore.doc('/users/'+ credential.user.uid).get()
+    this.afs.firestore.doc('/users/'+ credential.user.email).get()
       .then(docSnapshot => {
         if (docSnapshot.exists) {
           // do something
@@ -67,7 +67,7 @@ export class AuthService {
 
   createUser(uid:string, email:string){
     var usersCollectionRef = this.afs.collection('users'); // a ref to the users collection
-    usersCollectionRef.doc(uid).set({ email: email });
+    usersCollectionRef.doc(email).set({ email: email });
   }
 
   signUpWithEmailPassword(email: string, password:string) {
