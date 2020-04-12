@@ -33,6 +33,19 @@ export class ViewMembersBox implements OnInit {
     this.userInView = user;
   }
 
+  searchInArray(users: User[]){
+    let result: User[];
+    result = [];
+    for(var user of users){
+      if(user.email != null){
+        if(user.email.search(this.searchText) != -1){
+          result.push(user)
+        }
+      }
+    }
+    console.log(result);
+    return result;
+    }
 }
 
 export class AppComponent {

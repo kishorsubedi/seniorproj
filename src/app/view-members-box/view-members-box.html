@@ -12,7 +12,7 @@
             <mat-card class = "search-card ">
                 Search
                 <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a hero by id or name or country">
-                {{this.searchText}}
+                {{searchText}}
             </mat-card>
             <!-- The container coontaining adimns list and members list -->
             <div class="lists-container">
@@ -24,7 +24,7 @@
                             [colspan]="1"
                             [rowspan]="1">
                             {{ admin.email }};
-                            <button (click)="handleClick(admin)">view</button>
+                            <button (click)="searchInArray(this.admins)">view</button>
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-card>
