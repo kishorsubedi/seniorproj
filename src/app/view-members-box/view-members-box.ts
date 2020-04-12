@@ -14,6 +14,7 @@ export class ViewMembersBox implements OnInit {
   admins: User[];
   invited: User[];
   userInView: User;
+  searchText: string;
 
   constructor(private usersService: UsersService) {  }
  
