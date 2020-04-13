@@ -11,5 +11,4 @@ export class DashboardAdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
