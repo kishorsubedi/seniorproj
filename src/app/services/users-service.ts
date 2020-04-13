@@ -12,11 +12,7 @@ export class UsersService {
   constructor(private afs: AngularFirestore) { }
   //Returns all admins in an array
    getAdmins(){
-    this.afs.collection('admins').valueChanges().subscribe(admins=>{
-      this.admins = admins;
-    })
-    console.log(this.admins);
-    return this.admins;
+    return this.afs.collection('admins').valueChanges();
    }
    //Returns all members in an array
    getMembers(){
