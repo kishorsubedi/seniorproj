@@ -34,6 +34,11 @@
     flex-grow: 0;
 }
 
+.serach-bar-text-area{
+    height: 100%;
+    width: 100%;
+}
+
 .lists-container{
     height : 80%;
     width : 100%;
@@ -61,6 +66,7 @@
 
 .mat-grid-tile {
     border: solid 0.5px #000;
+    justify-content: left;
     margin : 5px;
 }
 

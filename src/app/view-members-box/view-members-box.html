@@ -10,9 +10,7 @@
         <mat-card class = "list-view-card sub-card">
             <!-- The card containing search -->
             <mat-card class = "search-card ">
-                Search
-                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateDisplay()" autocomplete="off" placeholder="&#61442;  Start searching for a hero by id or name or country">
-                {{searchText}}
+                <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateDisplay()" autocomplete="off" placeholder="Search">
             </mat-card>
             <!-- The container coontaining adimns list and members list -->
             <div class="lists-container">
@@ -21,10 +19,10 @@
                     Admins List
                     <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
                         <mat-grid-tile *ngFor='let admin of adminsInDisplay'
+                            (click)="handleClick(admin)"
                             [colspan]="1"
                             [rowspan]="1">
                             {{ admin.email }};
-                            <button (click)="handleClick(admin)">view</button>
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-card>
@@ -33,11 +31,10 @@
                     Users List
                     <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
                         <mat-grid-tile *ngFor='let member of membersInDisplay'
+                            (click)="handleClick(member)"
                             [colspan]="1"
-                            [rowspan]="1"
-                        >
+                            [rowspan]="1">
                             {{ member.email }};
-                            <button (click)="handleClick(member)">view</button>
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-card>
