@@ -7,9 +7,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginSignUpBoxComponent } from './login-sign-up-box/login-sign-up-box.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 
 
 const routes: Routes = [
+  {path: 'about', component: AboutUsBoxComponent},
   {path: 'calendar', component: CalendarComponent},
   { path: 'dashboard', component: DashboardComponent },
   { path: '',      component: HomepageComponent },

@@ -4,15 +4,15 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
-      <button mat-menu-item>
+      <button mat-menu-item [routerLink]="['dashboard']">
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item [routerLink] = "['about']">
         <mat-icon>people_outline</mat-icon>
         <span>About</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item [routerLink]="['calendar']">
         <mat-icon>calendar_today</mat-icon>
         <span>Events</span>
       </button>
