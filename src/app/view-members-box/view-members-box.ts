@@ -20,17 +20,21 @@ export class ViewMembersBox implements OnInit {
   searchText: string;
 
 
-  constructor(private usersService: UsersService, private auth: AuthService) {  }
- 
-  ngOnInit(){
-    this.members = this.usersService.getMembers();
+  constructor(private usersService: UsersService, private auth: AuthService) {
+    this.usersService.getMembers().subscribe(members=>{
+      this.members = members;
+      this.userInView = this.members[0];
+    })
     this.usersService.getAdmins().subscribe(admins=>{
       this.admins = admins;
     })
+  }
+ 
+  ngOnInit(){
+    //this.members = this.usersService.getMembers();
     this.invited = this.usersService.getInvitedUsers();
-    this.userInView = this.members[0];
-    this.membersInDisplay = this.usersService.getMembers();
-    this.adminsInDisplay = this.usersService.getAdmins();
+    //this.membersInDisplay = this.usersService.getMembers();
+    //this.adminsInDisplay = this.usersService.getAdmins();
 
   }
 
