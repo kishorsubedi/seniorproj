@@ -16,6 +16,10 @@
             <div class="lists-container">
                 <!-- The card displaying admins list -->
                 <mat-card class = "admins-list-card sub-card">
+                <div>
+                    <input #adminEmail type="text">
+                    <button (click)="makeAdmin(adminEmail.value)"> Make Admin </button> 
+                </div>
                     Admins List
                     <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
                         <mat-grid-tile *ngFor='let admin of adminsInDisplay'
@@ -28,6 +32,10 @@
                 </mat-card>
                 <!-- The card displaying users list -->
                 <mat-card class = "users-list-card sub-card">
+                    <div>
+                        <input #inviteEmail type="text"> 
+                        <button (click)="inviteMember(inviteEmail.value)"> Invite </button>
+                    </div>
                     Users List
                     <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
                         <mat-grid-tile *ngFor='let member of membersInDisplay'
