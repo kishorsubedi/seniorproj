@@ -17,39 +17,46 @@
                     <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
                 </div>
                 <!-- The container coontaining adimns list and members list -->
-                <div class="lists-container">
-                    <!-- The card displaying admins list -->
-                    <mat-card class = "admins-list-card sub-card">
-                        <div>
+                <div class="lists-container-div-outer">
+                    <div class = 'options'>
+                        <mat-card class = 'make-admin-card'>
                             <input #adminEmail type="text" placeholder="Type Email">
+                            <br>
                             <button (click)="makeAdmin(adminEmail.value)"> Make Admin </button>
-                        </div>
-                        Admins List
-                        <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
-                            <mat-grid-tile *ngFor='let admin of adminsInDisplay'
-                                (click)="handleClick(admin)"
-                                [colspan]="1"
-                                [rowspan]="1">
-                                {{ admin.email }};
-                            </mat-grid-tile>
-                        </mat-grid-list>
-                    </mat-card>
-                    <!-- The card displaying users list -->
-                    <mat-card class = "users-list-card sub-card">
-                        <div>
+                        </mat-card>
+                        <mat-card class = 'invite-card'>
                             <input #inviteEmail type="text" placeholder="Type Email"> 
+                            <br>
                             <button (click)="inviteMember(inviteEmail.value)" > Invite </button>
-                        </div>
-                        Users List
-                        <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
-                            <mat-grid-tile *ngFor='let member of membersInDisplay'
-                                (click)="handleClick(member)"
-                                [colspan]="1"
-                                [rowspan]="1">
-                                {{ member.email }};
-                            </mat-grid-tile>
-                        </mat-grid-list>
-                    </mat-card>
+                        </mat-card>
+                    </div>
+                    <div class = "lists-container-div">
+                        <!-- The card displaying admins list -->
+                        <mat-card class = "admins-list-card sub-card">
+                            Admins List
+                            <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
+                                <mat-grid-tile *ngFor='let admin of adminsInDisplay'
+                                    (click)="handleClick(admin)"
+                                    [colspan]="1"
+                                    [rowspan]="1">
+                                    {{ admin.email }};
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </mat-card>
+                        <!-- The card displaying users list -->
+                        <mat-card class = "users-list-card sub-card">
+                            Users List
+                            <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
+                                <mat-grid-tile *ngFor='let member of membersInDisplay'
+                                    (click)="handleClick(member)"
+                                    [colspan]="1"
+                                    [rowspan]="1">
+                                    {{ member.email }};
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </mat-card>
+                    </div>
+                    
                 </div>
             </mat-card>
         </div>

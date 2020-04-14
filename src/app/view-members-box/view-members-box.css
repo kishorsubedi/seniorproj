@@ -1,7 +1,7 @@
 
 .main-card{
     margin: 10px;
-    padding:10px;
+    padding:5px;
     width : auto;
     display:flex;
     flex-direction: column;
@@ -28,20 +28,23 @@
 
 .detail-view-card{
     width : 50%;
-    overflow: scroll;
+    padding: 5px;
+    overflow: auto;
 }
 
 .list-view-card{
     width: 50%;
+    padding:5px;
     display:flex;
     flex-direction: column;
     
 }
 
 .search-div{
-    height:8%;
+    height:10%;
     width: 99%;
     margin-bottom: 10px;
+    margin-top: 8px;
     flex-shrink: 0;
     flex-grow: 0;
 }
@@ -51,26 +54,51 @@
     width: 100%;
 }
 
-.lists-container{
-    height : 80%;
+.lists-container-div-outer{
+    height : 87%;
     width : 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow: hidden;
 }
 
+.options{
+    height : 20%;
+    display: flex;
+    flex-direction: row;
+}
+
+.make-admin-card{
+    height: 99%;
+    padding: 5px;
+}
+
+.invite-card{
+    height: 99%;
+    padding: 5px;
+}
+
+.lists-container-div{
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    height: 75%;
+}
+
 .admins-list-card{
-    width:30%;
-    height: 90%;
-    overflow:scroll;
+    width:32%;
+    height: 93%;
+    padding: 8px;
+    overflow:auto;
     flex-shrink: 0;
     flex-grow: 0;
 }
 
 .users-list-card{
-    width:55%;
-    height: 90%;
-    overflow:scroll;
+    width:60%;
+    height: 93%;
+    padding:8px;
+    overflow:auto;
     flex-shrink: 0;
     flex-grow: 0;
 }
