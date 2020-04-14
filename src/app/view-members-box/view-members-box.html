@@ -1,70 +1,76 @@
-<div class= "container">
-    <!-- The Main Outer Box -->
-    <mat-card class = "main-card">
-        <mat-card-header>
-            <mat-card-title>
-                View Members
-            </mat-card-title>
-        </mat-card-header>
-        <div class = "content-div">
-            <!-- Card that shows members detail -->
-            <mat-card class = "detail-view-card sub-card" >
-                Detail View Section <br>
-                <p *ngIf="this.userInView" >{{this.userInView.email}}</p>
+<!-- The Main Outer Box -->
+<mat-card class = "main-card">
+    <mat-card-header>
+        <mat-card-title>
+            View Members
+        </mat-card-title>
+    </mat-card-header>
+    <div class = "content-div">
+        <!-- Card that shows members detail -->
+        <mat-card class = "detail-view-card sub-card" >
+            Detail View Section <br>
+            <p *ngIf="this.userInView" >{{this.userInView.email}}</p>
+        </mat-card>
+
+        <mat-card class = "list-view-card sub-card">
+            <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
+            <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
+            <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
+        </mat-card>
+    
+    </div>
+</mat-card>
+
+
+<!-- The card that has search, admins list and members list -->
+<mat-card class = "list-view-card sub-card">
+    <!-- The card containing search -->
+    <div class = "search-div ">
+        <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
+    </div>
+    <!-- The container coontaining adimns list and members list -->
+    <div class="lists-container-div-outer">
+        <div class = 'options'>
+            <mat-card class = 'make-admin-card'>
+                <input #adminEmail type="text" placeholder="Type Email">
+                <br>
+                <button (click)="makeAdmin(adminEmail.value)"> Make Admin </button>
             </mat-card>
-            <!-- The card that has search, admins list and members list -->
-            <mat-card class = "list-view-card sub-card">
-                <!-- The card containing search -->
-                <div class = "search-div ">
-                    <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
-                </div>
-                <!-- The container coontaining adimns list and members list -->
-                <div class="lists-container-div-outer">
-                    <div class = 'options'>
-                        <mat-card class = 'make-admin-card'>
-                            <input #adminEmail type="text" placeholder="Type Email">
-                            <br>
-                            <button (click)="makeAdmin(adminEmail.value)"> Make Admin </button>
-                        </mat-card>
-                        <mat-card class = 'invite-card'>
-                            <input #inviteEmail type="text" placeholder="Type Email"> 
-                            <br>
-                            <button (click)="inviteMember(inviteEmail.value)" > Invite </button>
-                        </mat-card>
-                    </div>
-                    <div class = "lists-container-div">
-                        <!-- The card displaying admins list -->
-                        <mat-card class = "admins-list-card sub-card">
-                            <div class='list-title'>
-                                Admins
-                            </div>
-                            <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
-                                <mat-grid-tile *ngFor='let admin of adminsInDisplay'
-                                    (click)="handleClick(admin)"
-                                    [colspan]="1"
-                                    [rowspan]="1">
-                                    {{ admin.email }};
-                                </mat-grid-tile>
-                            </mat-grid-list>
-                        </mat-card>
-                        <!-- The card displaying users list -->
-                        <mat-card class = "users-list-card sub-card">
-                            <div class='list-title'>
-                                Members
-                            </div>
-                            <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
-                                <mat-grid-tile *ngFor='let member of membersInDisplay'
-                                    (click)="handleClick(member)"
-                                    [colspan]="1"
-                                    [rowspan]="1">
-                                    {{ member.email }};
-                                </mat-grid-tile>
-                            </mat-grid-list>
-                        </mat-card>
-                    </div>     
-                </div>
+            <mat-card class = 'invite-card'>
+                <input #inviteEmail type="text" placeholder="Type Email"> 
+                <br>
+                <button (click)="inviteMember(inviteEmail.value)" > Invite </button>
             </mat-card>
         </div>
-    </mat-card>
-</div>
-
+        <div class = "lists-container-div">
+            <!-- The card displaying admins list -->
+            <mat-card class = "admins-list-card sub-card">
+                <div class='list-title'>
+                    Admins
+                </div>
+                <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
+                    <mat-grid-tile *ngFor='let admin of adminsInDisplay'
+                        (click)="handleClick(admin)"
+                        [colspan]="1"
+                        [rowspan]="1">
+                        {{ admin.email }};
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+            <!-- The card displaying users list -->
+            <mat-card class = "users-list-card sub-card">
+                <div class='list-title'>
+                    Members
+                </div>
+                <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
+                    <mat-grid-tile *ngFor='let member of membersInDisplay'
+                        (click)="handleClick(member)"
+                        [colspan]="1"
+                        [rowspan]="1">
+                        {{ member.email }};
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </div>     
+    </div>
+</mat-card>

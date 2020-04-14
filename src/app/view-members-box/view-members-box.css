@@ -3,10 +3,9 @@
     margin: 10px;
     padding:5px;
     width : auto;
-    display:flex;
+    display:flex; /* Needs check*/
     flex-direction: column;
     justify-content: flex-start;
-    flex-wrap: nowrap;
     flex-shrink: 1;
 }
 
@@ -35,8 +34,10 @@
 .list-view-card{
     width: 60%;
     padding:5px;
-    display:flex;
-    flex-direction: column;
+    display:grid;
+    grid-template-columns: calc(34% - 9px) calc(66% - 6px);  /* Try fr instead of %*/
+    grid-template-rows: 20px 40px 10px calc(100% - 100px);
+    gap: 10px;
     
 }
 
