@@ -17,21 +17,11 @@ export class UsersService {
    //Returns all members in an array
    getMembers(){
     return this.afs.collection('users').valueChanges();
-    // this.afs.collection('users').valueChanges().subscribe(members=>{
-    //   this.members = members;
-    // })
-    // console.log(this.members);
-    // return this.members;
-
    }
 
    //Returns all invited users in an array
    getInvitedUsers(){
-    this.afs.collection('invitedMembers').valueChanges().subscribe(invited=>{
-      this.invitedMembers = invited;
-    })
-    console.log(this.invitedMembers);
-    return this.invitedMembers;
+    return this.afs.collection('invitedMembers').valueChanges();
    }
 }
 

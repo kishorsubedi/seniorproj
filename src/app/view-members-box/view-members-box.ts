@@ -30,14 +30,12 @@ export class ViewMembersBox implements OnInit {
     this.usersService.getAdmins().subscribe(admins=>{
       this.admins = admins;
     })
+    this.usersService.getInvitedUsers().subscribe(invited=>{
+      this.invited = invited;
+    });
   }
  
   ngOnInit(){
-    //this.members = this.usersService.getMembers();
-    this.invited = this.usersService.getInvitedUsers();
-    //this.membersInDisplay = this.usersService.getMembers();
-    //this.adminsInDisplay = this.usersService.getAdmins();
-
   }
 
   handleClick(user: User){
