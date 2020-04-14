@@ -2,9 +2,9 @@
     <!-- The Main Outer Box -->
     <mat-card class = "main-card">
         <!-- Card that shows members detail -->
-        <mat-card class = "detail-view-card sub-card" *ngIf="this.userInView">
+        <mat-card class = "detail-view-card sub-card" >
             Detail View Section <br>
-            {{this.userInView.email}}
+            <p *ngIf="this.userInView" >{{this.userInView.email}}</p>
         </mat-card>
         <!-- The card that has search, admins list and members list -->
         <mat-card class = "list-view-card sub-card">

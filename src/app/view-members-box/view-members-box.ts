@@ -23,7 +23,9 @@ export class ViewMembersBox implements OnInit {
   constructor(private usersService: UsersService, private auth: AuthService) {
     this.usersService.getMembers().subscribe(members=>{
       this.members = members;
-      this.userInView = this.members[0];
+      if(members != []){
+        this.userInView = this.members[0];
+      }
     })
     this.usersService.getAdmins().subscribe(admins=>{
       this.admins = admins;
