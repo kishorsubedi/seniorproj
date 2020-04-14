@@ -4,10 +4,21 @@
     padding:10px;
     width : auto;
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     flex-wrap: nowrap;
     flex-shrink: 1;
+}
+
+.title-card{
+    height:20px;
+}
+
+.content-card{
+    border: 0px;
+    padding: 0;
+    display:flex;
+    flex-direction: row;
 }
 
 .sub-card{
@@ -72,4 +83,8 @@
 
 .mat-grid-list {
     padding: 5px;
+}
+
+.mat-card-header{
+    width: 100%;
 }
