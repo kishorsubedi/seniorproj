@@ -70,11 +70,15 @@
 
 .make-admin-card{
     height: 99%;
+    width: 32%;
+    margin: 5px;
     padding: 5px;
 }
 
 .invite-card{
     height: 99%;
+    width: 61%;
+    margin:5px;
     padding: 5px;
 }
 
@@ -86,8 +90,8 @@
 }
 
 .admins-list-card{
-    width:32%;
-    height: 93%;
+    width:31%;
+    height: 90%;
     padding: 8px;
     overflow:auto;
     flex-shrink: 0;
@@ -96,7 +100,7 @@
 
 .users-list-card{
     width:60%;
-    height: 93%;
+    height: 90%;
     padding:8px;
     overflow:auto;
     flex-shrink: 0;
