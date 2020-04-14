@@ -33,7 +33,9 @@
                     <div class = "lists-container-div">
                         <!-- The card displaying admins list -->
                         <mat-card class = "admins-list-card sub-card">
-                            Admins List
+                            <mat-card-title>
+                                Admins
+                            </mat-card-title>
                             <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
                                 <mat-grid-tile *ngFor='let admin of adminsInDisplay'
                                     (click)="handleClick(admin)"
@@ -45,7 +47,9 @@
                         </mat-card>
                         <!-- The card displaying users list -->
                         <mat-card class = "users-list-card sub-card">
-                            Users List
+                            <mat-card-title>
+                                Members
+                            </mat-card-title>
                             <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
                                 <mat-grid-tile *ngFor='let member of membersInDisplay'
                                     (click)="handleClick(member)"
@@ -55,8 +59,7 @@
                                 </mat-grid-tile>
                             </mat-grid-list>
                         </mat-card>
-                    </div>
-                    
+                    </div>     
                 </div>
             </mat-card>
         </div>
