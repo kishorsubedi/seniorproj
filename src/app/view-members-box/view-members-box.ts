@@ -23,6 +23,7 @@ export class ViewMembersBox implements OnInit {
   constructor(private usersService: UsersService, private auth: AuthService) {
     this.usersService.getMembers().subscribe(members=>{
       this.members = members;
+      this.membersInDisplay = this.searchInArray(this.members);
       if(members != []){
         this.userInView = this.members[0];
       }
@@ -33,7 +34,6 @@ export class ViewMembersBox implements OnInit {
     })
     this.usersService.getInvitedUsers().subscribe(invited=>{
       this.invited = invited;
-      this.membersInDisplay = this.searchInArray(this.members);
     });
 
   }
@@ -58,7 +58,8 @@ export class ViewMembersBox implements OnInit {
     return result;
     }
   
-  updateDisplay(){
+  // Updates adminsInDisplay and membersInDisplay when searchText changes
+  updateInDisplay(){
     this.adminsInDisplay = this.searchInArray(this.admins);
     this.membersInDisplay = this.searchInArray(this.members);
   }
