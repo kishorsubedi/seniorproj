@@ -22,7 +22,7 @@
                     </div>
                     Admins List
                     <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
-                        <mat-grid-tile *ngFor='let admin of admins'
+                        <mat-grid-tile *ngFor='let admin of adminsInDisplay'
                             (click)="handleClick(admin)"
                             [colspan]="1"
                             [rowspan]="1">
@@ -38,7 +38,7 @@
                     </div>
                     Users List
                     <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
-                        <mat-grid-tile *ngFor='let member of members'
+                        <mat-grid-tile *ngFor='let member of membersInDisplay'
                             (click)="handleClick(member)"
                             [colspan]="1"
                             [rowspan]="1">

@@ -29,17 +29,19 @@ export class ViewMembersBox implements OnInit {
     })
     this.usersService.getAdmins().subscribe(admins=>{
       this.admins = admins;
+      this.adminsInDisplay = this.searchInArray(this.admins);
     })
     this.usersService.getInvitedUsers().subscribe(invited=>{
       this.invited = invited;
+      this.membersInDisplay = this.searchInArray(this.members);
     });
+
   }
  
   ngOnInit(){
   }
 
   handleClick(user: User){
-    console.log('Click!', user.email);
     this.userInView = user;
   }
 
@@ -53,13 +55,12 @@ export class ViewMembersBox implements OnInit {
         }
       }
     }
-    console.log(result);
     return result;
     }
   
   updateDisplay(){
-    this.membersInDisplay = this.searchInArray(this.members);
     this.adminsInDisplay = this.searchInArray(this.admins);
+    this.membersInDisplay = this.searchInArray(this.members);
   }
 
   inviteMember(inviteEmail: string){
