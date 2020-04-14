@@ -14,7 +14,7 @@
     height:20px;
 }
 
-.content-card{
+.content-div{
     border: 0px;
     padding: 0;
     display:flex;
@@ -38,9 +38,10 @@
     
 }
 
-.search-card{
+.search-div{
     height:8%;
-    width: 93%;
+    width: 99%;
+    margin-bottom: 10px;
     flex-shrink: 0;
     flex-grow: 0;
 }

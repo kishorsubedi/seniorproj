@@ -4,7 +4,7 @@
         <mat-card class = "title-card">
             <mat-card-title>View Members</mat-card-title>
         </mat-card>
-        <mat-card class = "content-card">
+        <div class = "content-div">
             <!-- Card that shows members detail -->
             <mat-card class = "detail-view-card sub-card" >
                 Detail View Section <br>
@@ -13,9 +13,9 @@
             <!-- The card that has search, admins list and members list -->
             <mat-card class = "list-view-card sub-card">
                 <!-- The card containing search -->
-                <mat-card class = "search-card ">
+                <div class = "search-div ">
                     <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
-                </mat-card>
+                </div>
                 <!-- The container coontaining adimns list and members list -->
                 <div class="lists-container">
                     <!-- The card displaying admins list -->
@@ -52,7 +52,7 @@
                     </mat-card>
                 </div>
             </mat-card>
-        </mat-card>
+        </div>
     </mat-card>
 </div>
 
