@@ -13,9 +13,20 @@
         </mat-card>
 
         <mat-card class = "list-view-card sub-card">
+            <!-- The search box -->
             <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
-            <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
-            <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
+            
+            <!-- Make admin and invite options -->
+            <mat-card class = 'options-card'>
+                <input #adminEmail type="text" placeholder="Type Email">
+                <br>
+                <button (click)="makeAdmin(adminEmail.value)"> Make Admin </button>
+            </mat-card>
+            <mat-card class = 'options-card'>
+                <input #inviteEmail type="text" placeholder="Type Email"> 
+                <br>
+                <button (click)="inviteMember(inviteEmail.value)" > Invite </button>
+            </mat-card>
         </mat-card>
     
     </div>

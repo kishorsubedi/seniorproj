@@ -36,23 +36,17 @@
     padding:5px;
     display:grid;
     grid-template-columns: calc(34% - 9px) calc(66% - 6px);  /* Try fr instead of %*/
-    grid-template-rows: 20px 40px 10px calc(100% - 100px);
+    grid-template-rows: 20px 40px 20px calc(100% - 100px);
     gap: 10px;
     
-}
-
-.search-div{
-    height:10%;
-    width: 99%;
-    margin-bottom: 10px;
-    margin-top: 8px;
-    flex-shrink: 0;
-    flex-grow: 0;
 }
 
 .serach-bar-text-area{
     height: 100%;
     width: 100%;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    /* margin: 5px; */
 }
 
 .lists-container-div-outer{
@@ -63,24 +57,16 @@
     overflow: hidden;
 }
 
-.options{
-    height : 20%;
-    display: flex;
-    flex-direction: row;
-}
 
-.make-admin-card{
+.options-card{
     height: 99%;
-    width: 32%;
-    margin: 5px;
+    width: 98%;
+    margin:0px;
     padding: 5px;
 }
 
-.invite-card{
-    height: 99%;
-    width: 62%;
-    margin:5px;
-    padding: 5px;
+.options-card input[type=text]{
+    width:99%
 }
 
 .lists-container-div{
