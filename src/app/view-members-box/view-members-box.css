@@ -10,8 +10,8 @@
     flex-shrink: 1;
 }
 
-.title-card{
-    height:20px;
+.mat-card-header{
+    margin:10px 10px 0px 10px;
 }
 
 .content-div{
@@ -118,7 +118,6 @@
     padding: 5px;
 }
 
-.mat-card-title{
-    justify-content: center;
-    font-size: 15px;
-}
+/* .list-title{
+    position: absolute;
+} */
