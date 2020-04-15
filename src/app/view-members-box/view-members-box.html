@@ -23,9 +23,10 @@
             </mat-card>
             <!-- Options -->
             <mat-card class="option-buttons-card">
-                <button *ngIf="this.member.includes(this.userInView)"> Make this member an admin </button>
-                <button>Delete this member</button>
-                <button>Demote this admin</button>
+                <!-- If the this.userInView is in this.members, show "Make this member an admin button" -->
+                <button *ngIf="this.members.indexOf(this.userInView) >= 0" (click)="makeAdmin(this.userInView.email)"> Make this member an admin </button>
+                <button *ngIf="this.members.indexOf(this.userInView) >= 0">Delete this member</button>
+                <button *ngIf="this.admins.indexOf(this.userInView) >= 0 "> Demote this admin to member</button>
 
             </mat-card>
         </mat-card>
