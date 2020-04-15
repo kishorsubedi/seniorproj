@@ -1,18 +1,19 @@
 <mat-toolbar color="primary">
+  
   <span class="fill-remaining-space">
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
-      <button mat-menu-item [routerLink]="['dashboard']">
+      <button mat-menu-item routerLink="/dashboard" routerLinkActive="active">
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </button>
-      <button mat-menu-item [routerLink] = "['about']">
+      <button mat-menu-item routerLink = "/about" routerLinkActive="active">
         <mat-icon>people_outline</mat-icon>
         <span>About</span>
       </button>
-      <button mat-menu-item [routerLink]="['calendar']">
+      <button mat-menu-item routerLink = "/calendar" routerLinkActive="active">
         <mat-icon>calendar_today</mat-icon>
         <span>Events</span>
       </button>
@@ -28,3 +29,4 @@
   </span>
   <span class="fill-remaining-space">ORGPRO</span>
 </mat-toolbar>
+<router-outlet></router-outlet>

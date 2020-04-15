@@ -87,4 +87,5 @@ const firebaseConfig = {
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
