@@ -127,6 +127,13 @@ export class ViewMembersBox implements OnInit {
       this.makeAdmin(this.userInView.email);
     }
   }
+
+  confirmInviteMember(email: string){
+    if (window.confirm("Are you sure you want to invite this user to join OrgPro?")) { 
+      console.log(email);
+      this.inviteMember(email);
+    }
+  }
 }
 
 
