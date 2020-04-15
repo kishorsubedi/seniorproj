@@ -17,20 +17,22 @@ export class ViewMembersBox implements OnInit {
   userInView: User;
   membersInDisplay: User[];
   adminsInDisplay: User[];
-  searchText: string;
+  searchText: string = '';
 
 
   constructor(private usersService: UsersService, private auth: AuthService) {
     this.usersService.getMembers().subscribe(members=>{
       this.members = members;
-      this.membersInDisplay = this.searchInArray(this.members);
-      if(members != []){
+      if(this.members){
+        this.membersInDisplay = this.searchInArray(this.members);
         this.userInView = this.members[0];
       }
     })
     this.usersService.getAdmins().subscribe(admins=>{
       this.admins = admins;
-      this.adminsInDisplay = this.searchInArray(this.admins);
+      if(this.admins){
+        this.adminsInDisplay = this.searchInArray(this.admins);
+      }
     })
     this.usersService.getInvitedUsers().subscribe(invited=>{
       this.invited = invited;
@@ -50,14 +52,14 @@ export class ViewMembersBox implements OnInit {
     result = [];
     for(var user of users){
       if(user.email != null){
-        if(user.email.search(this.searchText) != -1){
+        if(user.email.toLowerCase().search(this.searchText.toLowerCase()) != -1){
           result.push(user)
         }
       }
     }
     return result;
     }
-  
+
   // Updates adminsInDisplay and membersInDisplay when searchText changes
   updateInDisplay(){
     this.adminsInDisplay = this.searchInArray(this.admins);
