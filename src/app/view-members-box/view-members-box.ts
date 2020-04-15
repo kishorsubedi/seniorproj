@@ -124,7 +124,12 @@ export class ViewMembersBox implements OnInit {
   // If the user selects OK make admin is carried out. 
   confirmMakeAdmin(email?: string){
     if (window.confirm("Are you sure you want to make this member an admin?")) { 
-      this.makeAdmin(this.userInView.email);
+      if (email){
+        this.makeAdmin(email);
+      }
+      else{
+        this.makeAdmin(this.userInView.email);
+      }
     }
   }
 
