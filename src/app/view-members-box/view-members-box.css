@@ -36,7 +36,7 @@
     padding:5px;
     display:grid;
     grid-template-columns: calc(34% - 9px) calc(66% - 6px);  /* Try fr instead of %*/
-    grid-template-rows: 20px 40px 20px calc(100% - 100px);
+    grid-template-rows: 20px 40px 20px calc(100% - 120px);
     gap: 10px;
     
 }
@@ -58,15 +58,20 @@
 }
 
 
-.options-card{
+.grid-card{
     height: 99%;
     width: 98%;
     margin:0px;
     padding: 5px;
 }
 
-.options-card input[type=text]{
+.grid-card input[type=text]{
     width:99%
+}
+
+.title-cards{
+    background-color: gray;
+    color: white;
 }
 
 .lists-container-div{
@@ -76,34 +81,20 @@
     height: 75%;
 }
 
-.admins-list-card{
-    width:31%;
-    height: 90%;
-    padding: 8px;
+.list-card{
     overflow:auto;
-    flex-shrink: 0;
-    flex-grow: 0;
 }
-
-.users-list-card{
-    width:61%;
-    height: 90%;
-    padding:8px;
-    overflow:auto;
-    flex-shrink: 0;
-    flex-grow: 0;
-}
-
 
 .mat-grid-tile {
+    width: 50%;
     border: solid 0.5px #000;
     justify-content: left;
     margin : 5px;
 }
 
-.mat-grid-list {
+/* .mat-grid-list {
     padding: 5px;
-}
+} */
 
 /* .list-title{
     position: absolute;
