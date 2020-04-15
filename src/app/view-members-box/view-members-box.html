@@ -12,6 +12,7 @@
             <p *ngIf="this.userInView" >{{this.userInView.email}}</p>
         </mat-card>
 
+        <!-- The card that contains search, options and lists -->
         <mat-card class = "list-view-card sub-card">
             <!-- The search box -->
             <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
@@ -38,7 +39,7 @@
 
             <!-- lists -->
             <mat-card class = "list-card grid-card">
-                <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
+                <mat-grid-list cols="1" rowHeight="30px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let admin of adminsInDisplay'
                         (click)="handleClick(admin)"
                         [colspan]="1"
@@ -48,7 +49,7 @@
                 </mat-grid-list>
             </mat-card>
             <mat-card class = "list-card grid-card">
-                <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
+                <mat-grid-list cols="2" rowHeight="30px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let member of membersInDisplay'
                         (click)="handleClick(member)"
                         [colspan]="1"
@@ -58,6 +59,5 @@
                 </mat-grid-list>
             </mat-card>
         </mat-card>
-    
     </div>
 </mat-card>
