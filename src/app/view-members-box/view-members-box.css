@@ -35,11 +35,17 @@
 .details-header{
     height: 130px;
     text-align: center;
-    margin: 15px;
+    margin: 10px;
 }
 
 .details-card{
-    height: calc(100% - 205px);
+    height: calc(100% - 240px);
+}
+
+.option-buttons-card{
+    margin-top:5px;
+    height: 25px;
+    padding: 8px;
 }
 
 .list-view-card{

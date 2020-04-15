@@ -8,13 +8,25 @@
     <div class = "content-div">
         <!-- Card that shows members detail -->
         <mat-card class = "detail-view-card sub-card" >
+            <!-- The header: Photo and name -->
             <div class="details-header">
                 <img src="../../assets/images/photo.png" style="width:100px;height:100px">
                 <h1 *ngIf="this.userInView" >{{this.userInView.email}}</h1>
             </div>
             <hr class="solid">
+            <!-- Details -->
             <mat-card class="details-card">
-                This card displays details
+                Contact Info:
+                <br>
+                <br>
+                Events Attended:
+            </mat-card>
+            <!-- Options -->
+            <mat-card class="option-buttons-card">
+                <button *ngIf="this.member.includes(this.userInView)"> Make this member an admin </button>
+                <button>Delete this member</button>
+                <button>Demote this admin</button>
+
             </mat-card>
         </mat-card>
 
