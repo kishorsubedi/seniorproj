@@ -40,7 +40,7 @@
             <mat-card class = 'grid-card'>
                 <input #adminEmail type="text" placeholder="Type Email">
                 <br>
-                <button (click)="confirmMakeAdmin()"> Make Admin </button>
+                <button (click)="confirmMakeAdmin(adminEmail.value)"> Make Admin </button>
             </mat-card>
             <mat-card class = 'grid-card'>
                 <input #inviteEmail type="text" placeholder="Type Email"> 
