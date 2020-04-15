@@ -119,7 +119,16 @@ export class ViewMembersBox implements OnInit {
               }
           });
   }
+
+  // This functions displays a window asking the admin to confirm an make admin operation. 
+  // If the user selects OK make admin is carried out. 
+  confirmMakeAdmin(){
+    if (window.confirm("Are you sure you want to make this member an admin?")) { 
+      this.makeAdmin(this.userInView.email);
+    }
+  }
 }
+
 
 export class AppComponent {
 

@@ -24,7 +24,7 @@
             <!-- Options -->
             <mat-card class="option-buttons-card">
                 <!-- If the this.userInView is in this.members, show "Make this member an admin button" -->
-                <button *ngIf="this.members.indexOf(this.userInView) >= 0" (click)="makeAdmin(this.userInView.email)"> Make this member an admin </button>
+                <button *ngIf="this.members.indexOf(this.userInView) >= 0" (click)="confirmMakeAdmin()"> Make this member an admin </button>
                 <button *ngIf="this.members.indexOf(this.userInView) >= 0">Delete this member</button>
                 <button *ngIf="this.admins.indexOf(this.userInView) >= 0 "> Demote this admin to member</button>
 
@@ -40,7 +40,7 @@
             <mat-card class = 'grid-card'>
                 <input #adminEmail type="text" placeholder="Type Email">
                 <br>
-                <button (click)="makeAdmin(adminEmail.value)"> Make Admin </button>
+                <button (click)="confirmMakeAdmin()"> Make Admin </button>
             </mat-card>
             <mat-card class = 'grid-card'>
                 <input #inviteEmail type="text" placeholder="Type Email"> 
