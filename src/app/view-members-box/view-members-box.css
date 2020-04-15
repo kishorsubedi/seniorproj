@@ -32,6 +32,11 @@
     overflow: auto;
 }
 
+.details-header{
+    text-align: center;
+    margin: 15px;
+}
+
 .list-view-card{
     width: 60%;
     padding:5px;

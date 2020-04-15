@@ -8,8 +8,14 @@
     <div class = "content-div">
         <!-- Card that shows members detail -->
         <mat-card class = "detail-view-card sub-card" >
-            Detail View Section <br>
-            <p *ngIf="this.userInView" >{{this.userInView.email}}</p>
+            <div class="details-header">
+                <img src="../../assets/images/photo.png" style="width:100px;height:100px">
+                <h1 *ngIf="this.userInView" >{{this.userInView.email}}</h1>
+            </div>
+            <hr class="solid">
+            <mat-card class="details-card">
+                This card displays details
+            </mat-card>
         </mat-card>
 
         <!-- The card that contains search, options and lists -->
