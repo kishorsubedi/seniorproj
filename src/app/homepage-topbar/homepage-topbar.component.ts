@@ -8,8 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./homepage-topbar.component.css']
 })
 export class HomepageTopbarComponent implements OnInit {
+  userLoggedIn: boolean = false
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {
+    if (this.auth.afAuth.auth.currentUser != null)
+      this.userLoggedIn = true
+   }
 
   ngOnInit(): void {
   }

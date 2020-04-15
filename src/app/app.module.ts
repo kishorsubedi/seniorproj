@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { FormsModule } from '@angular/forms';
 import { UsersService } from './services/users-service';
 
 // Angular material modules
@@ -71,6 +72,7 @@ const firebaseConfig = {
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features 
     AngularFirestoreModule.enablePersistence(), BrowserAnimationsModule,
+    FormsModule,
     // Angular Material Modules
     MatSliderModule, 
     MatMenuModule, 

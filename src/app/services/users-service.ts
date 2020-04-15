@@ -10,31 +10,18 @@ export class UsersService {
   members: User[];
   invitedMembers: User[];
   constructor(private afs: AngularFirestore) { }
-  //Returns all admins in an array
+  //Returns all admins as observables
    getAdmins(){
-    this.afs.collection('admins').valueChanges().subscribe(admins=>{
-      this.admins = admins;
-    })
-    console.log(this.admins);
-    return this.admins;
+    return this.afs.collection('admins').valueChanges();
    }
    //Returns all members in an array
    getMembers(){
-    this.afs.collection('users').valueChanges().subscribe(members=>{
-      this.members = members;
-    })
-    console.log(this.members);
-    return this.members;
-
+    return this.afs.collection('users').valueChanges();
    }
 
    //Returns all invited users in an array
    getInvitedUsers(){
-    this.afs.collection('invitedMembers').valueChanges().subscribe(invited=>{
-      this.invitedMembers = invited;
-    })
-    console.log(this.invitedMembers);
-    return this.invitedMembers;
+    return this.afs.collection('invitedMembers').valueChanges();
    }
 }
 
