@@ -1,75 +1,92 @@
-
 .main-card{
     margin: 10px;
-    padding:10px;
+    padding:5px;
     width : auto;
-    display:flex;
-    flex-direction: row;
+    height: 500px;
+    display:flex; /* Needs check*/
+    flex-direction: column;
     justify-content: flex-start;
-    flex-wrap: nowrap;
     flex-shrink: 1;
+    background-color: rgb(245, 245, 245);
+}
+
+.mat-card-header{
+    margin:10px 10px 0px 10px;
+}
+
+.content-div{
+    height: calc(100% - 45px);
+    border: 0px;
+    padding: 0;
+    display:flex;
 }
 
 .sub-card{
     margin:5px;
-    height: 300px;
+    height: auto;
 }
 
 .detail-view-card{
-    width : 50%;
-    overflow: scroll;
+    width : 40%;
+    padding: 5px;
+    overflow: auto;
+}
+
+.details-header{
+    height: 130px;
+    text-align: center;
+    margin: 10px;
+}
+
+.details-card{
+    height: calc(100% - 240px);
+}
+
+.option-buttons-card{
+    margin-top:5px;
+    height: 25px;
+    padding: 8px;
 }
 
 .list-view-card{
-    width: 50%;
-    display:flex;
-    flex-direction: column;
+    width: 60%;
+    padding:5px;
+    display:grid;
+    grid-template-columns: calc(34% - 9px) calc(66% - 6px);  /* Try fr instead of %*/
+    grid-template-rows: 20px 40px 20px calc(100% - 120px);
+    gap: 10px;
     
-}
-
-.search-card{
-    height:8%;
-    width: 93%;
-    flex-shrink: 0;
-    flex-grow: 0;
 }
 
 .serach-bar-text-area{
     height: 100%;
     width: 100%;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    /* margin: 5px; */
 }
 
-.lists-container{
-    height : 80%;
-    width : 100%;
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
+.grid-card{
+    height: 99%;
+    width: 98%;
+    margin:0px;
+    padding: 5px;
 }
 
-.admins-list-card{
-    width:30%;
-    height: 90%;
-    overflow:scroll;
-    flex-shrink: 0;
-    flex-grow: 0;
+.grid-card input[type=text]{
+    width:99%
 }
 
-.users-list-card{
-    width:55%;
-    height: 90%;
-    overflow:scroll;
-    flex-shrink: 0;
-    flex-grow: 0;
+.title-cards{
+    background-color: rgb(85, 83, 83);
+    color: white;
 }
 
+.list-card{
+    overflow:auto;
+}
 
 .mat-grid-tile {
     border: solid 0.5px #000;
-    justify-content: left;
-    margin : 5px;
-}
-
-.mat-grid-list {
-    padding: 5px;
+    margin : 0px;
 }

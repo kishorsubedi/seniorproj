@@ -59,7 +59,16 @@ export class AuthService {
           console.log("this user already exists in users table");
         }
         else{
-          this.createUser(credential.user.uid, credential.user.email)
+          this.afs.firestore.doc('/admins/'+ credential.user.email).get()
+              .then(docSnapshot => {
+            if (docSnapshot.exists) {
+              // do something
+              console.log("this user already exists in admins table");
+            }
+            else{
+              this.createUser(credential.user.uid, credential.user.email)
+            }
+          });
         }
         this.router.navigateByUrl('/dashboard');
       });

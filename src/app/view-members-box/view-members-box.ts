@@ -17,20 +17,22 @@ export class ViewMembersBox implements OnInit {
   userInView: User;
   membersInDisplay: User[];
   adminsInDisplay: User[];
-  searchText: string;
+  searchText: string = '';
 
 
   constructor(private usersService: UsersService, private auth: AuthService) {
     this.usersService.getMembers().subscribe(members=>{
       this.members = members;
-      this.membersInDisplay = this.searchInArray(this.members);
-      if(members != []){
+      if(this.members){
+        this.membersInDisplay = this.searchInArray(this.members);
         this.userInView = this.members[0];
       }
     })
     this.usersService.getAdmins().subscribe(admins=>{
       this.admins = admins;
-      this.adminsInDisplay = this.searchInArray(this.admins);
+      if(this.admins){
+        this.adminsInDisplay = this.searchInArray(this.admins);
+      }
     })
     this.usersService.getInvitedUsers().subscribe(invited=>{
       this.invited = invited;
@@ -50,14 +52,14 @@ export class ViewMembersBox implements OnInit {
     result = [];
     for(var user of users){
       if(user.email != null){
-        if(user.email.search(this.searchText) != -1){
+        if(user.email.toLowerCase().search(this.searchText.toLowerCase()) != -1){
           result.push(user)
         }
       }
     }
     return result;
     }
-  
+
   // Updates adminsInDisplay and membersInDisplay when searchText changes
   updateInDisplay(){
     this.adminsInDisplay = this.searchInArray(this.admins);
@@ -119,7 +121,77 @@ export class ViewMembersBox implements OnInit {
               }
           });
   }
+
+  demoteAdmin(email?: string){
+    this.auth.afs.firestore.doc('/admins/'+ email).get()
+          .then(docSnapshot => {
+              if (docSnapshot.exists) {
+                this.auth.createUser("", email);
+                this.auth.afs.firestore.doc(`admins/${email}`).delete();
+                window.alert(email + " stripped of their admin privilege succesfully!");
+              }
+              else{
+                window.alert("Not an admin!");
+              }
+          });
+  }
+
+  removeMember(email?: string){
+    this.auth.afs.firestore.doc('/users/'+ email).get()
+          .then(docSnapshot => {
+              if (docSnapshot.exists) {
+                this.auth.afs.firestore.doc(`users/${email}`).delete();
+                window.alert(email + " removed succesfully!");
+              }
+              else{
+                window.alert("Not a member!");
+              }
+          });
+  }
+
+  confirmDemoteAdmin(email?: string){
+    if (window.confirm("Are you sure you want to strip their admin privilege?")) { 
+      if (email){
+        this.demoteAdmin(email);
+      }
+      else{
+        this.demoteAdmin(this.userInView.email);
+      }
+    }
+  }
+
+  confirmRemoveMember(email?: string){
+    if (window.confirm("Are you sure you want to remove this member?")) { 
+      if (email){
+        this.removeMember(email);
+      }
+      else{
+        this.removeMember(this.userInView.email);
+      }
+    }
+  }
+
+  // This functions displays a window asking the admin to confirm an make admin operation. 
+  // If the user selects OK make admin is carried out. 
+  confirmMakeAdmin(email?: string){
+    if (window.confirm("Are you sure you want to make this member an admin?")) { 
+      if (email){
+        this.makeAdmin(email);
+      }
+      else{
+        this.makeAdmin(this.userInView.email);
+      }
+    }
+  }
+
+  confirmInviteMember(email: string){
+    if (window.confirm("Are you sure you want to invite this user to join OrgPro?")) { 
+      console.log(email);
+      this.inviteMember(email);
+    }
+  }
 }
+
 
 export class AppComponent {
 
