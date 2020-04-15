@@ -33,8 +33,13 @@
 }
 
 .details-header{
+    height: 130px;
     text-align: center;
     margin: 15px;
+}
+
+.details-card{
+    height: calc(100% - 205px);
 }
 
 .list-view-card{
