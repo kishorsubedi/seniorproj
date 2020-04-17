@@ -1,53 +1,82 @@
-<div class= "container">
-    <!-- The Main Outer Box -->
-    <mat-card class = "main-card">
+<!-- The Main Outer Box -->
+<mat-card class = "main-card">
+    <mat-card-header>
+        <mat-card-title>
+            View Members
+        </mat-card-title>
+    </mat-card-header>
+    <div class = "content-div">
         <!-- Card that shows members detail -->
         <mat-card class = "detail-view-card sub-card" >
-            Detail View Section <br>
-            <p *ngIf="this.userInView" >{{this.userInView.email}}</p>
-        </mat-card>
-        <!-- The card that has search, admins list and members list -->
-        <mat-card class = "list-view-card sub-card">
-            <!-- The card containing search -->
-            <mat-card class = "search-card ">
-                <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
-            </mat-card>
-            <!-- The container coontaining adimns list and members list -->
-            <div class="lists-container">
-                <!-- The card displaying admins list -->
-                <mat-card class = "admins-list-card sub-card">
-                    <div>
-                        <input #adminEmail type="text" placeholder="Type Email">
-                        <button (click)="makeAdmin(adminEmail.value)"> Make Admin </button>
-                    </div>
-                    Admins List
-                    <mat-grid-list cols="1" rowHeight="50px" gutterSize="5px" >
-                        <mat-grid-tile *ngFor='let admin of adminsInDisplay'
-                            (click)="handleClick(admin)"
-                            [colspan]="1"
-                            [rowspan]="1">
-                            {{ admin.email }};
-                        </mat-grid-tile>
-                    </mat-grid-list>
-                </mat-card>
-                <!-- The card displaying users list -->
-                <mat-card class = "users-list-card sub-card">
-                    <div>
-                        <input #inviteEmail type="text" placeholder="Type Email"> 
-                        <button (click)="inviteMember(inviteEmail.value)" > Invite </button>
-                    </div>
-                    Users List
-                    <mat-grid-list cols="2" rowHeight="50px" gutterSize="5px" >
-                        <mat-grid-tile *ngFor='let member of membersInDisplay'
-                            (click)="handleClick(member)"
-                            [colspan]="1"
-                            [rowspan]="1">
-                            {{ member.email }};
-                        </mat-grid-tile>
-                    </mat-grid-list>
-                </mat-card>
+            <!-- The header: Photo and name -->
+            <div class="details-header">
+                <img src="../../assets/images/photo.png" style="width:100px;height:100px">
+                <h1 *ngIf="this.userInView" >{{this.userInView.email}}</h1>
             </div>
-        </mat-card>
-    </mat-card>
-</div>
+            <hr class="solid">
+            <!-- Details -->
+            <mat-card class="details-card">
+                Contact Info:
+                <br>
+                <br>
+                Events Attended:
+            </mat-card>
+            <!-- Options -->
+            <mat-card class="option-buttons-card">
+                <!-- If the this.userInView is in this.members, show "Make this member an admin button" -->
+                <button *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmMakeAdmin()"> Make this member an admin </button>
+                <button *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmRemoveMember()" style="background-color: #EE310C ">Remove their membership</button>
+                <button *ngIf="this.admins && this.admins.indexOf(this.userInView) >= 0" (click)="confirmDemoteAdmin()"> Demote this admin to member</button>
 
+            </mat-card>
+        </mat-card>
+
+        <!-- The card that contains search, options and lists -->
+        <mat-card class = "list-view-card sub-card">
+            <!-- The search box -->
+            <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
+            
+            <!-- Make admin and invite options -->
+            <mat-card class = 'grid-card'>
+                <input #adminEmail type="text" placeholder="Type Email">
+                <br>
+                <button (click)="confirmMakeAdmin(adminEmail.value)"> Make Admin </button>
+            </mat-card>
+            <mat-card class = 'grid-card'>
+                <input #inviteEmail type="text" placeholder="Type Email"> 
+                <br>
+                <button (click)="confirmInviteMember(inviteEmail.value)" > Invite </button>
+            </mat-card>
+
+            <!-- Titles -->
+            <mat-card class="title-cards grid-card">
+                Admins
+            </mat-card>
+            <mat-card class="title-cards grid-card">
+                Users
+            </mat-card>
+
+            <!-- lists -->
+            <mat-card class = "list-card grid-card">
+                <mat-grid-list cols="1" rowHeight="30px" gutterSize="3px" >
+                    <mat-grid-tile *ngFor='let admin of adminsInDisplay'
+                        (click)="handleClick(admin)"
+                        [colspan]="1"
+                        [rowspan]="1">
+                        {{ admin.email }};
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+            <mat-card class = "list-card grid-card">
+                <mat-grid-list cols="2" rowHeight="30px" gutterSize="3px" >
+                    <mat-grid-tile *ngFor='let member of membersInDisplay'
+                        (click)="handleClick(member)"
+                        [colspan]="1"
+                        [rowspan]="1">
+                        {{ member.email }};
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </mat-card>
+    </div>
+</mat-card>
