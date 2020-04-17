@@ -3,10 +3,12 @@
       height: 40px;
       width: 100%;
       margin-bottom:75px; 
-      /* position: fixed; */
+     
   }
 
   .mat-toolbar.mat-primary {
+    font-family: 'Montserrat', sans-serif;
+
     background-color: black;
     color: white; 
   }

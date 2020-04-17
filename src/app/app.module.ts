@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,7 +37,7 @@ import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.compo
 import { CalendarComponent } from './calendar/calendar.component';
 import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const firebaseConfig = {
@@ -63,9 +63,10 @@ const firebaseConfig = {
     DashboardAdminComponent,
     CalendarComponent,
     ViewMembersBox,
+    ProfileComponent,
   ],
   imports: [
-    FullCalendarModule,
+    
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -83,8 +84,8 @@ const firebaseConfig = {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatToolbarModule,
-    MatGridListModule,
+    MatToolbarModule, 
+    MatGridListModule
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]

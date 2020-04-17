@@ -8,9 +8,11 @@ import { LoginSignUpBoxComponent } from './login-sign-up-box/login-sign-up-box.c
 import { HomepageComponent } from './homepage/homepage.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
+  {path: 'profile', component: ProfileComponent},
   {path: 'about', component: AboutUsBoxComponent},
   {path: 'calendar', component: CalendarComponent},
   { path: 'dashboard', component: DashboardComponent },
@@ -19,7 +21,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, 
+      {enableTracing: true} // <-- for debugging purposes only. 
+      )
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
