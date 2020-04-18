@@ -1,6 +1,11 @@
+.container-full-page-container { 
+    margin: auto;
+  width: 50%;
+}
 .row.heading h2 {
     color: black;
     font-size: 52.52px;
+    font-family: 'Montserrat', sans-serif;
     line-height: 95px;
     font-weight: 400;
     text-align: center;
@@ -12,6 +17,8 @@ ul{
   margin:0;
   padding:0;
   list-style:none;
+  font-family: 'Montserrat', sans-serif;
+
 }
 .heading.heading-icon {
     display: block;
@@ -27,7 +34,9 @@ ul{
 }
 .practice-area .inner{ 
      border:1px solid #999999; 
-	 text-align:center; 
+     text-align:center; 
+     font-family: 'Montserrat', sans-serif;
+
 	 margin-bottom:28px; 
 	 padding:40px 25px;
 }
@@ -39,13 +48,16 @@ ul{
     color:#3c3c3c; 
 	font-size:24px; 
 	font-weight:500;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Montserrat', sans-serif;
+
 	padding: 10px 0;
 }
 .practice-area .inner p{ 
     font-size:14px; 
 	line-height:22px; 
-	font-weight:400;
+    font-weight:400;
+    font-family: 'Montserrat', sans-serif;
+
 }
 .practice-area .inner img{
 	display:inline-block;
@@ -61,6 +73,8 @@ ul{
    text-align:center; 
    border:2px solid #d5d5d5;
    margin: 0 0 28px;
+   font-family: 'Montserrat', sans-serif;
+
 }
 .our-webcoderskull .cnt-block figure{
    width:148px; 
@@ -78,11 +92,15 @@ ul{
    color:#2a2a2a; 
    font-size:20px; 
    font-weight:500; 
+   font-family: 'Montserrat', sans-serif;
+
    padding:6px 0;
    text-transform:uppercase;
 }
 .our-webcoderskull .cnt-block h3 a{
   text-decoration:none;
+  font-family: 'Montserrat', sans-serif;
+
 	color:#2a2a2a;
 }
 .our-webcoderskull .cnt-block h3 a:hover{
@@ -91,21 +109,12 @@ ul{
 .our-webcoderskull .cnt-block p{ 
    color:#2a2a2a; 
    font-size:13px; 
+   font-family: 'Montserrat', sans-serif;
+
    line-height:20px; 
    font-weight:400;
 }
-.our-webcoderskull .cnt-block .follow-us{
-	margin:20px 0 0;
-}
-.our-webcoderskull .cnt-block .follow-us li{ 
-    display:inline-block; 
-	width:auto; 
-	margin:0 5px;
-}
-.our-webcoderskull .cnt-block .follow-us li .fa{ 
-   font-size:24px; 
-   color:#767676;
-}
-.our-webcoderskull .cnt-block .follow-us li .fa:hover{ 
-   color:#025a8e;
+
+.orgpro {
+    font-family: 'Montserrat', sans-serif;
 }

@@ -9,9 +9,11 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SponsorsComponent } from './sponsors/sponsors.component';
 
 
 const routes: Routes = [
+  {path: 'sponsors', component: SponsorsComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'about', component: AboutUsBoxComponent},
   {path: 'calendar', component: CalendarComponent},
