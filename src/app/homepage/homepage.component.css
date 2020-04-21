@@ -3,10 +3,38 @@
     display: flex; 
     flex-direction: column; 
     width:100vw;
-    background-color: white;
+    background-color: black;
+    background-image: url('https://images.unsplash.com/photo-1510256984962-6a9ca9592c1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80');
     height: 100%;
 }
+.homepage-title {
+    position: relative;
+    top: 300px;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+.homepage-text {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    position: relative;
+    top: 326px;
+    font-family: 'Montserrat', sans-serif;
 
+}
+.mat-button {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    color: white;
+    font-size: 20px;
+    position: relative;
+    top: 336px;
+    font-family: 'Montserrat', sans-serif;
+
+}
 div.page-contents{
     display: flex; 
     flex-direction: row;

@@ -38,7 +38,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
 import { ProfileComponent } from './profile/profile.component';
-import { SponsorsComponent } from './sponsors/sponsors.component';
+import { LoginComponent } from './login/login.component';
 
 
 const firebaseConfig = {
@@ -65,7 +65,7 @@ const firebaseConfig = {
     CalendarComponent,
     ViewMembersBox,
     ProfileComponent,
-    SponsorsComponent,
+    LoginComponent,
   ],
   imports: [
     

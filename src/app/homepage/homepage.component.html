@@ -1,11 +1,13 @@
 
 <div class="container full-page-container">
-    <app-homepage-topbar></app-homepage-topbar>
-
+   
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-md-8 text-center fadeIn animated">          
-          <app-login-sign-up-box> </app-login-sign-up-box>
-
+          
+        <h1 class="homepage-title">ORG <b>PRO</b></h1> 
+        <p class="homepage-text">Optimizing Student Organization Performance</p>
+        <button mat-button routerLink="/login" routerLinkActive="active">ENTER ORG <b>PRO</b></button>
         </div>
       </div>
 </div>
+<router-outlet></router-outlet>

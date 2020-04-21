@@ -6,7 +6,7 @@
 
 :host{
     /* display:block; */
-     margin:  20px; 
+     margin:  40px; 
 }
 
 .custom.mat-card{
@@ -29,7 +29,7 @@
 /* For the text alongside the logo */
 .title {
     float: right;
-    font-family: "Lucida Console";
+    font-family: 'Montserrat', sans-serif;
     font-size: large;
     color:black;
     margin-left: 15px;
@@ -43,6 +43,7 @@
 {
     width:100%;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 

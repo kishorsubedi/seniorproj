@@ -1,0 +1,7 @@
+div.page-contents{
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color:rgb(39, 152, 160);
+}

@@ -3,7 +3,7 @@
   <!-- The Header: Logo and Name -->
   <mat-card-header>
     <div class="header">
-    <mat-card-title>WELCOME TO ORGPRO</mat-card-title>
+    <mat-card-title style="font-family: 'Montserrat', sans-serif;">WELCOME TO ORG<b>PRO</b></mat-card-title>
     </div>
   </mat-card-header>
 
@@ -19,14 +19,14 @@
       <div>
         <br>
         <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
+          <mat-label style="font-family: 'Montserrat', sans-serif;" >Email</mat-label>
           <input matInput #loginEmail>
           <mat-icon matSuffix>email</mat-icon>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="fill" >
-          <mat-label>Password</mat-label>
+          <mat-label style="font-family: 'Montserrat', sans-serif;" >Password</mat-label>
           <input matInput #loginPassword type="password">
         </mat-form-field>
       </div>
@@ -47,19 +47,19 @@
       <div>
         <br>
         <mat-form-field appearance="fill" >
-          <mat-label>Email</mat-label>
+          <mat-label style="font-family: 'Montserrat', sans-serif;" >Email</mat-label>
           <input matInput #signupEmail>
           <mat-icon matSuffix>email</mat-icon>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="fill">
-          <mat-label>Password</mat-label>
+          <mat-label style="font-family: 'Montserrat', sans-serif;" >Password</mat-label>
           <input matInput #signupPassword type="password">
         </mat-form-field>
       </div>
       <div> 
-        <button mat-stroked-button color="black" (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value)"> SignUp </button> 
+        <button  mat-stroked-button color="black" (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value)"  > SignUp </button> 
       </div>
     </mat-tab>
   </mat-tab-group>
