@@ -2,3 +2,43 @@
     
     font-family: 'Montserrat', sans-serif;
 }
+.banner {
+    width: 100%;
+    overflow: hidden;
+    height: 360px;
+    margin-top: 50px;
+    position: relative;
+    top: -90px;
+}
+
+.banner .title h1{
+    background-color: black;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    height: 280px;
+    width: 100%;
+    line-height: 280px;
+    text-align: center;
+}
+h3 {
+    font-family: 'Montserrat', sans-serif;
+}
+.pay-dues .title{
+    margin: auto;
+    max-width: 400px;
+    position: relative;
+    top: -50px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+.feedback .title{
+    top: -50px;
+    margin: auto;
+    max-width: 400px;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
