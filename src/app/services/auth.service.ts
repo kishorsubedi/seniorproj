@@ -79,34 +79,64 @@ export class AuthService {
     usersCollectionRef.doc(email).set({ email: email });
   }
 
-  signUpWithEmailPassword(email: string, password:string) {
-    this.afs.firestore.doc('/invitedMembers/'+ email).get()
+  signUpWithEmailPassword(email: string, password:string, signupOrgName:string) {
+    //shouldn't be in allUsers. 
+    // if in admin already, first time creator. org -> creator, allUsers.orgs -> org
+    // else, if in invitedMembers, org -> creator, allUsers.orgs -> org
+    //else no invittation
+    this.afs.firestore.doc('/allUsers/'+ email).get()
       .then(docSnapshot => {
         if (docSnapshot.exists) {
-
-          this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
-            //remove from invitedMembers 
-            this.afs.firestore.doc(`invitedMembers/${email}`).delete();
-            
-            this.createUser(user.user.uid, email);
-            console.log("success signing up");
-            console.log(user.user.uid);
-            this.router.navigateByUrl('/dashboard');
-            return;
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            window.alert(errorMessage);
-            // ...
-          });
-      
-        }
-        else{
-          window.alert(" NO invitation yet! ");
+          window.alert(" Already an OrgPro member! Please login. ");
           return;
         }
-      });
+        else{
+
+          this.afs.firestore.doc('/orgs/'+ signupOrgName).get()
+          .then(docSnapshot => {
+            if (docSnapshot.exists) {
+              // do something
+              console.log("Creator and Org registered");
+              if(docSnapshot.data().creator != email)
+              {
+                window.alert("This creator is not given access to create this org");
+                return;
+              }
+
+              this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
+                //remove from invitedMembers 
+
+                var d = {
+                  belongsTo: [signupOrgName] 
+                }
+
+                this.afs.firestore.doc(`allUsers/${email}`).set(d);
+
+                var orgAdminsCollectionRef = this.afs.collection('orgs/'+signupOrgName+ "/admins"); // a ref to the users collection
+                orgAdminsCollectionRef.doc(email).set({ email: email });
+                
+                this.createUser(user.user.uid, email);
+                console.log("success signing up");
+                console.log(user.user.uid);
+                this.router.navigateByUrl('/dashboard');
+                return;
+
+              }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                window.alert(errorMessage);
+                // ...
+              });
+            }
+            else{
+              window.alert("We are in test mode! Only selected orgs can signup for now");
+            }
+
+          });
+
+        }
+    });
   }
 
   signOut(){
