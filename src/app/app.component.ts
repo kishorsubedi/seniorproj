@@ -12,11 +12,10 @@ export class AppComponent implements OnInit {
     throw new Error("Method not implemented.");
   }
   user = null;
-  calendarPlugins = [dayGridPlugin];
-constructor(
+  constructor(
     private auth: AuthService) { }
 
-ngOnInit() {
+  ngOnInit() {
     this.auth.getAuthState().subscribe(
       (user) => this.user = user);
   }

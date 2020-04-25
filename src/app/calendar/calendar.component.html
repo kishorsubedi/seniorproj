@@ -4,7 +4,23 @@
     <p class = "text-p">Our events are open to everyone, regardless of major, background, or experience!
 
     </p>
-    <div class="calendar-container">
-        <iframe src="https://calendar.google.com/calendar/b/2/embed?height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YWNtQHNjcy5ob3dhcmQuZWR1&amp;src=c2NzLmhvd2FyZC5lZHVfN2owaDEzb205bXRsbWRtdmRnOHQ0dGpsbmNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23F6BF26&amp;color=%23C0CA33&amp;showNav=1&amp;showCalendars=1&amp;title=Howard%20University%20ACM%20Student%20Chapter%20Calendar&amp;mode=MONTH" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+    <div class='app-calendar' *ngIf="calendarVisible">
+        <full-calendar 
+            #calendar    
+            defaultView="dayGridMonth"
+            [header]="{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            }"
+            [googleCalendarApiKey]='goCalendarApiKey'
+            [plugins]="calendarPlugins"
+            [weekends]="calendarWeekends"
+            [events]="calendarEvents"
+        ></full-calendar>
     </div>
+
+
+
 </div>
