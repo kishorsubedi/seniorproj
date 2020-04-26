@@ -39,6 +39,9 @@ import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+import { CalandarViewComponent } from './calandar-view/calandar-view.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 const firebaseConfig = {
@@ -66,6 +69,7 @@ const firebaseConfig = {
     ViewMembersBox,
     ProfileComponent,
     LoginComponent,
+    CalandarViewComponent,
   ],
   imports: [
     
@@ -87,7 +91,7 @@ const firebaseConfig = {
     MatInputModule,
     MatButtonModule,
     MatToolbarModule, 
-    MatGridListModule
+    MatGridListModule, CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]
