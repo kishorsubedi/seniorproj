@@ -32,6 +32,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -89,7 +91,8 @@ const firebaseConfig = {
     MatInputModule,
     MatButtonModule,
     MatToolbarModule, 
-    MatGridListModule
+    MatGridListModule,
+    MatListModule,
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]

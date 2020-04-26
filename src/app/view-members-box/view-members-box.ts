@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { UsersService } from '../services/users-service';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service'; 
 
@@ -17,12 +16,28 @@ export class ViewMembersBox implements OnInit {
   membersInDisplay: User[];
   adminsInDisplay: User[];
   searchText: string = '';
-  currentOrg: string = 'mca';
+  orgInView: string = 'mca';
 
 
   constructor(private auth: AuthService, private afs: AngularFirestore) {
-    var adminsValueChangesRef = this.afs.collection('orgs/'+this.currentOrg+'/admins').valueChanges();
-    var usersValueChangesRef = this.afs.collection('orgs/'+this.currentOrg+'/users').valueChanges();
+    this.updateUsersList();
+  }
+ 
+  ngOnInit(){
+  }
+
+  handleClick(user: User){
+    this.userInView = user;
+  }
+
+  handleOrgClick(){
+
+  }
+
+  // Updates the users and members list
+  updateUsersList(){
+    var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
+    var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
     
     usersValueChangesRef.subscribe(users=>{
       this.members = users;
@@ -38,13 +53,6 @@ export class ViewMembersBox implements OnInit {
         this.adminsInDisplay = this.searchInArray(this.admins);
       }
     })
-  }
- 
-  ngOnInit(){
-  }
-
-  handleClick(user: User){
-    this.userInView = user;
   }
 
   searchInArray(users: User[]){
