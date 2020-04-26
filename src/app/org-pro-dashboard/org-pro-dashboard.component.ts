@@ -38,23 +38,23 @@ export class OrgProDashboardComponent implements OnInit {
   }
 
   getOrgs(){
-    console.log("GETTING ORGS of this user");
-    console.log(this.auth.afAuth.auth.currentUser.email);
-
     this.auth.afs.doc<User>('allUsers/' + this.userEmail)
      .valueChanges()
      .subscribe(data=>{
-        console.log(data.belongsTo);
-         var orgsStringArray = data.belongsTo;
+         var orgRoleMap = data.orgRole;
+
          var orgsArray = [];
         
-          var num = 0
-          while(num < orgsStringArray.length){
-            orgsArray.push({id: orgsStringArray[num]});
-            num +=1;
+          for(let org in orgRoleMap){
+            console.log(org);
+            console.log(orgRoleMap[org]);
+
+            orgsArray.push({
+              id:org,
+              role: orgRoleMap[org]
+            });
           }
           this.orgs = orgsArray;
-          console.log(this.orgs);
         })
   }
 }
