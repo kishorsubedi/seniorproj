@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { OrgProDashboardComponent } from '../org-pro-dashboard/org-pro-dashboard.component';
 
 @Component({
   selector: 'app-dashboard',

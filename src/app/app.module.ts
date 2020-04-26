@@ -39,6 +39,7 @@ import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+import { OrgProDashboardComponent } from './org-pro-dashboard/org-pro-dashboard.component';
 
 
 const firebaseConfig = {
@@ -66,6 +67,7 @@ const firebaseConfig = {
     ViewMembersBox,
     ProfileComponent,
     LoginComponent,
+    OrgProDashboardComponent,
   ],
   imports: [
     

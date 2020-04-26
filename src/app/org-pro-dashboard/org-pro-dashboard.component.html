@@ -1,0 +1,18 @@
+<p>org-pro-dashboard works!</p>
+
+<button (click)="navigateToOrgDashboard()"> Take me one of the org's dashboard! </button>
+
+<mat-grid-tile *ngFor='let obj of orgs'
+                        (click)="handleClick()"
+                        [colspan]="1"
+                        [rowspan]="1">
+                        {{ obj }};
+</mat-grid-tile> 
+
+dasd
+
+<ul>
+    <li *ngFor="let org of orgs">
+      {{ org.id }}
+    </li>
+  </ul>
