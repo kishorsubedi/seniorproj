@@ -96,38 +96,61 @@ export class AuthService {
           .then(docSnapshot => {
             if (docSnapshot.exists) {
               // do something
-              console.log("Creator and Org registered");
-              if(docSnapshot.data().creator != email)
-              {
-                window.alert("This creator is not given access to create this org");
-                return;
-              }
-
-              this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
-                //remove from invitedMembers 
-
-                var d = {
-                  belongsTo: [signupOrgName] 
+              var role = "member";
+              if (docSnapshot.data().activated == "false"){
+                if (docSnapshot.data().creator != email){
+                  window.alert("You aren't designated to activate this org!");
+                  return;
                 }
+                else{
+                  role = "admin";
+                }
+              }
+              //either admin activating the org, or member trying to join the activated org     
+              
+              this.afs.firestore.collection("orgs/"+signupOrgName+"/invitedMembers").doc(email).get().then(docSnapshot => {
+                if(role == "member" && !docSnapshot.exists){
+                  window.alert("No invitation to join this org yet!");
+                  return;
+                }
+                else{
+                    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
+                                             
+                    var userObj = {
+                      orgRole:{
+                        org: signupOrgName,
+                        role: role
+                      },
+                      email: email                  
+                    }
+      
+                    this.afs.firestore.doc("allUsers/" + email).set(userObj);
+      
+                    if(role == "admin"){
+                      this.afs.collection('orgs/').doc(signupOrgName).update({activated: true}); // a ref to the users collection
+                      var orgAdminsCollectionRef = this.afs.collection('orgs/'+signupOrgName+ "/admins"); // a ref to the users collection
+                      orgAdminsCollectionRef.doc(email).set({ email: email });
+                    }
+                    else{
+                      var orgAdminsCollectionRef = this.afs.collection('orgs/'+signupOrgName+ "/users"); // a ref to the users collection
+                      orgAdminsCollectionRef.doc(email).set({ email: email });
+                      this.afs.collection("orgs/"+ signupOrgName + "/invitedMembers").doc(email).delete();                     
+                    }
+                  
+                    this.router.navigateByUrl('/dashboard');
+                    return;
+      
+                  }).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    window.alert(errorMessage);
+                    // ...
+                  });
+                }
+              })
+              
 
-                this.afs.firestore.doc(`allUsers/${email}`).set(d);
-
-                var orgAdminsCollectionRef = this.afs.collection('orgs/'+signupOrgName+ "/admins"); // a ref to the users collection
-                orgAdminsCollectionRef.doc(email).set({ email: email });
-                
-                this.createUser(user.user.uid, email);
-                console.log("success signing up");
-                console.log(user.user.uid);
-                this.router.navigateByUrl('/dashboard');
-                return;
-
-              }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                window.alert(errorMessage);
-                // ...
-              });
             }
             else{
               window.alert("We are in test mode! Only selected orgs can signup for now");
