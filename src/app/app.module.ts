@@ -42,6 +42,7 @@ import { LoginComponent } from './login/login.component';
 import { CalandarViewComponent } from './calandar-view/calandar-view.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const firebaseConfig = {
@@ -91,7 +92,7 @@ const firebaseConfig = {
     MatInputModule,
     MatButtonModule,
     MatToolbarModule, 
-    MatGridListModule, CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
+    MatGridListModule, CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }), NgbModule
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]
