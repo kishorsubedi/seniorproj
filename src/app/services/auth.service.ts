@@ -97,11 +97,11 @@ export class AuthService {
             if (docSnapshot.exists) {
               // do something
               console.log("Creator and Org registered");
-              if(docSnapshot.data().creator != email)
-              {
-                window.alert("This creator is not given access to create this org");
-                return;
-              }
+              // if(docSnapshot.data().creator != email)
+              // {
+              //   window.alert("This creator is not given access to create this org");
+              //   return;
+              // }
 
               this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
                 //remove from invitedMembers 

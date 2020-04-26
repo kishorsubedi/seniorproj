@@ -18,9 +18,18 @@ export class ViewMembersBox implements OnInit {
   membersInDisplay: User[];
   adminsInDisplay: User[];
   searchText: string = '';
+  currentOrg: string = 'acm';
 
 
-  constructor(private usersService: UsersService, private auth: AuthService) {
+  constructor(private usersService: UsersService, private auth: AuthService, private afs: AngularFirestore) {
+    var adminValueChangesRef = this.afs.collection('orgs/'+this.currentOrg+'/admins').valueChanges();
+    adminValueChangesRef.subscribe(admins=>{
+      this.admins = admins;
+      if(this.admins){
+        this.adminsInDisplay = this.searchInArray(this.admins);
+      }
+    })
+
     this.usersService.getMembers().subscribe(members=>{
       this.members = members;
       if(this.members){
@@ -28,12 +37,12 @@ export class ViewMembersBox implements OnInit {
         this.userInView = this.members[0];
       }
     })
-    this.usersService.getAdmins().subscribe(admins=>{
-      this.admins = admins;
-      if(this.admins){
-        this.adminsInDisplay = this.searchInArray(this.admins);
-      }
-    })
+    // this.usersService.getAdmins().subscribe(admins=>{
+      // this.admins = admins;
+      // if(this.admins){
+      //   this.adminsInDisplay = this.searchInArray(this.admins);
+      // }
+    // })
     this.usersService.getInvitedUsers().subscribe(invited=>{
       this.invited = invited;
     });
