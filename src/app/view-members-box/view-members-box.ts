@@ -13,40 +13,31 @@ import { AuthService } from '../services/auth.service';
 export class ViewMembersBox implements OnInit {
   members: User[];
   admins: User[];
-  invited: User[];
   userInView: User;
   membersInDisplay: User[];
   adminsInDisplay: User[];
   searchText: string = '';
-  currentOrg: string = 'acm';
+  currentOrg: string = 'mca';
 
 
-  constructor(private usersService: UsersService, private auth: AuthService, private afs: AngularFirestore) {
-    var adminValueChangesRef = this.afs.collection('orgs/'+this.currentOrg+'/admins').valueChanges();
-    adminValueChangesRef.subscribe(admins=>{
-      this.admins = admins;
-      if(this.admins){
-        this.adminsInDisplay = this.searchInArray(this.admins);
-      }
-    })
-
-    this.usersService.getMembers().subscribe(members=>{
-      this.members = members;
+  constructor(private auth: AuthService, private afs: AngularFirestore) {
+    var adminsValueChangesRef = this.afs.collection('orgs/'+this.currentOrg+'/admins').valueChanges();
+    var usersValueChangesRef = this.afs.collection('orgs/'+this.currentOrg+'/users').valueChanges();
+    
+    usersValueChangesRef.subscribe(users=>{
+      this.members = users;
       if(this.members){
         this.membersInDisplay = this.searchInArray(this.members);
         this.userInView = this.members[0];
       }
     })
-    // this.usersService.getAdmins().subscribe(admins=>{
-      // this.admins = admins;
-      // if(this.admins){
-      //   this.adminsInDisplay = this.searchInArray(this.admins);
-      // }
-    // })
-    this.usersService.getInvitedUsers().subscribe(invited=>{
-      this.invited = invited;
-    });
 
+    adminsValueChangesRef.subscribe(admins=>{
+      this.admins = admins;
+      if(this.admins){
+        this.adminsInDisplay = this.searchInArray(this.admins);
+      }
+    })
   }
  
   ngOnInit(){
