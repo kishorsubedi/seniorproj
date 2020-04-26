@@ -18,6 +18,9 @@ export class OrgProDashboardComponent implements OnInit {
   constructor(private auth: AuthService) {
     this.userEmail = auth.afAuth.auth.currentUser.email;
     this.getOrgs();
+    if(this.orgs){
+      this.orgChanged.emit(this.orgs[0].id);
+    }
   }
 
   ngOnInit(): void {
@@ -38,8 +41,6 @@ export class OrgProDashboardComponent implements OnInit {
   }
 
   getOrgs(){
-    console.log("GETTING ORGS of this user");
-    console.log(this.auth.afAuth.auth.currentUser.email);
 
     this.auth.afs.doc<User>('allUsers/' + this.userEmail)
      .valueChanges()
@@ -54,7 +55,6 @@ export class OrgProDashboardComponent implements OnInit {
             num +=1;
           }
           this.orgs = orgsArray;
-          console.log(this.orgs);
         })
   }
 }

@@ -12,6 +12,19 @@ import { AuthService } from '../services/auth.service';
 export class ViewMembersBox implements OnInit {
   @Input() orgInView: string = 'mca';
 
+  ngOnChanges(changes: any) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'orgInView': {
+            console.log(changes.orgInView.currentValue);
+            this.updateUsersList();
+          }
+        }
+      }
+    }
+  }
+
   aw = false;
   Admin:boolean = false;
   members: User[];
