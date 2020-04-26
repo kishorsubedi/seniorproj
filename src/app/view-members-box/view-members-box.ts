@@ -16,7 +16,7 @@ export class ViewMembersBox implements OnInit {
   membersInDisplay: User[];
   adminsInDisplay: User[];
   searchText: string = '';
-  orgInView: string = 'mca';
+  orgInView: string = 'acm';
 
 
   constructor(private auth: AuthService, private afs: AngularFirestore) {
@@ -26,7 +26,7 @@ export class ViewMembersBox implements OnInit {
   ngOnInit(){
   }
 
-  handleClick(user: User){
+  handleUserClick(user: User){
     this.userInView = user;
   }
 

@@ -60,7 +60,7 @@
             <mat-card class = "list-card grid-card">
                 <mat-grid-list cols="1" rowHeight="30px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let admin of adminsInDisplay'
-                        (click)="handleClick(admin)"
+                        (click)="handleUserClick(admin)"
                         [colspan]="1"
                         [rowspan]="1">
                         {{ admin.email }};
@@ -70,7 +70,7 @@
             <mat-card class = "list-card grid-card">
                 <mat-grid-list cols="2" rowHeight="30px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let member of membersInDisplay'
-                        (click)="handleClick(member)"
+                        (click)="handleUserClick(member)"
                         [colspan]="1"
                         [rowspan]="1">
                         {{ member.email }};

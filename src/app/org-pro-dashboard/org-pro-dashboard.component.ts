@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { org } from '../models/org'
 import { User } from '../models/user'
 import { AuthService } from '../services/auth.service';
@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class OrgProDashboardComponent implements OnInit {
 
+  @Output() currentOrg = new EventEmitter<string>();
   user: User;
   orgs: org[];
   userEmail: string;
@@ -22,13 +23,14 @@ export class OrgProDashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigateToOrgDashboard() {
-    console.log("Lets navigate to specific org");
+  // For switching orgs
+  handleOrgClick(orgName: string){
+    console.log("org clicked "+orgName);
+    this.currentOrg.emit(orgName);
   }
 
-  handleClick()
-  {
-
+  navigateToOrgDashboard() {
+    console.log("Lets navigate to specific org");
   }
 
   orgsWatcher(){
