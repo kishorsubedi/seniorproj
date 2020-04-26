@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -10,6 +10,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./view-members-box.css']
 })
 export class ViewMembersBox implements OnInit {
+  @Input() orgInView: string = 'mca';
+
   aw = false;
   Admin:boolean = false;
   members: User[];
@@ -18,7 +20,6 @@ export class ViewMembersBox implements OnInit {
   membersInDisplay: User[];
   adminsInDisplay: User[];
   searchText: string = '';
-  orgInView: string = 'acm';
 
 
   constructor(private auth: AuthService, private afs: AngularFirestore) {

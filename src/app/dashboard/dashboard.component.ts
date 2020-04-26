@@ -10,6 +10,7 @@ import { OrgProDashboardComponent } from '../org-pro-dashboard/org-pro-dashboard
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  currentOrg : string;
 
   constructor(private auth: AuthService, private router: Router) { 
 
@@ -20,7 +21,8 @@ export class DashboardComponent implements OnInit {
   }
 
   handleOrgChange(orgName){
-    console.log("org change event reached dashboard " + orgName);
+    this.currentOrg = orgName
+    console.log("org change event reached dashboard " + this.currentOrg);
   }
   
   signOut(){
