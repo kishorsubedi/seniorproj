@@ -35,7 +35,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
-import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+import { orgdashboardComponent } from './orgdashboard/orgdashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
@@ -64,7 +64,7 @@ const firebaseConfig = {
     HomepageComponent,
     HomepageTopbarComponent,
     AboutUsBoxComponent,
-    DashboardAdminComponent,
+    orgdashboardComponent,
     CalendarComponent,
     ViewMembersBox,
     ProfileComponent,
