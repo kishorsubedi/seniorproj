@@ -39,10 +39,15 @@ import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+
+// Angular calandar modules
+import { CommonModule } from '@angular/common';
+import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalandarViewComponent } from './calandar-view/calandar-view.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const firebaseConfig = {
@@ -81,6 +86,9 @@ const firebaseConfig = {
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features 
     AngularFirestoreModule.enablePersistence(), BrowserAnimationsModule,
     FormsModule,
+    CommonModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
     // Angular Material Modules
     MatSliderModule, 
     MatMenuModule, 

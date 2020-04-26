@@ -39,10 +39,9 @@ const colors: any = {
 };
 
 @Component({
-  //selector: 'mwl-demo-component',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
-  //styleUrls: ['styles.css'],
-  //templateUrl: 'template.html',
+  selector: 'app-calandar-view',
+  templateUrl: './calandar-view.component.html',
+  styleUrls: ['./calandar-view.component.css']
 })
 export class CalandarViewComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
