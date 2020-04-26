@@ -19,7 +19,10 @@ export class DashboardComponent implements OnInit {
  
   }
 
- 
+  handleOrgChange(orgName){
+    console.log("org change event reached dashboard " + orgName);
+  }
+  
   signOut(){
     this.auth.signOut();
   }

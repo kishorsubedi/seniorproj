@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class OrgProDashboardComponent implements OnInit {
 
-  @Output() currentOrg = new EventEmitter<string>();
+  @Output() orgChanged = new EventEmitter<string>();
   user: User;
   orgs: org[];
   userEmail: string;
@@ -26,7 +26,7 @@ export class OrgProDashboardComponent implements OnInit {
   // For switching orgs
   handleOrgClick(orgName: string){
     console.log("org clicked "+orgName);
-    this.currentOrg.emit(orgName);
+    this.orgChanged.emit(orgName);
   }
 
   navigateToOrgDashboard() {
