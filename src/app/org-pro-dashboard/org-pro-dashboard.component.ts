@@ -29,7 +29,7 @@ export class OrgProDashboardComponent implements OnInit {
     this.currentOrg.emit(orgName);
   }
 
-  navigateToOrgDashboard() {
+  navigateToOrgDashboard() {  
     console.log("Lets navigate to specific org");
   }
 
