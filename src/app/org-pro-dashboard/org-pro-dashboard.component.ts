@@ -59,6 +59,7 @@ export class OrgProDashboardComponent implements OnInit {
             });
           }
           this.orgs = orgsArray;
+          this.orgChanged.emit(this.orgs[0].id);
           console.log("From getOrgs");
           console.log(this.orgs);
         })

@@ -17,7 +17,7 @@ export class ViewMembersBox implements OnInit {
       if (changes.hasOwnProperty(propName)) {
         switch (propName) {
           case 'orgInView': {
-            console.log("ngOnChanges called");
+            console.log("ngOnChanges called updateUsersList called");
             this.updateUsersList();
           }
         }
@@ -36,8 +36,9 @@ export class ViewMembersBox implements OnInit {
 
 
   constructor(private auth: AuthService, private afs: AngularFirestore) {
+    console.log("MOFO");
     //var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
-    //this.updateUsersList();
+    this.updateUsersList();
   }
  
   ngOnInit(){
@@ -54,10 +55,13 @@ export class ViewMembersBox implements OnInit {
     // console.log(snapshot.forEach(child=>{
     //   console.log(child); 
     // }));
+    console.log("updatesuserslist called");
+
     var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
     var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
     
     usersValueChangesRef.subscribe(members=>{
+      console.log("updatesuserslist2 called");
       this.members = members;
       console.log("this.members");
       console.log(this.members);

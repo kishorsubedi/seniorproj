@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   }
 
   handleOrgChange(orgName){
+    console.log("Kishor");
     this.currentOrg = orgName
     console.log("org change event reached dashboard " + this.currentOrg);
   }
