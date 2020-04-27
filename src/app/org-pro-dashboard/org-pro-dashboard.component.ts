@@ -18,9 +18,10 @@ export class OrgProDashboardComponent implements OnInit {
   constructor(private auth: AuthService) {
     this.userEmail = auth.afAuth.auth.currentUser.email;
     this.getOrgs();
-    if(this.orgs){
-      this.orgChanged.emit(this.orgs[0].id);
-    }
+    // if(this.orgs){
+    //   this.orgChanged.emit(this.orgs[0].id);
+    // }
+  
   }
 
   ngOnInit(): void {
@@ -28,7 +29,6 @@ export class OrgProDashboardComponent implements OnInit {
 
   // For switching orgs
   handleOrgClick(orgName: string){
-    console.log("org clicked "+orgName);
     this.orgChanged.emit(orgName);
   }
 
@@ -55,6 +55,9 @@ export class OrgProDashboardComponent implements OnInit {
             num +=1;
           }
           this.orgs = orgsArray;
+          this.orgChanged.emit(this.orgs[0].id);
         })
+    // console.log(this.orgs);
+    //this.orgChanged.emit(this.orgs[0].id);
   }
 }
