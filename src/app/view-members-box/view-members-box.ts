@@ -17,9 +17,9 @@ export class ViewMembersBox implements OnInit {
       if (changes.hasOwnProperty(propName)) {
         switch (propName) {
           case 'orgInView': {
-            console.log("ngOnChanges called updateUsersList called");
-            this.updateUsersList("from ngonchanges");
-            console.log("ngonchanges called, updatedUsersList ");
+            if (this.orgInView){
+              this.updateUsersList();
+            }
           }
         }
       }
@@ -28,8 +28,8 @@ export class ViewMembersBox implements OnInit {
 
   aw = false;
   Admin:boolean = false;
-  members: User[];
-  admins: User[];
+  members: User[] = [];
+  admins: User[] = [];
   userInView: User;
   membersInDisplay: User[];
   adminsInDisplay: User[];
@@ -37,9 +37,7 @@ export class ViewMembersBox implements OnInit {
 
 
   constructor(private auth: AuthService, private afs: AngularFirestore) {
-    console.log("MOFO");
-    //var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
-    this.updateUsersList("from constructor");
+
   }
  
   ngOnInit(){
@@ -51,21 +49,16 @@ export class ViewMembersBox implements OnInit {
 
 
   // Updates the users and members list
-  async updateUsersList(from?: string){
-    // const snapshot = await this.afs.collection("orgs").doc("this.orgInView").collection("admins").get();
-    // console.log(snapshot.forEach(child=>{
-    //   console.log(child); 
-    // }));
-    console.log("updatesuserslist called" + from);
-
+  async updateUsersList(){
     var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
     var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
     
     await usersValueChangesRef.subscribe(members=>{
       console.log("usersValueChangesRef called");
-      this.members = members;
-      console.log("this.members");
-      console.log(this.members);
+      if(members){
+        this.members = members;
+      } 
+
       if(this.members){
         this.membersInDisplay = this.searchInArray(this.members);
         this.userInView = this.members[0];
@@ -73,8 +66,10 @@ export class ViewMembersBox implements OnInit {
     })
 
     await adminsValueChangesRef.subscribe(admins=>{
-      console.log("adminsValueChangesRef called");
-      this.admins = admins;
+
+      if(admins){
+        this.admins = admins;
+      }
       if(this.admins){
         this.adminsInDisplay = this.searchInArray(this.admins);
       }

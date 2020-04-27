@@ -40,7 +40,7 @@ export class OrgProDashboardComponent implements OnInit {
     return this.auth.afs.doc('allUsers/'+this.userEmail).valueChanges();
   }
 
-  getOrgs(){
+  async getOrgs(){
 
     this.auth.afs.doc<User>('allUsers/' + this.userEmail)
      .valueChanges()
