@@ -1,6 +1,5 @@
 export interface User{
-    id? : string;
     email? : string;
-    belongsTo?: string[];
+    orgRole?: Map<string, string>;
   }
 

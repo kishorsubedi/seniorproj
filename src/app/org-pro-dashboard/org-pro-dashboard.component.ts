@@ -45,17 +45,22 @@ export class OrgProDashboardComponent implements OnInit {
     this.auth.afs.doc<User>('allUsers/' + this.userEmail)
      .valueChanges()
      .subscribe(data=>{
-        console.log(data.belongsTo);
-         var orgsStringArray = data.belongsTo;
+         var orgRoleMap = data.orgRole;
+
          var orgsArray = [];
         
-          var num = 0
-          while(num < orgsStringArray.length){
-            orgsArray.push({id: orgsStringArray[num]});
-            num +=1;
+          for(let org in orgRoleMap){
+            console.log(org);
+            console.log(orgRoleMap[org]);
+
+            orgsArray.push({
+              id:org,
+              role: orgRoleMap[org]
+            });
           }
           this.orgs = orgsArray;
-          this.orgChanged.emit(this.orgs[0].id);
+          console.log("From getOrgs");
+          console.log(this.orgs);
         })
     // console.log(this.orgs);
     //this.orgChanged.emit(this.orgs[0].id);
