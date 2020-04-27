@@ -16,4 +16,7 @@ export class orgdashboardComponent implements OnInit {
   ngOnInit(): void {
   }
   
+  ngAfterInit(): void{
+    
+  }
 }

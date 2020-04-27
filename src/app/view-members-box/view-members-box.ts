@@ -18,7 +18,8 @@ export class ViewMembersBox implements OnInit {
         switch (propName) {
           case 'orgInView': {
             console.log("ngOnChanges called updateUsersList called");
-            this.updateUsersList();
+            this.updateUsersList("from ngonchanges");
+            console.log("ngonchanges called, updatedUsersList ");
           }
         }
       }
@@ -38,7 +39,7 @@ export class ViewMembersBox implements OnInit {
   constructor(private auth: AuthService, private afs: AngularFirestore) {
     console.log("MOFO");
     //var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
-    this.updateUsersList();
+    this.updateUsersList("from constructor");
   }
  
   ngOnInit(){
@@ -50,18 +51,18 @@ export class ViewMembersBox implements OnInit {
 
 
   // Updates the users and members list
-  async updateUsersList(){
+  async updateUsersList(from?: string){
     // const snapshot = await this.afs.collection("orgs").doc("this.orgInView").collection("admins").get();
     // console.log(snapshot.forEach(child=>{
     //   console.log(child); 
     // }));
-    console.log("updatesuserslist called");
+    console.log("updatesuserslist called" + from);
 
     var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
     var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
     
-    usersValueChangesRef.subscribe(members=>{
-      console.log("updatesuserslist2 called");
+    await usersValueChangesRef.subscribe(members=>{
+      console.log("usersValueChangesRef called");
       this.members = members;
       console.log("this.members");
       console.log(this.members);
@@ -71,7 +72,8 @@ export class ViewMembersBox implements OnInit {
       }
     })
 
-    adminsValueChangesRef.subscribe(admins=>{
+    await adminsValueChangesRef.subscribe(admins=>{
+      console.log("adminsValueChangesRef called");
       this.admins = admins;
       if(this.admins){
         this.adminsInDisplay = this.searchInArray(this.admins);
