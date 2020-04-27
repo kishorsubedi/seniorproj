@@ -10,16 +10,22 @@ import { OrgProDashboardComponent } from '../org-pro-dashboard/org-pro-dashboard
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  currentOrg : string;
 
   constructor(private auth: AuthService, private router: Router) { 
 
   }
+  
 
   ngOnInit(): void {
  
   }
 
- 
+  handleOrgChange(orgName){
+    this.currentOrg = orgName
+    console.log("org change event reached dashboard " + this.currentOrg);
+  }
+  
   signOut(){
     this.auth.signOut();
   }

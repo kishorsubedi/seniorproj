@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -10,6 +10,21 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./view-members-box.css']
 })
 export class ViewMembersBox implements OnInit {
+  @Input()  orgInView: string ;
+
+  ngOnChanges(changes: any) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'orgInView': {
+            console.log("ngOnChanges called");
+            this.updateUsersList();
+          }
+        }
+      }
+    }
+  }
+
   aw = false;
   Admin:boolean = false;
   members: User[];
@@ -18,11 +33,11 @@ export class ViewMembersBox implements OnInit {
   membersInDisplay: User[];
   adminsInDisplay: User[];
   searchText: string = '';
-  orgInView: string = 'acm';
 
 
   constructor(private auth: AuthService, private afs: AngularFirestore) {
-    this.updateUsersList();
+    //var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
+    //this.updateUsersList();
   }
  
   ngOnInit(){
@@ -32,17 +47,20 @@ export class ViewMembersBox implements OnInit {
     this.userInView = user;
   }
 
-  handleOrgClick(){
-
-  }
 
   // Updates the users and members list
-  updateUsersList(){
+  async updateUsersList(){
+    // const snapshot = await this.afs.collection("orgs").doc("this.orgInView").collection("admins").get();
+    // console.log(snapshot.forEach(child=>{
+    //   console.log(child); 
+    // }));
     var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
     var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
     
-    usersValueChangesRef.subscribe(users=>{
-      this.members = users;
+    usersValueChangesRef.subscribe(members=>{
+      this.members = members;
+      console.log("this.members");
+      console.log(this.members);
       if(this.members){
         this.membersInDisplay = this.searchInArray(this.members);
         this.userInView = this.members[0];

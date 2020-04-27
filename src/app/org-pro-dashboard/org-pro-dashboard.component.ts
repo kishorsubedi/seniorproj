@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class OrgProDashboardComponent implements OnInit {
 
-  @Output() currentOrg = new EventEmitter<string>();
+  @Output() orgChanged = new EventEmitter<string>();
   user: User;
   orgs: org[];
   userEmail: string;
@@ -18,6 +18,10 @@ export class OrgProDashboardComponent implements OnInit {
   constructor(private auth: AuthService) {
     this.userEmail = auth.afAuth.auth.currentUser.email;
     this.getOrgs();
+    // if(this.orgs){
+    //   this.orgChanged.emit(this.orgs[0].id);
+    // }
+  
   }
 
   ngOnInit(): void {
@@ -25,8 +29,7 @@ export class OrgProDashboardComponent implements OnInit {
 
   // For switching orgs
   handleOrgClick(orgName: string){
-    console.log("org clicked "+orgName);
-    this.currentOrg.emit(orgName);
+    this.orgChanged.emit(orgName);
   }
 
   navigateToOrgDashboard() {  
@@ -38,6 +41,7 @@ export class OrgProDashboardComponent implements OnInit {
   }
 
   getOrgs(){
+
     this.auth.afs.doc<User>('allUsers/' + this.userEmail)
      .valueChanges()
      .subscribe(data=>{
@@ -55,6 +59,10 @@ export class OrgProDashboardComponent implements OnInit {
             });
           }
           this.orgs = orgsArray;
+          console.log("From getOrgs");
+          console.log(this.orgs);
         })
+    // console.log(this.orgs);
+    //this.orgChanged.emit(this.orgs[0].id);
   }
 }

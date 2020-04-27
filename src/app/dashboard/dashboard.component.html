@@ -8,12 +8,12 @@
     <tr>
       <th>
             <div>
-                <app-org-pro-dashboard></app-org-pro-dashboard>
+                <app-org-pro-dashboard (orgChanged)="handleOrgChange($event)"></app-org-pro-dashboard>
             </div>
         </th>
       <th>
             <div>
-                    <app-orgdashboard> </app-orgdashboard>
+                    <app-orgdashboard [orgInView]="currentOrg"> </app-orgdashboard>
                 </div>
                 
       </th>
