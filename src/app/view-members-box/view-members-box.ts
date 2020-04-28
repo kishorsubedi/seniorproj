@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { UsersService } from '../services/users-service';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service'; 
 
@@ -11,40 +10,70 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./view-members-box.css']
 })
 export class ViewMembersBox implements OnInit {
-  members: User[];
-  admins: User[];
-  invited: User[];
+  @Input()  orgInView: string ;
+
+  ngOnChanges(changes: any) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'orgInView': {
+            if (this.orgInView){
+              this.updateUsersList();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  aw = false;
+  Admin:boolean = false;
+  members: User[] = [];
+  admins: User[] = [];
   userInView: User;
   membersInDisplay: User[];
   adminsInDisplay: User[];
   searchText: string = '';
 
 
-  constructor(private usersService: UsersService, private auth: AuthService) {
-    this.usersService.getMembers().subscribe(members=>{
-      this.members = members;
-      if(this.members){
-        this.membersInDisplay = this.searchInArray(this.members);
-        this.userInView = this.members[0];
-      }
-    })
-    this.usersService.getAdmins().subscribe(admins=>{
-      this.admins = admins;
-      if(this.admins){
-        this.adminsInDisplay = this.searchInArray(this.admins);
-      }
-    })
-    this.usersService.getInvitedUsers().subscribe(invited=>{
-      this.invited = invited;
-    });
+  constructor(private auth: AuthService, private afs: AngularFirestore) {
 
   }
  
   ngOnInit(){
   }
 
-  handleClick(user: User){
+  handleUserClick(user: User){
     this.userInView = user;
+  }
+
+
+  // Updates the users and members list
+  async updateUsersList(){
+    var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
+    var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
+    
+    await usersValueChangesRef.subscribe(members=>{
+      console.log("usersValueChangesRef called");
+      if(members){
+        this.members = members;
+      } 
+
+      if(this.members){
+        this.membersInDisplay = this.searchInArray(this.members);
+        this.userInView = this.members[0];
+      }
+    })
+
+    await adminsValueChangesRef.subscribe(admins=>{
+
+      if(admins){
+        this.admins = admins;
+      }
+      if(this.admins){
+        this.adminsInDisplay = this.searchInArray(this.admins);
+      }
+    })
   }
 
   searchInArray(users: User[]){
@@ -190,6 +219,23 @@ export class ViewMembersBox implements OnInit {
       this.inviteMember(email);
     }
   }
+
+  isAdmin(){
+    // var currUid = this.auth.afAuth.auth.currentUser.uid;
+    var currEmail = this.auth.afAuth.auth.currentUser.email;
+    this.auth.afs.firestore.doc('/admins/'+ currEmail).get()
+      .then(docSnapshot => {
+        if (docSnapshot.exists) {
+          this.Admin = true;
+          console.log("this is an admin!");
+        }
+        else{
+          this.Admin = false;
+          console.log("this is not an admin!");
+        }
+      });
+  }
+
 }
 
 

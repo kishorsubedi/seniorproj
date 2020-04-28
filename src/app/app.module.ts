@@ -32,13 +32,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
-import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+import { orgdashboardComponent } from './orgdashboard/orgdashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+import { OrgProDashboardComponent } from './org-pro-dashboard/org-pro-dashboard.component';
 
 
 const firebaseConfig = {
@@ -61,11 +64,12 @@ const firebaseConfig = {
     HomepageComponent,
     HomepageTopbarComponent,
     AboutUsBoxComponent,
-    DashboardAdminComponent,
+    orgdashboardComponent,
     CalendarComponent,
     ViewMembersBox,
     ProfileComponent,
     LoginComponent,
+    OrgProDashboardComponent,
   ],
   imports: [
     
@@ -87,7 +91,8 @@ const firebaseConfig = {
     MatInputModule,
     MatButtonModule,
     MatToolbarModule, 
-    MatGridListModule
+    MatGridListModule,
+    MatListModule,
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
 <mat-card class = "main-card">
     <mat-card-header>
         <mat-card-title>
-            View Members
+            {{ this.orgInView }} View Members
         </mat-card-title>
     </mat-card-header>
     <div class = "content-div">
@@ -22,13 +22,16 @@
                 Events Attended:
             </mat-card>
             <!-- Options -->
-            <mat-card class="option-buttons-card">
-                <!-- If the this.userInView is in this.members, show "Make this member an admin button" -->
-                <button *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmMakeAdmin()"> Make this member an admin </button>
-                <button *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmRemoveMember()" style="background-color: #EE310C ">Remove their membership</button>
-                <button *ngIf="this.admins && this.admins.indexOf(this.userInView) >= 0" (click)="confirmDemoteAdmin()"> Demote this admin to member</button>
-
-            </mat-card>
+            <div *ngIf="Admin">
+                    <mat-card class="option-buttons-card">
+                            <!-- If the this.userInView is in this.members, show "Make this member an admin button" -->
+                            <button *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmMakeAdmin()"> Make this member an admin </button>
+                            <button *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmRemoveMember()" style="background-color: #EE310C ">Remove their membership</button>
+                            <button *ngIf="this.admins && this.admins.indexOf(this.userInView) >= 0" (click)="confirmDemoteAdmin()"> Demote this admin to member</button>
+            
+                        </mat-card>
+            </div>
+           
         </mat-card>
 
         <!-- The card that contains search, options and lists -->
@@ -60,7 +63,7 @@
             <mat-card class = "list-card grid-card">
                 <mat-grid-list cols="1" rowHeight="30px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let admin of adminsInDisplay'
-                        (click)="handleClick(admin)"
+                        (click)="handleUserClick(admin)"
                         [colspan]="1"
                         [rowspan]="1">
                         {{ admin.email }};
@@ -70,7 +73,7 @@
             <mat-card class = "list-card grid-card">
                 <mat-grid-list cols="2" rowHeight="30px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let member of membersInDisplay'
-                        (click)="handleClick(member)"
+                        (click)="handleUserClick(member)"
                         [colspan]="1"
                         [rowspan]="1">
                         {{ member.email }};
@@ -80,3 +83,4 @@
         </mat-card>
     </div>
 </mat-card>
+

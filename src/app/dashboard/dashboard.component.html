@@ -1,11 +1,25 @@
 <div class="container full-page-container">
     <app-homepage-topbar></app-homepage-topbar>
-    <mat-card class="dashboard-title">Dashboard</mat-card>
-    
+    <mat-card class="dashboard-title">Dashboard</mat-card>   
 </div>
 
 
+<table style="width:100%">
+    <tr>
+      <th>
+            <div>
+                <app-org-pro-dashboard (orgChanged)="handleOrgChange($event)"></app-org-pro-dashboard>
+            </div>
+        </th>
+      <th>
+            <div>
+                    <app-orgdashboard [orgInView]="currentOrg"> </app-orgdashboard>
+                </div>
+                
+      </th>
+    </tr>
+  </table>
 
-<div *ngIf="Admin">
-    <app-dashboard-admin> </app-dashboard-admin>
-</div>
+
+
+
