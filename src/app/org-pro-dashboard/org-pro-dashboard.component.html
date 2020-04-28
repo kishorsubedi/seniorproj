@@ -2,7 +2,14 @@
 
 <mat-list>
   <h1>My orgs</h1>
-  <mat-list-item *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
+  
+  <ul>
+    <li *ngFor="let item of items | async">
+      {{ item.name }}
+    </li>
+  </ul>
+
+  <!-- <mat-list-item *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
     {{ org.id }}
-  </mat-list-item>
+  </mat-list-item> -->
 </mat-list>

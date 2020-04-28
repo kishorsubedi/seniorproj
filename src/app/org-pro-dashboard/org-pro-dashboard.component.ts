@@ -2,6 +2,14 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { org } from '../models/org'
 import { User } from '../models/user'
 import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/map';
+import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+
+export interface OrgRole{
+  id: string,
+  name: string
+}
 
 @Component({
   selector: 'app-org-pro-dashboard',
@@ -9,6 +17,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./org-pro-dashboard.component.css']
 })
 export class OrgProDashboardComponent implements OnInit {
+  private orgsCollection: AngularFirestoreCollection<OrgRole>;
+  items: Observable<OrgRole[]>;
 
   @Output() orgChanged = new EventEmitter<string>();
   user: User;
@@ -17,6 +27,10 @@ export class OrgProDashboardComponent implements OnInit {
 
   constructor(private auth: AuthService) {
     this.userEmail = auth.afAuth.auth.currentUser.email;
+    this.orgs = [];
+    
+    this.orgsCollection = this.auth.afs.collection<OrgRole>('allUsers/'+this.userEmail+'/orgs');
+
     this.getOrgs();
     // if(this.orgs){
     //   this.orgChanged.emit(this.orgs[0].id);
@@ -40,30 +54,19 @@ export class OrgProDashboardComponent implements OnInit {
     return this.auth.afs.doc('allUsers/'+this.userEmail).valueChanges();
   }
 
-  async getOrgs(){
+async getOrgs(){
 
-    this.auth.afs.doc<User>('allUsers/' + this.userEmail)
+    // const x = await this.auth.afs.firestore.doc('/allUsers/'+ this.userEmail + '/orgs/neworg').get()
+    // const data = x.data();
+    // console.log(data);
+    // console.log("LAAMO");
+
+    this.auth.afs.collection<OrgRole>('allUsers/' + this.userEmail + '/orgs')
      .valueChanges()
      .subscribe(data=>{
-         var orgRoleMap = data.orgRole;
-
-         var orgsArray = [];
-        
-          for(let org in orgRoleMap){
-            console.log(org);
-            console.log(orgRoleMap[org]);
-
-            orgsArray.push({
-              id:org,
-              role: orgRoleMap[org]
-            });
-          }
-          this.orgs = orgsArray;
+          this.orgs = data;
           this.orgChanged.emit(this.orgs[0].id);
-          console.log("From getOrgs");
-          console.log(this.orgs);
         })
-    // console.log(this.orgs);
-    //this.orgChanged.emit(this.orgs[0].id);
   }
+  
 }

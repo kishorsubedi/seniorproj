@@ -3,7 +3,9 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
+import { stringify } from 'querystring';
+import { EmailValidator } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ export class AuthService {
       if (user) {
         console.log("user id = ", afAuth.auth.currentUser.uid);
         this.currentUser = user;
-        this.router.navigateByUrl('/dashboard');
+        //this.router.navigateByUrl('/dashboard');
       } else {
         console.log("if not user");
         this.currentUser = null;
@@ -97,7 +99,7 @@ export class AuthService {
             if (docSnapshot.exists) {
               // do something
               var role = "member";
-              if (docSnapshot.data().activated == "false"){
+              if (docSnapshot.data().activated == false){
                 if (docSnapshot.data().creator != email){
                   window.alert("You aren't designated to activate this org!");
                   return;
@@ -114,26 +116,25 @@ export class AuthService {
                   return;
                 }
                 else{
-                    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
-                                             
-                    var userObj = {
-                      orgRole:{
-                        "mca": "admin",
-                      },
-                      email: email                  
-                    }
-      
-                    this.afs.firestore.doc("allUsers/" + email).set(userObj);
-      
+                    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(async (user) => {
+                    
+                    const snapshot = await this.afs.firestore.collection("allUsers").doc(email).set({email: email});
+                    var allUsersRef = this.afs.firestore.collection("allUsers").doc(email);
+                    const snapshot2 = await allUsersRef.collection("orgs").doc(signupOrgName).set({role: role, id: signupOrgName});
+
+                    const snapshot3 = await this.afs.doc("allUsers/"+email+"/orgs/"+signupOrgName).get().subscribe(function (querySnapshot) {
+                      console.log(querySnapshot.data()); 
+                    });
+                    
                     if(role == "admin"){
-                      this.afs.collection('orgs/').doc(signupOrgName).update({activated: true}); // a ref to the users collection
+                      await this.afs.collection('orgs/').doc(signupOrgName).update({activated: true}); // a ref to the users collection
                       var orgAdminsCollectionRef = this.afs.collection('orgs/'+signupOrgName+ "/admins"); // a ref to the users collection
-                      orgAdminsCollectionRef.doc(email).set({ email: email });
+                      await orgAdminsCollectionRef.doc(email).set({ email: email });
                     }
                     else{
                       var orgAdminsCollectionRef = this.afs.collection('orgs/'+signupOrgName+ "/users"); // a ref to the users collection
-                      orgAdminsCollectionRef.doc(email).set({ email: email });
-                      this.afs.collection("orgs/"+ signupOrgName + "/invitedMembers").doc(email).delete();                     
+                      await orgAdminsCollectionRef.doc(email).set({ email: email });
+                      await this.afs.collection("orgs/"+ signupOrgName + "/invitedMembers").doc(email).delete();                     
                     }
                   
                     this.router.navigateByUrl('/dashboard');
