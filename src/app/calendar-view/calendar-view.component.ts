@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   startOfDay,
@@ -16,6 +17,7 @@ import {
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+//import { Bootstrap } from 'bootstrap';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -43,7 +45,8 @@ const colors: any = {
 @Component({
   selector: 'app-calendar-view',
   templateUrl: './calendar-view.component.html',
-  styleUrls: ['./calendar-view.component.css']
+  styleUrls: [ './calendar-view.component.css'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class CalendarViewComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;

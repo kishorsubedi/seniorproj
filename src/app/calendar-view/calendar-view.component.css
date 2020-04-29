@@ -1,8 +1,15 @@
+@import '../../../node_modules/angular-calendar/css/angular-calendar.css';
+
 h3 {
     margin: 0 0 10px;
   }
   
-  pre {
-    background-color: #f5f5f5;
-    padding: 15px;
-  }
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+.container{
+  height: 100px;
+  width: 700px;
+}
