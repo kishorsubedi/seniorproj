@@ -23,6 +23,7 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import {  OnInit, Input } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 const colors: any = {
   red: {
@@ -48,6 +49,20 @@ export class CalendarViewComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   @Input() orgInView: string = '';
+
+  ngOnChanges(changes: any) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'orgInView': {
+            if (this.orgInView){
+              this.getEvents();
+            }
+          }
+        }
+      }
+    }
+  }
 
   view: CalendarView = CalendarView.Month;
 
@@ -80,6 +95,7 @@ export class CalendarViewComponent {
 
   refresh: Subject<any> = new Subject();
 
+  events1;
   events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
@@ -123,7 +139,26 @@ export class CalendarViewComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal, private afs:AngularFirestore) {
+    this.getEvents();
+  }
+
+  async getEvents(){
+    if(this.orgInView){
+      var eventsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/events').valueChanges();
+      await eventsValueChangesRef.subscribe(events=>{
+        console.log("Events being copied to local");
+        if(events){
+          this.events1 = events;
+        } 
+        console.log(this.events1);
+        if(this.events1){
+          console.log(this.events1[0].start)
+        }
+      })
+      //console.log(this.events1);
+    }
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
