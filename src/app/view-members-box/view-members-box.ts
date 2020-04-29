@@ -127,13 +127,24 @@ export class ViewMembersBox implements OnInit {
                   .then(docSnapshot => {
                     if (docSnapshot.exists) {
                       // do something
-                      window.alert("this user is already an OrgPro member. Inviting to this org");
+                      window.alert("this user is already an OrgPro member. Sending a notification!");
+                      //allUsers/user.pendingInvite.add();
+                      var allUsersCollectionRef = this.auth.afs.collection('allUsers/' + inviteEmail + '/pendingInvites/'); // a ref to the users collection
+                      try {
+                        allUsersCollectionRef.doc(org).set({});
+                      }
+                      catch(error) {
+                        //pendingInvites collection doesn't exist.
+                        console.error(error);
+                        // expected output: ReferenceError: nonExistentFunction is not defined
+                        // Note - error messages will vary depending on browser
+                      }
                     }
                     else{
-                        var inviteMembersCollectionRef = this.auth.afs.collection('orgs/' + org + '/invitedMembers/'); // a ref to the users collection
-                        inviteMembersCollectionRef.doc(inviteEmail).set({ email: inviteEmail });
                         window.alert("User invited. Pending their sign up!");
                     }
+                    var inviteMembersCollectionRef = this.auth.afs.collection('orgs/' + org + '/invitedMembers/'); // a ref to the users collection
+                    inviteMembersCollectionRef.doc(inviteEmail).set({ email: inviteEmail });
                   });
 
                 }
