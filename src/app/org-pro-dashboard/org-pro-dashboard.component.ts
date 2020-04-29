@@ -17,6 +17,7 @@ export interface OrgRole{
   styleUrls: ['./org-pro-dashboard.component.css']
 })
 export class OrgProDashboardComponent implements OnInit {
+  
   private orgsCollection: AngularFirestoreCollection<OrgRole>;
   items: Observable<OrgRole[]>;
 

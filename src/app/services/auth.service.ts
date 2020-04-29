@@ -53,32 +53,26 @@ export class AuthService {
   async loginWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
+
     // if first time, add user to users table, else do nothing
-    this.afs.firestore.doc('/users/'+ credential.user.email).get()
+    this.afs.firestore.doc('/allUsers/'+ credential.user.email).get()
       .then(docSnapshot => {
         if (docSnapshot.exists) {
           // do something
-          console.log("this user already exists in users table");
+          this.router.navigateByUrl('/dashboard');
         }
         else{
-          this.afs.firestore.doc('/admins/'+ credential.user.email).get()
-              .then(docSnapshot => {
-            if (docSnapshot.exists) {
-              // do something
-              console.log("this user already exists in admins table");
-            }
-            else{
-              this.createUser(credential.user.uid, credential.user.email)
-            }
-          });
+          window.alert("No Google account found associated with us");
         }
-        this.router.navigateByUrl('/dashboard');
       });
   }
 
-  createUser(uid:string, email:string){
-    var usersCollectionRef = this.afs.collection('users'); // a ref to the users collection
+  createUser(uid:string, email:string, org:string){
+    var usersCollectionRef = this.afs.collection('orgs/'+org+'/users/'); // a ref to the users collection
     usersCollectionRef.doc(email).set({ email: email });
+
+    var usersOrgCollectionRef = this.afs.collection('allUsers/'+email+'/orgs/'); // a ref to the users collection
+    usersOrgCollectionRef.doc(org).update({ role: 'member' });
   }
 
   signUpWithEmailPassword(email: string, password:string, signupOrgName:string) {

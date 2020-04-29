@@ -22,7 +22,9 @@
                 Events Attended:
             </mat-card>
             <!-- Options -->
-            <div *ngIf="Admin">
+            <!-- <div *ngIf="Admin | async"> -->
+            <div *ngIf="Admin | async">
+
                     <mat-card class="option-buttons-card">
                             <!-- If the this.userInView is in this.members, show "Make this member an admin button" -->
                             <button *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmMakeAdmin()"> Make this member an admin </button>
@@ -36,16 +38,17 @@
 
         <!-- The card that contains search, options and lists -->
         <mat-card class = "list-view-card sub-card">
+            
             <!-- The search box -->
-            <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
+            <input *ngIf="Admin" class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
             
             <!-- Make admin and invite options -->
-            <mat-card class = 'grid-card'>
+            <mat-card *ngIf="Admin" class = 'grid-card'>
                 <input #adminEmail type="text" placeholder="Type Email">
                 <br>
                 <button (click)="confirmMakeAdmin(adminEmail.value)"> Make Admin </button>
             </mat-card>
-            <mat-card class = 'grid-card'>
+            <mat-card *ngIf="Admin" class = 'grid-card'>
                 <input #inviteEmail type="text" placeholder="Type Email"> 
                 <br>
                 <button (click)="confirmInviteMember(inviteEmail.value)" > Invite </button>

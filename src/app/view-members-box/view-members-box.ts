@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service'; 
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-view-members-box',
@@ -11,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class ViewMembersBox implements OnInit {
   @Input()  orgInView: string ;
-
+  
   ngOnChanges(changes: any) {
     for (const propName in changes) {
       if (changes.hasOwnProperty(propName)) {
@@ -19,15 +20,15 @@ export class ViewMembersBox implements OnInit {
           case 'orgInView': {
             if (this.orgInView){
               this.updateUsersList();
+              this.isAdmin(this.orgInView);
             }
           }
         }
       }
     }
   }
+  Admin: Subject<boolean> = new Subject();
 
-  aw = false;
-  Admin:boolean = false;
   members: User[] = [];
   admins: User[] = [];
   userInView: User;
@@ -35,9 +36,10 @@ export class ViewMembersBox implements OnInit {
   adminsInDisplay: User[];
   searchText: string = '';
 
-
   constructor(private auth: AuthService, private afs: AngularFirestore) {
-
+    if(this.orgInView){
+      this.isAdmin(this.orgInView);
+    }
   }
  
   ngOnInit(){
@@ -95,25 +97,47 @@ export class ViewMembersBox implements OnInit {
     this.membersInDisplay = this.searchInArray(this.members);
   }
 
-  inviteMember(inviteEmail: string){
+  inviteMember(inviteEmail: string, org: string){
 
-    this.auth.afs.firestore.doc('/users/'+ inviteEmail).get()
+    this.auth.afs.firestore.doc('/orgs/'+ org + '/users/' + inviteEmail).get()
       .then(docSnapshot => {
         if (docSnapshot.exists) {
           // do something
           window.alert("User already a member!");
         }
         else{
-          this.auth.afs.firestore.doc('/invitedMembers/'+ inviteEmail).get()
+          this.auth.afs.firestore.doc('orgs/' + org + '/admins/' + inviteEmail).get()
           .then(docSnapshot => {
             if (docSnapshot.exists) {
               // do something
-              window.alert("this user is already invited!");
+              window.alert("this user is already an admin in this org!");
             }
             else{
-                var inviteMembersCollectionRef = this.auth.afs.collection('invitedMembers'); // a ref to the users collection
-                inviteMembersCollectionRef.doc(inviteEmail).set({ email: inviteEmail });
-                window.alert("User invited");
+
+              this.auth.afs.firestore.doc('orgs/' + org + '/invitedMembers/' + inviteEmail).get()
+              .then(docSnapshot => {
+                if (docSnapshot.exists) {
+                  // do something
+                  window.alert("this user is already invited!");
+                }
+                else{
+
+                  this.auth.afs.firestore.doc('allUsers/' + inviteEmail).get()
+                  .then(docSnapshot => {
+                    if (docSnapshot.exists) {
+                      // do something
+                      window.alert("this user is already an OrgPro member. Inviting to this org");
+                    }
+                    else{
+                        var inviteMembersCollectionRef = this.auth.afs.collection('orgs/' + org + '/invitedMembers/'); // a ref to the users collection
+                        inviteMembersCollectionRef.doc(inviteEmail).set({ email: inviteEmail });
+                        window.alert("User invited. Pending their sign up!");
+                    }
+                  });
+
+                }
+              });
+            
             }
           });
         }
@@ -121,26 +145,28 @@ export class ViewMembersBox implements OnInit {
 
   }
 
-  makeAdmin(makeAdminEmail: string)
+  makeAdmin(makeAdminEmail: string, org: string)
   {
     //is admin ? yes window.alert("Already an admin");
     //No, then if user-> make. no -> have to be an user.
-    this.auth.afs.firestore.doc('/admins/'+ makeAdminEmail).get()
+    this.auth.afs.firestore.doc('/orgs/'+ org + '/admins/' + makeAdminEmail).get()
           .then(docSnapshot => {
               if (docSnapshot.exists) {
                 // do something
                 window.alert("Already an admin!");
               }
               else{
-                    
-                  this.auth.afs.firestore.doc('/users/'+ makeAdminEmail).get()
+                  this.auth.afs.firestore.doc('/orgs/'+ org + '/users/'+ makeAdminEmail).get()
                 .then(docSnapshot => {
                     if (docSnapshot.exists) {
                       // make adminn
-                      var adminsCollectionRef = this.auth.afs.collection('admins'); // a ref to the users collection
+                      var adminsCollectionRef = this.auth.afs.collection('/orgs/'+ org + '/admins'); // a ref to the users collection
                       adminsCollectionRef.doc(makeAdminEmail).set({ email: makeAdminEmail });
                       
-                      this.auth.afs.firestore.doc(`users/${makeAdminEmail}`).delete();
+                      this.auth.afs.firestore.doc(`orgs/${org}/users/${makeAdminEmail}`).delete();
+
+                      var usersOrgCollectionRef = this.afs.collection('allUsers/'+makeAdminEmail+'/orgs/'); // a ref to the users collection
+                      usersOrgCollectionRef.doc(org).update({ role: 'admin' });
                     }
                     else{
                         window.alert("Have to be an user!");
@@ -152,11 +178,11 @@ export class ViewMembersBox implements OnInit {
   }
 
   demoteAdmin(email?: string){
-    this.auth.afs.firestore.doc('/admins/'+ email).get()
+    this.auth.afs.firestore.doc('/orgs/'+this.orgInView+ '/admins/'+ email).get()
           .then(docSnapshot => {
               if (docSnapshot.exists) {
-                this.auth.createUser("", email);
-                this.auth.afs.firestore.doc(`admins/${email}`).delete();
+                this.auth.createUser("", email, this.orgInView);
+                this.auth.afs.firestore.doc(`/orgs/${this.orgInView}/admins/${email}`).delete();
                 window.alert(email + " stripped of their admin privilege succesfully!");
               }
               else{
@@ -166,7 +192,7 @@ export class ViewMembersBox implements OnInit {
   }
 
   removeMember(email?: string){
-    this.auth.afs.firestore.doc('/users/'+ email).get()
+    this.auth.afs.firestore.doc('/allUsers/'+ email).get()
           .then(docSnapshot => {
               if (docSnapshot.exists) {
                 this.auth.afs.firestore.doc(`users/${email}`).delete();
@@ -205,10 +231,10 @@ export class ViewMembersBox implements OnInit {
   confirmMakeAdmin(email?: string){
     if (window.confirm("Are you sure you want to make this member an admin?")) { 
       if (email){
-        this.makeAdmin(email);
+        this.makeAdmin(email, this.orgInView);
       }
       else{
-        this.makeAdmin(this.userInView.email);
+        this.makeAdmin(this.userInView.email, this.orgInView);
       }
     }
   }
@@ -216,21 +242,21 @@ export class ViewMembersBox implements OnInit {
   confirmInviteMember(email: string){
     if (window.confirm("Are you sure you want to invite this user to join OrgPro?")) { 
       console.log(email);
-      this.inviteMember(email);
+      this.inviteMember(email, this.orgInView);
     }
   }
 
-  isAdmin(){
+  isAdmin(org:string){
     // var currUid = this.auth.afAuth.auth.currentUser.uid;
     var currEmail = this.auth.afAuth.auth.currentUser.email;
-    this.auth.afs.firestore.doc('/admins/'+ currEmail).get()
+    this.auth.afs.firestore.doc('/orgs/'+ org +'/admins/'+currEmail).get()
       .then(docSnapshot => {
         if (docSnapshot.exists) {
-          this.Admin = true;
+          this.Admin.next(true);
           console.log("this is an admin!");
         }
         else{
-          this.Admin = false;
+          this.Admin.next(false);
           console.log("this is not an admin!");
         }
       });
