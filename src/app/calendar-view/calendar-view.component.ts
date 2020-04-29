@@ -91,7 +91,7 @@ export class CalendarViewComponent {
       label: 'Delete',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
+        //this.events = this.events.filter((iEvent) => iEvent !== event);
         this.handleEvent('Deleted', event);
       },
     },
@@ -171,9 +171,18 @@ export class CalendarViewComponent {
     this.handleEvent('Dropped or resized', event);
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+  async handleEvent(action: string, event: CalendarEvent) {
+    // Delete the document
+    if(action == 'Deleted'){
+      console.log("action is delete");
+      if (window.confirm("Confirm that you want to delete this event")){
+        await this.afs.collection("orgs/"+ this.orgInView + "/events").doc(event.title).delete();
+        this.modalData = { event, action };
+        this.modal.open(this.modalContent, { size: 'lg' });
+      }
+    }
+    // this.modalData = { event, action };
+    // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
 
