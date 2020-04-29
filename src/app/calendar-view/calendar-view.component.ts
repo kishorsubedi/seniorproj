@@ -111,6 +111,14 @@ export class CalendarViewComponent {
   newEventLocation: string = "";
   newEventDescription: string= "";
 
+  // For Editing events
+  oldEventTitle: string = "";
+  editEventTitle: string = "";
+  editEventStart: string = "";
+  editEventEnd: string = "";
+  editEventLocation: string = "";
+  editEventDescription: string= "";
+
   constructor(private modal: NgbModal, private afs:AngularFirestore) {}
 
   // Gets events of current org from the database
@@ -184,8 +192,26 @@ export class CalendarViewComponent {
 
   handleEdit(event){
     console.log("Edited")
-    // this.modalData = {  event, "Edited" };
+    this.editEventTitle  = event.title;
+    this.oldEventTitle = event.title;
+    this.editEventStart = event.start;
+    this.editEventEnd = event.end;
+    this.editEventLocation = event.location;
+    this.editEventDescription = event.description;
+
     this.modal.open(this.modalEdit, { size: 'lg' });
+  }
+
+  async confirmEdit(){
+    if(window.confirm("Please confirm that you want to make these changes")){
+      await this.afs.collection('orgs/'+this.orgInView + "/events").doc(this.oldEventTitle).update({
+        title: this.editEventTitle,
+        start: this.editEventStart,
+        end: this.editEventEnd,
+        location: this.editEventLocation,
+        description: this.editEventDescription
+      });
+    }
   }
 
   handleEvent(action: string, event: CalendarEvent): void {

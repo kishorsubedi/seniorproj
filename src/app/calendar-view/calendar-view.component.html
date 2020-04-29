@@ -165,7 +165,7 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="newEventTitle"
+          [(ngModel)]="editEventTitle"
           (keyup)="refresh.next()"
         /> 
         <br>
@@ -173,7 +173,7 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="newEventStart"
+          [(ngModel)]="editEventStart"
           (keyup)="refresh.next()"
         />
         <br>
@@ -181,7 +181,7 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="newEventEnd"
+          [(ngModel)]="editEventEnd"
           (keyup)="refresh.next()"
         />
         <br>
@@ -189,7 +189,7 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="newEventLocation"
+          [(ngModel)]="editEventLocation"
           (keyup)="refresh.next()"
         />
         <br>
@@ -197,16 +197,15 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="newEventDescription"
+          [(ngModel)]="editEventDescription"
           (keyup)="refresh.next()"
         />
     
-        <button class="btn btn-primary pull-right" (click)="addEvent()">
-          Add new
+        <button class="btn btn-primary pull-right" (click)="confirmEdit()">
+          Edit Event
         </button>
         <div class="clearfix"></div>
       </h3>
-
     </div>
       
     <!-- <div class="modal-footer">
