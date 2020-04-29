@@ -64,11 +64,14 @@ export class CalendarViewComponent {
     }
   }
 
+  today = new Date("2020/04/13");
+
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
+
 
   modalData: {
     action: string;
@@ -94,71 +97,26 @@ export class CalendarViewComponent {
   ];
 
   refresh: Subject<any> = new Subject();
-
-  events1;
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  
+  events ;
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private afs:AngularFirestore) {
-    this.getEvents();
-  }
+  constructor(private modal: NgbModal, private afs:AngularFirestore) {}
 
   async getEvents(){
     if(this.orgInView){
       var eventsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/events').valueChanges();
       await eventsValueChangesRef.subscribe(events=>{
-        console.log("Events being copied to local");
         if(events){
-          this.events1 = events;
+          this.events = events;
+          console.log(events);
         } 
-        console.log(this.events1);
-        if(this.events1){
-          var seconds = this.events1[0].start
-          var date = Date(2010,9,5);
-          console.log(date);
+        
+        for(var event of this.events){
+          event.start = new Date(event.start);
         }
       })
-      //console.log(this.events1);
     }
   }
 
