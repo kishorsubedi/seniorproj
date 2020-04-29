@@ -34,6 +34,11 @@ import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.compo
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 
+//CalendarModules
+import { CommonModule } from '@angular/common';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 import { orgdashboardComponent } from './orgdashboard/orgdashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -98,6 +103,9 @@ const firebaseConfig = {
     MatGridListModule,
     MatListModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    CommonModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]
