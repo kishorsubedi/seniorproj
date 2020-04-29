@@ -22,6 +22,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
+import {  OnInit, Input } from '@angular/core';
 
 const colors: any = {
   red: {
@@ -45,6 +46,8 @@ const colors: any = {
 })
 export class CalendarViewComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+
+  @Input() orgInView: string = '';
 
   view: CalendarView = CalendarView.Month;
 
