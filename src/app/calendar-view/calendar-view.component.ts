@@ -50,6 +50,7 @@ const colors: any = {
 })
 export class CalendarViewComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+  @ViewChild('modalEdit', { static: true }) modalEdit: TemplateRef<any>;
 
   @Input() orgInView: string = '';
 
@@ -84,7 +85,7 @@ export class CalendarViewComponent {
       label: 'Edit ',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+        this.handleEdit(event);
       },
     },
     {
@@ -92,7 +93,7 @@ export class CalendarViewComponent {
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         //this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
+        this.handleDelete(event);
       },
     },
   ];
@@ -168,21 +169,28 @@ export class CalendarViewComponent {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
   }
 
-  async handleEvent(action: string, event: CalendarEvent) {
-    // Delete the document
-    if(action == 'Deleted'){
+  async handleDelete(event) {
       console.log("action is delete");
       if (window.confirm("Confirm that you want to delete this event")){
         await this.afs.collection("orgs/"+ this.orgInView + "/events").doc(event.title).delete();
-        this.modalData = { event, action };
-        this.modal.open(this.modalContent, { size: 'lg' });
+        window.alert("This event is deleted")
       }
     }
     // this.modalData = { event, action };
     // this.modal.open(this.modalContent, { size: 'lg' });
+
+
+  handleEdit(event){
+    console.log("Edited")
+    // this.modalData = {  event, "Edited" };
+    this.modal.open(this.modalEdit, { size: 'lg' });
+  }
+
+  handleEvent(action: string, event: CalendarEvent): void {
+    this.modalData = { event, action };
+    this.modal.open(this.modalContent, { size: 'lg' });
   }
 
 
