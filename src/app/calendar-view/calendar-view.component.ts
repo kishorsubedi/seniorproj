@@ -192,7 +192,7 @@ export class CalendarViewComponent {
   addEvent(): void {
     if(this.orgInView){
       var eventsCollectionRef = this.afs.firestore.collection("orgs").doc(this.orgInView).collection("events")
-      eventsCollectionRef.add({
+      eventsCollectionRef.doc(this.newEventTitle).set({
         title: this.newEventTitle,
         start: this.newEventStart,
         end: this.newEventEnd,
