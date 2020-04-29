@@ -81,7 +81,7 @@ export class CalendarViewComponent {
 
   actions: CalendarEventAction[] = [
     {
-      label: 'Edit',
+      label: 'Edit ',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
@@ -118,7 +118,7 @@ export class CalendarViewComponent {
       var eventsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/events').valueChanges();
       await eventsValueChangesRef.subscribe(events=>{
         if(events){
-          var duplicateEvents;
+          var duplicateEvents = [];
           duplicateEvents = events;
         } 
         
@@ -128,6 +128,7 @@ export class CalendarViewComponent {
           if(event.end){
             event.end = new Date(event.end);
           }
+          console.log(event);
         }
 
         this.events =duplicateEvents;
