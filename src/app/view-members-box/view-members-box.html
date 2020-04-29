@@ -40,7 +40,7 @@
         <mat-card class = "list-view-card sub-card">
             
             <!-- The search box -->
-            <input *ngIf="Admin" class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search Members And Admins">
+            <input *ngIf="Admin | async" class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search People in this Org">
             
             <!-- Make admin and invite options -->
             <mat-card *ngIf="Admin" class = 'grid-card'>
@@ -69,7 +69,7 @@
                         (click)="handleUserClick(admin)"
                         [colspan]="1"
                         [rowspan]="1">
-                        {{ admin.email }};
+                        {{ admin.name }}
                     </mat-grid-tile>
                 </mat-grid-list>
             </mat-card>
@@ -79,7 +79,7 @@
                         (click)="handleUserClick(member)"
                         [colspan]="1"
                         [rowspan]="1">
-                        {{ member.email }};
+                        {{ member.name }}
                     </mat-grid-tile>
                 </mat-grid-list>
             </mat-card>

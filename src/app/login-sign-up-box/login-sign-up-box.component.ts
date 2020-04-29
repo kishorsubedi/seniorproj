@@ -17,8 +17,8 @@ export class LoginSignUpBoxComponent implements OnInit {
     this.auth.signInWithEmailPassword(email, password);
   }
 
-  signUpWithEmailPassword(email:string, password:string, signupOrgName:string) {
-    this.auth.signUpWithEmailPassword(email, password, signupOrgName);
+  signUpWithEmailPassword(email:string, password:string, signupOrgName:string, name:string) {
+    this.auth.signUpWithEmailPassword(email, password, signupOrgName, name);
   }
 
   loginWithGoogle(){

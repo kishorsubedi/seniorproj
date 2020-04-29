@@ -55,9 +55,9 @@ export class ViewMembersBox implements OnInit {
     var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
     var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
     
-    await usersValueChangesRef.subscribe(members=>{
-      console.log("usersValueChangesRef called");
+    await usersValueChangesRef.subscribe(async members=>{
       if(members){
+        // eha garne ho 
         this.members = members;
       } 
 
@@ -68,11 +68,12 @@ export class ViewMembersBox implements OnInit {
     })
 
     await adminsValueChangesRef.subscribe(admins=>{
-
       if(admins){
         this.admins = admins;
       }
       if(this.admins){
+        this.userInView = admins[0];
+        console.log(this.userInView.email);
         this.adminsInDisplay = this.searchInArray(this.admins);
       }
     })
@@ -145,7 +146,7 @@ export class ViewMembersBox implements OnInit {
 
   }
 
-  makeAdmin(makeAdminEmail: string, org: string)
+  makeAdmin(makeAdminEmail: string, makeAdminName: string, org: string)
   {
     //is admin ? yes window.alert("Already an admin");
     //No, then if user-> make. no -> have to be an user.
@@ -161,7 +162,7 @@ export class ViewMembersBox implements OnInit {
                     if (docSnapshot.exists) {
                       // make adminn
                       var adminsCollectionRef = this.auth.afs.collection('/orgs/'+ org + '/admins'); // a ref to the users collection
-                      adminsCollectionRef.doc(makeAdminEmail).set({ email: makeAdminEmail });
+                      adminsCollectionRef.doc(makeAdminEmail).set({ email: makeAdminEmail, name: makeAdminName });
                       
                       this.auth.afs.firestore.doc(`orgs/${org}/users/${makeAdminEmail}`).delete();
 
@@ -177,11 +178,12 @@ export class ViewMembersBox implements OnInit {
           });
   }
 
-  demoteAdmin(email?: string){
+  demoteAdmin(email: string){
+    console.log(email);
     this.auth.afs.firestore.doc('/orgs/'+this.orgInView+ '/admins/'+ email).get()
           .then(docSnapshot => {
               if (docSnapshot.exists) {
-                this.auth.createUser("", email, this.orgInView);
+                this.auth.createUser("", email, this.userInView.name, this.orgInView);
                 this.auth.afs.firestore.doc(`/orgs/${this.orgInView}/admins/${email}`).delete();
                 window.alert(email + " stripped of their admin privilege succesfully!");
               }
@@ -205,7 +207,10 @@ export class ViewMembersBox implements OnInit {
   }
 
   confirmDemoteAdmin(email?: string){
-    if (window.confirm("Are you sure you want to strip their admin privilege?")) { 
+    if (!email){
+      email = this.userInView.email;
+    }
+    if (window.confirm("Are you sure you want to strip " + email +  " their admin privilege?")) { 
       if (email){
         this.demoteAdmin(email);
       }
@@ -216,7 +221,10 @@ export class ViewMembersBox implements OnInit {
   }
 
   confirmRemoveMember(email?: string){
-    if (window.confirm("Are you sure you want to remove this member?")) { 
+    if (!email){
+      email = this.userInView.email;
+    }
+    if (window.confirm("Are you sure you want to remove " + email +  " from member?")) { 
       if (email){
         this.removeMember(email);
       }
@@ -229,18 +237,24 @@ export class ViewMembersBox implements OnInit {
   // This functions displays a window asking the admin to confirm an make admin operation. 
   // If the user selects OK make admin is carried out. 
   confirmMakeAdmin(email?: string){
-    if (window.confirm("Are you sure you want to make this member an admin?")) { 
+    if (!email){
+      email = this.userInView.email;
+    }
+    if (window.confirm("Are you sure you want to make " + email +  " an admin?")) { 
       if (email){
-        this.makeAdmin(email, this.orgInView);
+        this.makeAdmin(email, this.userInView.name, this.orgInView);
       }
       else{
-        this.makeAdmin(this.userInView.email, this.orgInView);
+        this.makeAdmin(this.userInView.email, this.userInView.name, this.orgInView);
       }
     }
   }
 
   confirmInviteMember(email: string){
-    if (window.confirm("Are you sure you want to invite this user to join OrgPro?")) { 
+    if (!email){
+      email = this.userInView.email;
+    }
+    if (window.confirm("Are you sure you want to invite " + email +  " to join OrgPro?")) { 
       console.log(email);
       this.inviteMember(email, this.orgInView);
     }
