@@ -1,3 +1,6 @@
+<link rel="stylesheets" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheets" hfre="./node_modules/fontawesme-svg-core/style.css">
+
 <p>calendar-view works!
     {{this.orgInView}}
 </p>
@@ -138,11 +141,6 @@
       [(ngModel)]="newEventDescription"
       (keyup)="refresh.next()"
     />
-   {{ newEventTitle }}
-   {{ newEventStart }}
-   {{ newEventEnd }}
-   {{ newEventLocation }}
-   {{ newEventDescription}}
 
     <button class="btn btn-primary pull-right" (click)="addEvent()">
       Add new

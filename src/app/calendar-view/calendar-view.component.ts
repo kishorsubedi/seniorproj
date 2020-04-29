@@ -101,11 +101,11 @@ export class CalendarViewComponent {
   activeDayIsOpen: boolean = true;
 
   // For adding events
-  newEventTitle: string;
-  newEventStart: string;
-  newEventEnd: string;
-  newEventLocation: string;
-  newEventDescription: string;
+  newEventTitle: string = "";
+  newEventStart: string = "";
+  newEventEnd: string = "";
+  newEventLocation: string = "";
+  newEventDescription: string= "";
 
   constructor(private modal: NgbModal, private afs:AngularFirestore) {}
 
