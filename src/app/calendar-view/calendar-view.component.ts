@@ -64,8 +64,6 @@ export class CalendarViewComponent {
     }
   }
 
-  today = new Date("2020/04/13");
-
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -175,20 +173,31 @@ export class CalendarViewComponent {
 
 
   addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
+    if(this.orgInView){
+      var eventsCollectionRef = this.afs.firestore.collection("orgs").doc(this.orgInView).collection("events")
+      eventsCollectionRef.add({
+        title: this.newEventTitle,
+        start: this.newEventStart,
+        end: this.newEventEnd,
+        location: this.newEventLocation,
+        description: this.newEventDescription,
+      })
+    }
+      
+    // this.events = [
+    //   ...this.events,
+    //   {
+    //     title: 'New event',
+    //     start: startOfDay(new Date()),
+    //     end: endOfDay(new Date()),
+    //     color: colors.red,
+    //     draggable: true,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true,
+    //     },
+    //   },
+    //];
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
