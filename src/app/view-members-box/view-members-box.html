@@ -1,26 +1,83 @@
 <!-- The Main Outer Box -->
 <mat-card class = "main-card">
-    <mat-card-header>
-        <mat-card-title>
-            {{ this.orgInView }} View Members
-        </mat-card-title>
-    </mat-card-header>
+    <div style="width: 100%">
+            <ul>
+                    <li><a class="active">Membership</a></li>
+                    <li><a>Events</a></li>
+                    <li><a>Profile</a></li>
+            </ul>
+        </div>
     <div class = "content-div">
         <!-- Card that shows members detail -->
         <mat-card class = "detail-view-card sub-card" >
             <!-- The header: Photo and name -->
             <div class="details-header">
                 <img src="../../assets/images/photo.png" style="width:100px;height:100px">
-                <h1 *ngIf="this.userInView" >{{this.userInView.email}}</h1>
+                <h1 *ngIf="this.userInView" >{{this.userInView.name}}</h1>
             </div>
             <hr class="solid">
             <!-- Details -->
             <mat-card class="details-card">
-                Contact Info:
+                
+                <div *ngIf="this.userInView" >Contact Info:    {{this.userInView.email}}  </div>
                 <br>
+                <div *ngIf="this.userInView" >Joined:    Date joined  </div>
                 <br>
                 Events Attended:
+                <br>
+                <table style="width:100%; border: 1px solid black;">
+                    <tr>
+                      <td>
+                            <div>
+                                Kishor
+                            </div>
+                            <div>
+                                Subedi
+                            </div>
+                            <div>
+                                Subedi
+                            </div>
+                        </td>
+                      <td>
+                            <div>
+                                Bijesh
+                            </div>
+                            <div>
+                                Subedi
+                            </div>
+                            <div>
+                                Subedi
+                            </div>
+                      </td>
+                      <td>
+                        <div>
+                            Kishor
+                        </div>
+                        <div>
+                            Subedi
+                        </div>
+                        <div>
+                            Subedi
+                        </div>
+                    </td>
+                  <td>
+                        <div>
+                            
+                        </div>
+                        <div>
+                            ==>>
+                        </div>
+                        <div>
+                            
+                        </div>
+                  </td>
+
+                    </tr>
+
+                </table>   
+
             </mat-card>
+            
             <!-- Options -->
             <!-- <div *ngIf="Admin | async"> -->
             <div *ngIf="Admin | async">
