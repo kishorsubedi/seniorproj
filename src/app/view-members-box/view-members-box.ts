@@ -37,6 +37,7 @@ export class ViewMembersBox implements OnInit {
   searchText: string = '';
 
   constructor(private auth: AuthService, private afs: AngularFirestore) {
+    //observable to allusers/userEmail/orgs/org . once it changes, call isAdmin. it hides the admin view itself
     if(this.orgInView){
       this.isAdmin(this.orgInView);
     }
@@ -48,7 +49,6 @@ export class ViewMembersBox implements OnInit {
   handleUserClick(user: User){
     this.userInView = user;
   }
-
 
   // Updates the users and members list
   async updateUsersList(){
@@ -73,7 +73,7 @@ export class ViewMembersBox implements OnInit {
       }
       if(this.admins){
         this.userInView = admins[0];
-        console.log(this.userInView.email);
+        console.log(this.admins);
         this.adminsInDisplay = this.searchInArray(this.admins);
       }
     })
