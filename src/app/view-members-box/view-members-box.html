@@ -14,7 +14,8 @@
             <div class="details-header">
                 <img src="../../assets/images/photo.png" style="width:100px;height:100px">
 
-                <h1 *ngIf="this.userInView && this.Admin" >{{this.userInView.name}}    Admin</h1>
+                <h1 *ngIf="this.userInView" >{{this.userInView.name}}    </h1>
+
             </div>
             <hr class="solid">
             <!-- Details -->
@@ -106,7 +107,7 @@
                 <br>
                 <button (click)="confirmMakeAdmin(adminEmail.value)"> Make Admin </button>
             </mat-card>
-            
+
             <mat-card  class = 'grid-card'>
                 <input #inviteEmail type="text" placeholder="Invite Email"> 
                 <br>
