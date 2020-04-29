@@ -153,7 +153,9 @@ export class CalendarViewComponent {
         } 
         console.log(this.events1);
         if(this.events1){
-          console.log(this.events1[0].start)
+          var seconds = this.events1[0].start
+          var date = Date(2010,9,5);
+          console.log(date);
         }
       })
       //console.log(this.events1);
