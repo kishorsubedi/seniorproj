@@ -34,6 +34,13 @@ import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.compo
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 
+//Calendar modules
+import { CommonModule } from '@angular/common';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 import { orgdashboardComponent } from './orgdashboard/orgdashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -43,7 +50,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { OrgProDashboardComponent } from './org-pro-dashboard/org-pro-dashboard.component';
 import { CalendarViewComponent } from './calendar-view/calendar-view.component';
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyDqRAoNqLcT8LXeEHvkDo_0UB45WoPNeOo",
@@ -81,7 +87,15 @@ const firebaseConfig = {
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features 
     AngularFirestoreModule.enablePersistence(), BrowserAnimationsModule,
+    //Calendar Modules
     FormsModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    NgbModalModule, 
+    
     // Angular Material Modules
     MatSliderModule, 
     MatMenuModule, 
@@ -95,7 +109,9 @@ const firebaseConfig = {
     MatToolbarModule, 
     MatGridListModule,
     MatListModule,
+    CommonModule,
   ],
+  exports: [ CalendarViewComponent ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]
 })
