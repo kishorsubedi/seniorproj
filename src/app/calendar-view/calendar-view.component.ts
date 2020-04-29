@@ -97,8 +97,8 @@ export class CalendarViewComponent {
   ];
 
   refresh: Subject<any> = new Subject();
-  
-  events ;
+
+  events;
 
   activeDayIsOpen: boolean = true;
 
@@ -115,6 +115,9 @@ export class CalendarViewComponent {
         
         for(var event of this.events){
           event.start = new Date(event.start);
+          if(event.end){
+            event.end = new Date(event.end);
+          }
         }
       })
     }
