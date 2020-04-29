@@ -115,16 +115,20 @@ export class CalendarViewComponent {
       var eventsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/events').valueChanges();
       await eventsValueChangesRef.subscribe(events=>{
         if(events){
-          this.events = events;
-          console.log(events);
+          var duplicateEvents;
+          duplicateEvents = events;
         } 
         
-        for(var event of this.events){
+        for(var event of duplicateEvents){
+          event.actions = this.actions;
           event.start = new Date(event.start);
           if(event.end){
             event.end = new Date(event.end);
           }
         }
+
+        this.events =duplicateEvents;
+        console.log(this.events);
       })
     }
   }
