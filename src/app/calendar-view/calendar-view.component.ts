@@ -102,8 +102,16 @@ export class CalendarViewComponent {
 
   activeDayIsOpen: boolean = true;
 
+  // For adding events
+  newEventTitle: string;
+  newEventStart: string;
+  newEventEnd: string;
+  newEventLocation: string;
+  newEventDescription: string;
+
   constructor(private modal: NgbModal, private afs:AngularFirestore) {}
 
+  // Gets events of current org from the database
   async getEvents(){
     if(this.orgInView){
       var eventsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/events').valueChanges();
@@ -123,6 +131,7 @@ export class CalendarViewComponent {
     }
   }
 
+  // When a particular day is clicked on calendar
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -137,6 +146,7 @@ export class CalendarViewComponent {
     }
   }
 
+  //
   eventTimesChanged({
     event,
     newStart,
@@ -159,6 +169,10 @@ export class CalendarViewComponent {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
   }
+
+
+  // This part is for adding events
+
 
   addEvent(): void {
     this.events = [

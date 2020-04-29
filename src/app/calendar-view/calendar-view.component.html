@@ -100,7 +100,53 @@
   <br /><br /><br />
   
   <h3>
-    Edit events
+    Add Events 
+    <br><br>
+    Title
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="newEventTitle"
+      (keyup)="refresh.next()"
+    /> 
+    <br>
+    Start Date (MM/DD/YYYY)
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="newEventStart"
+      (keyup)="refresh.next()"
+    />
+    <br>
+    End Date (MM/DD/YYYY)
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="newEventEnd"
+      (keyup)="refresh.next()"
+    />
+    <br>
+    Location
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="newEventLocation"
+      (keyup)="refresh.next()"
+    />
+    <br>
+    Description
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="newEventDescription"
+      (keyup)="refresh.next()"
+    />
+   {{ newEventTitle }}
+   {{ newEventStart }}
+   {{ newEventEnd }}
+   {{ newEventLocation }}
+   {{ newEventDescription}}
+
     <button class="btn btn-primary pull-right" (click)="addEvent()">
       Add new
     </button>
