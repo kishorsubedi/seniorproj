@@ -26,6 +26,7 @@ import {
 } from 'angular-calendar';
 import {  OnInit, Input } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { AuthService } from '../services/auth.service';
 
 const colors: any = {
   red: {
@@ -89,13 +90,21 @@ export class CalendarViewComponent {
       },
     },
     {
-      label: 'Delete',
+      label: 'Delete ',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         //this.events = this.events.filter((iEvent) => iEvent !== event);
         this.handleDelete(event);
       },
     },
+    {
+      label: 'RSVP ',
+      a11yLabel: 'RSVP',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        //this.events = this.events.filter((iEvent) => iEvent !== event);
+        this.handleDelete(event);
+      },  
+    }
   ];
 
   refresh: Subject<any> = new Subject();
@@ -119,7 +128,8 @@ export class CalendarViewComponent {
   editEventLocation: string = "";
   editEventDescription: string= "";
 
-  constructor(private modal: NgbModal, private afs:AngularFirestore) {
+  constructor(private modal: NgbModal, private afs:AngularFirestore, private auth:AuthService) {
+    //console.log("Current user", auth.currentUser.email);
   }
 
   // Gets events of current org from the database
@@ -239,7 +249,9 @@ export class CalendarViewComponent {
         end: this.newEventEnd,
         location: this.newEventLocation,
         description: this.newEventDescription,
+        creator: this.auth.currentUser.email,
       })
+      eventsCollectionRef.doc(randomId).collection("rsvpedMembers").doc(this.auth.currentUser.email).set({})
     }
     this.newEventTitle = "";
     this.newEventStart = "";

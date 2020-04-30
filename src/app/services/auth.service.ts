@@ -12,7 +12,7 @@ import { EmailValidator } from '@angular/forms';
 })
 export class AuthService {
   private authState: Observable<firebase.User>
-  private currentUser: firebase.User = null;
+  public currentUser: firebase.User = null;
 
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, private router: Router) {
     this.authState = this.afAuth.authState;
