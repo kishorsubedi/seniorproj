@@ -102,7 +102,7 @@ export class CalendarViewComponent {
       a11yLabel: 'RSVP',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         //this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleDelete(event);
+        this.rsvpToEvent(event);
       },  
     }
   ];
@@ -235,10 +235,6 @@ export class CalendarViewComponent {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-
-  // This part is for adding events
-
-
   addEvent(): void {
     if(this.orgInView){
       var randomId = UUID.UUID();
@@ -253,7 +249,6 @@ export class CalendarViewComponent {
         creator: this.auth.currentUser.email,
         rsvpedMembers: [this.auth.currentUser.email],
       })
-      //eventsCollectionRef.doc(randomId).collection("rsvpedMembers").doc(this.auth.currentUser.email).set({})
     }
     this.newEventTitle = "";
     this.newEventStart = "";
@@ -262,9 +257,29 @@ export class CalendarViewComponent {
     this.newEventDescription = "";
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+  async rsvpToEvent(event){
+     // If the user has already RSVPed
+    if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) > -1){
+      window.alert("You have already registered to this event");
+    }
+    else{
+      if(window.confirm("Please confirm that you want to RSVP to this event")){
+        // If the user has already RSVPed
+        if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) > -1){
+          window.alert("You have already registered to the event");
+        }
+          event.rsvpedMembers.push(this.auth.currentUser.email);
+          await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
+            rsvpedMembers: event.rsvpedMembers
+          });
+          window.alert("Your RSVP is received");
+      }
+    }
   }
+
+  // deleteEvent(eventToDelete: CalendarEvent) {
+  //   this.events = this.events.filter((event) => event !== eventToDelete);
+  // }
 
   setView(view: CalendarView) {
     this.view = view;
