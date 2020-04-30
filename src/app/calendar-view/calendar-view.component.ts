@@ -27,6 +27,8 @@ import {
 import {  OnInit, Input } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../services/auth.service';
+import { ActionSequence } from 'protractor';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 const colors: any = {
   red: {
@@ -81,7 +83,7 @@ export class CalendarViewComponent {
     event: CalendarEvent;
   };
 
-  actions: CalendarEventAction[] = [
+  adminActions: CalendarEventAction[] = [
     {
       label: 'Edit ',
       a11yLabel: 'Edit',
@@ -96,16 +98,17 @@ export class CalendarViewComponent {
         //this.events = this.events.filter((iEvent) => iEvent !== event);
         this.handleDelete(event);
       },
-    },
-    {
+    }
+  ]
+
+  rsvpAction: CalendarEventAction = {
       label: 'RSVP ',
-      a11yLabel: 'RSVP',
+      a11yLabel: 'rsvp',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         //this.events = this.events.filter((iEvent) => iEvent !== event);
         this.rsvpToEvent(event);
       },  
-    }
-  ];
+    };
 
   refresh: Subject<any> = new Subject();
 
@@ -143,18 +146,25 @@ export class CalendarViewComponent {
         } 
         
         for(var event of duplicateEvents){
-          event.actions = this.actions;
+          event.actions = [...this.adminActions];  //Add an if(admin)
+          // If the user has not rsvped yet
+          console.log("event: ",event);
+          console.log("rsvped members: ", event.rsvpedMembers);
+          console.log("index of: ",event.rsvpedMembers.indexOf(this.auth.currentUser.email));
+          if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) == -1){
+            console.log("Entered if")
+            event.actions.push(this.rsvpAction);
+          }
           event.start = new Date(event.start);
           if(event.end){
             event.end = new Date(event.end);
           }
-          console.log(event);
         }
 
         this.events =duplicateEvents;
-        console.log(this.events);
       })
     }
+    console.log("Admin Actions: ", this.adminActions)
   }
 
   // When a particular day is clicked on calendar
@@ -191,7 +201,6 @@ export class CalendarViewComponent {
   }
 
   async handleDelete(event) {
-      console.log("action is delete");
       if (window.confirm("Confirm that you want to delete this event")){
         //await this.afs.collection("orgs/"+ this.orgInView + "/events").doc(event.id).set({});
         await this.afs.collection("orgs/"+ this.orgInView + "/events").doc(event.id).delete();
