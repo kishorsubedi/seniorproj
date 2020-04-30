@@ -111,7 +111,7 @@ export class CalendarViewComponent {
   newEventDescription: string= "";
 
   // For Editing events
-  oldEventTitle: string = "";
+  editEventId: string = "";
   editEventTitle: string = "";
   editEventStart: string = "";
   editEventEnd: string = "";
@@ -191,9 +191,8 @@ export class CalendarViewComponent {
 
 
   handleEdit(event){
-    console.log("Edited")
     this.editEventTitle  = event.title;
-    this.oldEventTitle = event.title;
+    this.editEventId = event.id;
     this.editEventStart = event.start;
     this.editEventEnd = event.end;
     this.editEventLocation = event.location;
@@ -204,13 +203,14 @@ export class CalendarViewComponent {
 
   async confirmEdit(){
     if(window.confirm("Please confirm that you want to make these changes")){
-      await this.afs.collection('orgs/'+this.orgInView + "/events").doc(this.oldEventTitle).update({
+      await this.afs.collection('orgs/'+this.orgInView + "/events").doc(this.editEventId).update({
         title: this.editEventTitle,
         start: this.editEventStart,
         end: this.editEventEnd,
         location: this.editEventLocation,
         description: this.editEventDescription
       });
+      window.alert("Changes to the event made.");
     }
   }
 
