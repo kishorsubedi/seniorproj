@@ -110,9 +110,18 @@ export class CalendarViewComponent {
       },  
     };
 
+  cancelRsvpAction: CalendarEventAction = {
+    label: 'Cancel RSVP ',
+    a11yLabel: 'cancel rsvp',
+    onClick: ({ event }: { event: CalendarEvent }): void => {
+      //this.events = this.events.filter((iEvent) => iEvent !== event);
+      this.cancelRsvpToEvent(event);
+    },  
+  };
+
   refresh: Subject<any> = new Subject();
 
-  events;
+  events: CalendarEvent[];
 
   activeDayIsOpen: boolean = true;
 
@@ -148,12 +157,12 @@ export class CalendarViewComponent {
         for(var event of duplicateEvents){
           event.actions = [...this.adminActions];  //Add an if(admin)
           // If the user has not rsvped yet
-          console.log("event: ",event);
-          console.log("rsvped members: ", event.rsvpedMembers);
-          console.log("index of: ",event.rsvpedMembers.indexOf(this.auth.currentUser.email));
           if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) == -1){
-            console.log("Entered if")
+            //console.log("Entered if")
             event.actions.push(this.rsvpAction);
+          }
+          else{
+            event.actions.push(this.cancelRsvpAction);
           }
           event.start = new Date(event.start);
           if(event.end){
@@ -164,7 +173,6 @@ export class CalendarViewComponent {
         this.events =duplicateEvents;
       })
     }
-    console.log("Admin Actions: ", this.adminActions)
   }
 
   // When a particular day is clicked on calendar
@@ -273,18 +281,33 @@ export class CalendarViewComponent {
     }
     else{
       if(window.confirm("Please confirm that you want to RSVP to this event")){
-        // If the user has already RSVPed
-        if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) > -1){
-          window.alert("You have already registered to the event");
-        }
-          event.rsvpedMembers.push(this.auth.currentUser.email);
-          await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
-            rsvpedMembers: event.rsvpedMembers
-          });
-          window.alert("Your RSVP is received");
+        event.rsvpedMembers.push(this.auth.currentUser.email);
+        await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
+          rsvpedMembers: event.rsvpedMembers
+        });
+        window.alert("Your RSVP is received");
       }
     }
   }
+
+  async cancelRsvpToEvent(event){
+    // If the user has already RSVPed
+   if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) == -1){
+     window.alert("You have not registered for this event yet");
+   }
+   else{
+     if(window.confirm("Please confirm that you want to cancel RSVP to this event")){
+        event.rsvpedMembers.splice(event.rsvpedMembers.indexOf(this.auth.currentUser.email),1);
+        console.log("event.rsvpedMembers: ", event.rsvpedMembers)
+        await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
+          rsvpedMembers: event.rsvpedMembers
+        });
+        window.alert("Your RSVP is canceled");
+     }
+   }
+ }
+
+
 
   // deleteEvent(eventToDelete: CalendarEvent) {
   //   this.events = this.events.filter((event) => event !== eventToDelete);
