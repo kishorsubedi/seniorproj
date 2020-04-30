@@ -193,6 +193,7 @@ export class CalendarViewComponent {
   async handleDelete(event) {
       console.log("action is delete");
       if (window.confirm("Confirm that you want to delete this event")){
+        //await this.afs.collection("orgs/"+ this.orgInView + "/events").doc(event.id).set({});
         await this.afs.collection("orgs/"+ this.orgInView + "/events").doc(event.id).delete();
         window.alert("This event is deleted")
       }
@@ -250,8 +251,9 @@ export class CalendarViewComponent {
         location: this.newEventLocation,
         description: this.newEventDescription,
         creator: this.auth.currentUser.email,
+        rsvpedMembers: [this.auth.currentUser.email],
       })
-      eventsCollectionRef.doc(randomId).collection("rsvpedMembers").doc(this.auth.currentUser.email).set({})
+      //eventsCollectionRef.doc(randomId).collection("rsvpedMembers").doc(this.auth.currentUser.email).set({})
     }
     this.newEventTitle = "";
     this.newEventStart = "";
