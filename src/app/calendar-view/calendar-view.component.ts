@@ -17,7 +17,7 @@ import {
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-//import { Bootstrap } from 'bootstrap';
+import { UUID } from 'angular2-uuid';  
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -74,7 +74,6 @@ export class CalendarViewComponent {
 
   viewDate: Date = new Date();
 
-
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -119,7 +118,8 @@ export class CalendarViewComponent {
   editEventLocation: string = "";
   editEventDescription: string= "";
 
-  constructor(private modal: NgbModal, private afs:AngularFirestore) {}
+  constructor(private modal: NgbModal, private afs:AngularFirestore) {
+  }
 
   // Gets events of current org from the database
   async getEvents(){
@@ -182,7 +182,7 @@ export class CalendarViewComponent {
   async handleDelete(event) {
       console.log("action is delete");
       if (window.confirm("Confirm that you want to delete this event")){
-        await this.afs.collection("orgs/"+ this.orgInView + "/events").doc(event.title).delete();
+        await this.afs.collection("orgs/"+ this.orgInView + "/events").doc(event.id).delete();
         window.alert("This event is deleted")
       }
     }
@@ -225,8 +225,10 @@ export class CalendarViewComponent {
 
   addEvent(): void {
     if(this.orgInView){
+      var randomId = UUID.UUID();
       var eventsCollectionRef = this.afs.firestore.collection("orgs").doc(this.orgInView).collection("events")
-      eventsCollectionRef.doc(this.newEventTitle).set({
+      eventsCollectionRef.doc(randomId).set({
+        id: randomId,
         title: this.newEventTitle,
         start: this.newEventStart,
         end: this.newEventEnd,

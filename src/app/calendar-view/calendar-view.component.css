@@ -10,9 +10,9 @@ pre {
   padding: 15px;
 }
 
-.container{
+.calendar-container{
   height: 100px;
-  width: 700px;
+  width: 650px;
 }
 
 #modalEdit{

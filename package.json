@@ -32,6 +32,7 @@
     "@fullcalendar/daygrid": "^4.4.0",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "angular-calendar": "^0.28.11",
+    "angular2-uuid": "^1.1.1",
     "angularfire2": "^5.4.2",
     "angularx-flatpickr": "^6.3.1",
     "date-fns": "^2.12.0",

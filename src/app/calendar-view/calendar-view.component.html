@@ -2,7 +2,7 @@
 <!-- <link rel="stylesheets" hfre="./node_modules/fontawesme-svg-core/style.css"> -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<div class = container>
+<div class = calendar-container>
 
 <p>calendar-view works!
     {{this.orgInView}}
@@ -214,7 +214,7 @@
       </button>
     </div> -->
   </ng-template>
-  <ng-template #modalContent let-close="close">
+  <ng-template #modalContent let-close="close" >
     <div class="modal-header">
       <h5 class="modal-title">Event action occurred</h5>
       <button type="button" class="close" (click)="close()">
