@@ -1,0 +1,247 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<body>
+<div class = calendar-container>
+<button class="btn btn-primary pull-right" (click)="openAddDialog()">
+  Add New Event
+</button>
+<div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Previous
+        </div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          Today
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month"
+        >
+          Month
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week"
+        >
+          Week
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day"
+        >
+          Day
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+  
+  <ng-template #modalAdd let-close="close">
+    <mat-card class="dialog" style="height:auto; width:500px; margin-left:auto; margin-right:auto; margin-top:150px;">
+      <mat-card-header>
+        <mat-card-title>Add Events </mat-card-title>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </mat-card-header>  
+      <mat-card-content>
+        Title
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newEventTitle"
+          (keyup)="refresh.next()"
+        /> 
+        <br>
+        Start Date (YYYY/MM/DD)
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newEventStart"
+          (keyup)="refresh.next()"
+        />
+        <br>
+        End Date (YYYY/MM/DD)
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newEventEnd"
+          (keyup)="refresh.next()"
+        />
+        <br>
+        Location
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newEventLocation"
+          (keyup)="refresh.next()"
+        />
+        <br>
+        Description
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newEventDescription"
+          (keyup)="refresh.next()"
+        />
+
+        <button class="btn btn-primary pull-right" (click)="addEvent(); close()">
+          Add new
+        </button>
+        <div class="clearfix"></div>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>
+
+  <!-- Dialog Box for Edit -->
+  <ng-template #modalEdit let-close="close">
+    <mat-card class="dialog" style="height:auto; width:500px; margin-left:auto; margin-right:auto; margin-top:150px;">
+      <mat-card-header>
+        <mat-card-title> Edit Event</mat-card-title>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <h3>
+          Title
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventTitle"
+            (keyup)="refresh.next()"
+          /> 
+          <br>
+          Start Date (YYYY/MM/DD)
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventStart"
+            (keyup)="refresh.next()"
+          />
+          <br>
+          End Date (YYYY/MM/DD)
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventEnd"
+            (keyup)="refresh.next()"
+          />
+          <br>
+          Location
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventLocation"
+            (keyup)="refresh.next()"
+          />
+          <br>
+          Description
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventDescription"
+            (keyup)="refresh.next()"
+          />
+      
+          <button class="btn btn-primary pull-right" (click)="confirmEdit(); close()">
+            Edit Event
+          </button>
+          <div class="clearfix"></div>
+        </h3>
+      </mat-card-content> 
+    <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div> -->
+    </mat-card>
+  </ng-template>
+
+  <ng-template #modalContent let-close="close" >
+    <div class="modal-header">
+      <h5 class="modal-title">Event action occurred</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        Action:
+        <pre>{{ modalData?.action }}</pre>
+      </div>
+      <div>
+        Event:
+        <pre>{{ modalData?.event | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div>
+  </ng-template>
+
+</body>

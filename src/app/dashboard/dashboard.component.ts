@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
+import { orgdashboardComponent } from '../orgdashboard/orgdashboard.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { OrgProDashboardComponent } from '../org-pro-dashboard/org-pro-dashboard.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  Admin = false;
+  currentOrg : string;
 
   constructor(private auth: AuthService, private router: Router) { 
-    this.isAdmin();
+
   }
   loadStripe() {
      
@@ -25,8 +26,8 @@ export class DashboardComponent implements OnInit {
     }
 }
 
-  ngOnInit() {
-    this.loadStripe()
+  ngOnInit(): void {
+ 
   }
   pay(amount) {    
  
@@ -50,22 +51,12 @@ export class DashboardComponent implements OnInit {
 }
 
 
-  async isAdmin(){
-    // var currUid = this.auth.afAuth.auth.currentUser.uid;
-    var currEmail = this.auth.afAuth.auth.currentUser.email;
-    this.auth.afs.firestore.doc('/admins/'+ currEmail).get()
-      .then(docSnapshot => {
-        if (docSnapshot.exists) {
-          this.Admin = true;
-          console.log("this is an admin!");
-        }
-        else{
-          this.Admin = false;
-          console.log("this is not an admin!");
-        }
-      });
+  handleOrgChange(orgName){
+    console.log("Kishor");
+    this.currentOrg = orgName
+    console.log("org change event reached dashboard " + this.currentOrg);
   }
-
+  
   signOut(){
     this.auth.signOut();
   }

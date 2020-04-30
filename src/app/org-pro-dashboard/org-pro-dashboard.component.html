@@ -1,0 +1,11 @@
+
+<mat-sidenav-container class="example-container">
+<mat-sidenav>
+  HI {{this.userEmail}}
+  <h1>My orgs</h1>
+  <mat-sidenav-content *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
+    {{ org.id }}
+    {{org.role}}
+  </mat-sidenav-content>
+</mat-sidenav>
+</mat-sidenav-container>

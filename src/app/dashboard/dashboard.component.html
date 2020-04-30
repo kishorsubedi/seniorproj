@@ -1,49 +1,25 @@
 <div class="container full-page-container">
     <app-homepage-topbar></app-homepage-topbar>
-    <div class="banner">
-        <div class="title">
-            <h1>WELCOME TO HOWARD <B>ACM</B></h1>
-        </div>
-    </div>
-    <mat-card class="feedback">
-        <div class="title">
-            <mat-card-title>WHO ARE WE?</mat-card-title>
-            <mat-card-actions>
-                <button mat-raised-button class="btn btn-primary btn-block" routerLink = "/about" routerLinkActive="active"> About ACM </button>
-            </mat-card-actions>
-        </div>
-    </mat-card>
-    <mat-card class="feedback">
-        <div class="title">
-            <mat-card-title>HOW CAN YOU BE INVOLVED?</mat-card-title>
-            <mat-card-actions>
-                <button mat-raised-button class="btn btn-primary btn-block" routerLink = "/calendar" routerLinkActive="active"> View Events </button>
-            </mat-card-actions>
-        </div>
-    </mat-card>
-    <mat-card class="pay-dues">
-        <div class="title">
-            <mat-card-title>HAVE YOU PAID YOUR DUES?</mat-card-title>
-            <mat-card-actions>
-                <button mat-raised-button (click)="pay(20)" class="btn btn-primary btn-block">Pay $20</button>
-            </mat-card-actions>
-            <mat-card-content>
-                <p>     
-                Try it out using the test card number <b>4242 4242 4242 4242</b>, a random three-digit CVC number, any expiration date in the future, and a random five-digit U.S. ZIP code.
-                </p>
-            </mat-card-content>
-          
-        </div>
-    </mat-card>
-    <mat-card class="feedback">
-        <div class="title">
-            <mat-card-title>DO YOU NEED TO REACH US?</mat-card-title>
-            <mat-card-actions>
-                <button mat-raised-button class="btn btn-primary btn-block" onclick="location.href='mailto:acm@scs.howard.edu';"> Contact Us </button>
-            </mat-card-actions>
-        </div>
-    </mat-card>
   
-<div *ngIf="Admin">
-    <app-dashboard-admin> </app-dashboard-admin>
+
 </div>
+
+<table style="width:100%">
+    <tr>
+      <th>
+            <div>
+                <app-org-pro-dashboard (orgChanged)="handleOrgChange($event)"></app-org-pro-dashboard>
+            </div>
+        </th>
+      <th>
+            <div>
+                <app-orgdashboard [orgInView]="currentOrg"> </app-orgdashboard>
+            </div>
+                
+      </th>
+    </tr>
+  </table>
+
+
+
+

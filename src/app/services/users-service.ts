@@ -6,13 +6,12 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UsersService {
-  admins: User[];
-  members: User[];
-  invitedMembers: User[];
+  orgAdminsCollectionRef = this.afs.collection('orgs/acm/admins');
   constructor(private afs: AngularFirestore) { }
   //Returns all admins as observables
    getAdmins(){
-    return this.afs.collection('admins').valueChanges();
+    return this.orgAdminsCollectionRef.valueChanges();
+    //return this.afs.collection('admins').valueChanges();
    }
    //Returns all members in an array
    getMembers(){
