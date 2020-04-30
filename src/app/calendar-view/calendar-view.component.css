@@ -3,8 +3,8 @@
 
 body{
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content:left;
+  /* align-items:; */
 }
 
 h3 {
@@ -17,7 +17,7 @@ pre {
 }
 
 .calendar-container{
-  height: 100px;
+  height: 100%;
   width: 650px;
 }
 
