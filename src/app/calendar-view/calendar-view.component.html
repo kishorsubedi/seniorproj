@@ -1,13 +1,12 @@
-<!-- <link rel="stylesheets" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheets" hfre="./node_modules/fontawesme-svg-core/style.css"> -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous"> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script> -->
 
+<body>
 <div class = calendar-container>
-
-<p>calendar-view works!
-    {{this.orgInView}}
-</p>
-
+<button class="btn btn-primary pull-right" (click)="openAddDialog()">
+  Add New Event
+</button>
 <div class="row text-center">
     <div class="col-md-4">
       <div class="btn-group">
@@ -100,72 +99,20 @@
     </mwl-calendar-day-view>
   </div>
   
-  <br /><br /><br />
-  
-  <h3>
-    Add Events 
-    <br><br>
-    Title
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="newEventTitle"
-      (keyup)="refresh.next()"
-    /> 
-    <br>
-    Start Date (YYYY/MM/DD)
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="newEventStart"
-      (keyup)="refresh.next()"
-    />
-    <br>
-    End Date (YYYY/MM/DD)
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="newEventEnd"
-      (keyup)="refresh.next()"
-    />
-    <br>
-    Location
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="newEventLocation"
-      (keyup)="refresh.next()"
-    />
-    <br>
-    Description
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="newEventDescription"
-      (keyup)="refresh.next()"
-    />
-
-    <button class="btn btn-primary pull-right" (click)="addEvent()">
-      Add new
-    </button>
-    <div class="clearfix"></div>
-  </h3>
-  
-</div>
-  <ng-template #modalEdit let-close="close">
-    <div class="modal-header">
-      <h1 class="modal-title">Event Edit</h1>
-      <button type="button" class="close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <h3>
+  <ng-template #modalAdd let-close="close">
+    <mat-card class="dialog" style="height:auto; width:500px; margin-left:auto; margin-right:auto; margin-top:150px;">
+      <mat-card-header>
+        <mat-card-title>Add Events </mat-card-title>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </mat-card-header>  
+      <mat-card-content>
         Title
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="editEventTitle"
+          [(ngModel)]="newEventTitle"
           (keyup)="refresh.next()"
         /> 
         <br>
@@ -173,7 +120,7 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="editEventStart"
+          [(ngModel)]="newEventStart"
           (keyup)="refresh.next()"
         />
         <br>
@@ -181,7 +128,7 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="editEventEnd"
+          [(ngModel)]="newEventEnd"
           (keyup)="refresh.next()"
         />
         <br>
@@ -189,7 +136,7 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="editEventLocation"
+          [(ngModel)]="newEventLocation"
           (keyup)="refresh.next()"
         />
         <br>
@@ -197,23 +144,84 @@
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="editEventDescription"
+          [(ngModel)]="newEventDescription"
           (keyup)="refresh.next()"
         />
-    
-        <button class="btn btn-primary pull-right" (click)="confirmEdit()">
-          Edit Event
+
+        <button class="btn btn-primary pull-right" (click)="addEvent(); close()">
+          Add new
         </button>
         <div class="clearfix"></div>
-      </h3>
-    </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>
+
+  <!-- Pop up dialog boxes -->
+  <ng-template #modalEdit let-close="close">
+    <mat-card class="dialog" style="height:auto; width:500px; margin-left:auto; margin-right:auto; margin-top:150px;">
+      <mat-card-header>
+        <mat-card-title> Edit Event</mat-card-title>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <h3>
+          Title
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventTitle"
+            (keyup)="refresh.next()"
+          /> 
+          <br>
+          Start Date (YYYY/MM/DD)
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventStart"
+            (keyup)="refresh.next()"
+          />
+          <br>
+          End Date (YYYY/MM/DD)
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventEnd"
+            (keyup)="refresh.next()"
+          />
+          <br>
+          Location
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventLocation"
+            (keyup)="refresh.next()"
+          />
+          <br>
+          Description
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editEventDescription"
+            (keyup)="refresh.next()"
+          />
       
+          <button class="btn btn-primary pull-right" (click)="confirmEdit(); close()">
+            Edit Event
+          </button>
+          <div class="clearfix"></div>
+        </h3>
+      </mat-card-content> 
     <!-- <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary" (click)="close()">
         OK
       </button>
     </div> -->
+    </mat-card>
   </ng-template>
+
   <ng-template #modalContent let-close="close" >
     <div class="modal-header">
       <h5 class="modal-title">Event action occurred</h5>
@@ -237,3 +245,5 @@
       </button>
     </div>
   </ng-template>
+
+</body>

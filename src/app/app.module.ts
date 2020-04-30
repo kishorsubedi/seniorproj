@@ -33,6 +33,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //CalendarModules
 import { CommonModule } from '@angular/common';
@@ -108,6 +109,7 @@ const firebaseConfig = {
     NgbModalModule,
     FlatpickrModule.forRoot(),
     FontAwesomeModule,
+    MatDialogModule,
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]

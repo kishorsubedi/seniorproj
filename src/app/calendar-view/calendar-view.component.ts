@@ -51,6 +51,7 @@ const colors: any = {
 export class CalendarViewComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   @ViewChild('modalEdit', { static: true }) modalEdit: TemplateRef<any>;
+  @ViewChild('modalAdd', { static: true }) modalAdd: TemplateRef<any>;
 
   @Input() orgInView: string = '';
 
@@ -84,7 +85,7 @@ export class CalendarViewComponent {
       label: 'Edit ',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEdit(event);
+        this.openEditDialog(event);
       },
     },
     {
@@ -190,7 +191,7 @@ export class CalendarViewComponent {
     // this.modal.open(this.modalContent, { size: 'lg' });
 
 
-  handleEdit(event){
+  openEditDialog(event){
     this.editEventTitle  = event.title;
     this.editEventId = event.id;
     this.editEventStart = event.start;
@@ -199,6 +200,10 @@ export class CalendarViewComponent {
     this.editEventDescription = event.description;
 
     this.modal.open(this.modalEdit, { size: 'lg' });
+  }
+
+  openAddDialog(){
+    this.modal.open(this.modalAdd, {size: 'lg'});
   }
 
   async confirmEdit(){
@@ -236,21 +241,11 @@ export class CalendarViewComponent {
         description: this.newEventDescription,
       })
     }
-      
-    // this.events = [
-    //   ...this.events,
-    //   {
-    //     title: 'New event',
-    //     start: startOfDay(new Date()),
-    //     end: endOfDay(new Date()),
-    //     color: colors.red,
-    //     draggable: true,
-    //     resizable: {
-    //       beforeStart: true,
-    //       afterEnd: true,
-    //     },
-    //   },
-    //];
+    this.newEventTitle = "";
+    this.newEventStart = "";
+    this.newEventEnd = "";
+    this.newEventLocation = "";
+    this.newEventDescription = "";
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {

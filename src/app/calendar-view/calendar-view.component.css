@@ -1,6 +1,12 @@
 @import '../../../node_modules/angular-calendar/css/angular-calendar.css';
 @import '../../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css'; 
 
+body{
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
+
 h3 {
     margin: 0 0 10px;
   }
@@ -11,11 +17,9 @@ pre {
 }
 
 .calendar-container{
-  height: 100px;
   width: 650px;
 }
 
-#modalEdit{
-  background-color: blue;
-  z-index: 10;
+.dialog{
+  height: 300px;
 }
