@@ -102,14 +102,13 @@
             <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search People in this Org">
             
             <!-- Make admin and invite options -->
-            <mat-card  class = 'grid-card'>
-                <input #adminEmail type="text" placeholder="Make Admin Email">
+            <mat-card  *ngIf="Admin | async" class = 'grid-card'>
+                <input #adminEmail type="text" placeholder="Search Admin Email">
                 <br>
                 <button (click)="confirmMakeAdmin(adminEmail.value)"> Make Admin </button>
             </mat-card>
-
-            <mat-card  class = 'grid-card'>
-                <input #inviteEmail type="text" placeholder="Invite Email"> 
+            <mat-card *ngIf="Admin | async" class = 'grid-card'>
+                <input #inviteEmail type="text" placeholder="Search Member Email"> 
                 <br>
                 <button (click)="confirmInviteMember(inviteEmail.value)" > Invite </button>
             </mat-card>
