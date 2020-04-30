@@ -33,6 +33,12 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+
+//CalendarModules
+import { CommonModule } from '@angular/common';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
 import { orgdashboardComponent } from './orgdashboard/orgdashboard.component';
@@ -42,6 +48,10 @@ import { ViewMembersBox } from './view-members-box/view-members-box';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { OrgProDashboardComponent } from './org-pro-dashboard/org-pro-dashboard.component';
+import { CalendarViewComponent } from './calendar-view/calendar-view.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 const firebaseConfig = {
@@ -70,6 +80,7 @@ const firebaseConfig = {
     ProfileComponent,
     LoginComponent,
     OrgProDashboardComponent,
+    CalendarViewComponent,
   ],
   imports: [
     
@@ -93,6 +104,12 @@ const firebaseConfig = {
     MatToolbarModule, 
     MatGridListModule,
     MatListModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    CommonModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
+    FontAwesomeModule,
+    MatDialogModule,
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]

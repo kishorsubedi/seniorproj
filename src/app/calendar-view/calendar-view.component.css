@@ -1,0 +1,26 @@
+@import '../../../node_modules/angular-calendar/css/angular-calendar.css';
+@import '../../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css'; 
+
+body{
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
+
+h3 {
+    margin: 0 0 10px;
+  }
+  
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+.calendar-container{
+  height: 100px;
+  width: 650px;
+}
+
+.dialog{
+  height: 300px;
+}
