@@ -72,6 +72,7 @@ export class ViewMembersBox implements OnInit {
         this.admins = admins;
       }
       if(this.admins){
+        console.log(this.admins);
         this.userInView = admins[0];
         console.log(this.userInView.email);
         this.adminsInDisplay = this.searchInArray(this.admins);
@@ -83,8 +84,8 @@ export class ViewMembersBox implements OnInit {
     let result: User[];
     result = [];
     for(var user of users){
-      if(user.email != null){
-        if(user.email.toLowerCase().search(this.searchText.toLowerCase()) != -1){
+      if(user.name != null){
+        if(user.name.toLowerCase().search(this.searchText.toLowerCase()) != -1){
           result.push(user)
         }
       }
@@ -263,6 +264,8 @@ export class ViewMembersBox implements OnInit {
   isAdmin(org:string){
     // var currUid = this.auth.afAuth.auth.currentUser.uid;
     var currEmail = this.auth.afAuth.auth.currentUser.email;
+    console.log("HU"+ currEmail);
+    console.log("HU"+ org);
     this.auth.afs.firestore.doc('/orgs/'+ org +'/admins/'+currEmail).get()
       .then(docSnapshot => {
         if (docSnapshot.exists) {
