@@ -7,6 +7,23 @@ export interface PeriodicElement {
   symbol: string;
 }
 
+export interface AttendedEvents {
+  date: string;
+  title: string;
+  org: string;
+}
+
+const EVENT_DATA: AttendedEvents[] = [
+  {date:'04/03/2020', title: 'Bit Awards', org: 'ACM'},
+  {date:'10/15/2020', title: 'Byte@Night', org: 'ACM'},
+  {date:'08/27/2020', title: 'GBM', org: 'ACM'},
+  {date:'09/03/2020', title: 'Git Work Shop', org: 'ACM'},
+  {date:'04/25/2020', title: 'Meet&Greet', org: 'ACM'},
+  {date:'05/18/2020', title: 'Networking Workshop', org: 'ACM'},
+  {date:'07/25/2020', title: 'Eminado', org: 'ACM'},
+  {date:'11/18/2020', title: 'Ma Lo', org: 'ACM'},
+]
+
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
@@ -28,8 +45,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ProfileComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['date', 'title', 'org'];
+  dataSource = EVENT_DATA;
 
   constructor() { }
 
