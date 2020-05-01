@@ -7,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  dataSource;
+
+  myDataArray = [
+    "succeed","print", "discover",
+    "bust","mundane","plod","decision",
+    "knotty","bustling","bag","undesirable",
+    "worship","lumber","damage"
+  ]
+
   constructor() { }
 
   ngOnInit(): void {

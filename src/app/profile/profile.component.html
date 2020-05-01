@@ -29,10 +29,19 @@
 
         <mat-card class= "list-view-card sub-card">
             <h1>Added sub card</h1>
-
-
+            <table mat-table [dataSource]="myDataArray">
+            </table>
+            <!-- <mat-list>
+                <h3 matSubheader>Folders</h3>
+                <mat-list-item> Pepper </mat-list-item>
+                <mat-list-item> Salt </mat-list-item>
+                <mat-divider></mat-divider>
+                <h3 matSubheader>Notes</h3>
+                <mat-list-item> Big DATA </mat-list-item>
+                <mat-list-item> Salt </mat-list-item>
+                <mat-list-item> Paprika </mat-list-item>
+            </mat-list> -->
         </mat-card>
-
 
     </div>
 </mat-card>
