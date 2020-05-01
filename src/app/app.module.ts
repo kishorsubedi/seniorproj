@@ -34,6 +34,7 @@ import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.compo
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 //CalendarModules
 import { CommonModule } from '@angular/common';
@@ -104,6 +105,7 @@ const firebaseConfig = {
     MatToolbarModule, 
     MatGridListModule,
     MatListModule,
+    MatTableModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     CommonModule,
     NgbModalModule,
