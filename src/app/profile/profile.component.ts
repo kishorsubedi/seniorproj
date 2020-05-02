@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { UsersService } from '../services/users-service';
 
 export interface AttendedEvents {
   date: string;
@@ -38,13 +39,29 @@ export class ProfileComponent implements OnInit {
 
   
   // where i use the AuthService for the email.
-  constructor(private auth: AuthService) { 
+  constructor(private auth: AuthService,
+    private usersService: UsersService) { 
+
     this.userEmail = auth.afAuth.auth.currentUser.email;
-    this.userName = auth.afAuth.auth.currentUser.displayName;
+    //this.userName = auth.afAuth.auth.currentUser.displayName;
+
+    this.usersService.getEvents();
   }
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
+  }
+
+  getEvents(){
+    this.usersService.getEvents();
+  }
+
+  getOrgs(){
+    this.usersService.getOrgs();
+  }
+
+  getUserName(){
+    this.usersService.getUserName();
   }
 
 }
