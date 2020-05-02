@@ -35,6 +35,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
 
 //CalendarModules
 import { CommonModule } from '@angular/common';
@@ -106,12 +107,14 @@ const firebaseConfig = {
     MatGridListModule,
     MatListModule,
     MatTableModule,
+    MatDialogModule,
+    MatSortModule,
+
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     CommonModule,
     NgbModalModule,
     FlatpickrModule.forRoot(),
     FontAwesomeModule,
-    MatDialogModule,
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]

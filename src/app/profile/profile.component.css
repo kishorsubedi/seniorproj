@@ -63,3 +63,28 @@ table {
     text-align: left;
     font-size: 3vw;
 }
+th.mat-sort-header-sorted {
+    color: black;
+}
+.example-container {
+    height: 400px;
+    overflow: auto;
+}
+.events-header{
+    height: 130px;
+    text-align: center;
+    margin: 10px;
+}
+.attended-title-card{
+    margin-top:5px;
+    height: 20px;
+    padding: 8px;
+}
+.event-card {
+    height: auto;
+    padding:5px;
+    margin-top:5px;
+}
+.boxed {
+    border: 1px solid green ;
+}
