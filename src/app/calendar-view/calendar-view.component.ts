@@ -264,7 +264,7 @@ export class CalendarViewComponent {
         location: this.newEventLocation,
         description: this.newEventDescription,
         creator: this.auth.currentUser.email,
-        rsvpedMembers: [this.auth.currentUser.email],
+        rsvpedMembers: [],
       })
     }
     this.newEventTitle = "";
@@ -285,6 +285,7 @@ export class CalendarViewComponent {
         await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
           rsvpedMembers: event.rsvpedMembers
         });
+        await this.afs.collection('allUsers/'+ this.auth.currentUser.email + '/orgs/' + this.orgInView + '/rsvpEvents').doc(event.id).set({});
         window.alert("Your RSVP is received");
       }
     }
@@ -302,6 +303,8 @@ export class CalendarViewComponent {
         await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
           rsvpedMembers: event.rsvpedMembers
         });
+        await this.afs.collection('allUsers/'+ this.auth.currentUser.email + '/orgs/' + this.orgInView + '/rsvpEvents').doc(event.id).delete();
+        console.log("Entering allUseres")
         window.alert("Your RSVP is canceled");
      }
    }
