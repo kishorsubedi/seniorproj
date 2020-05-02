@@ -14,7 +14,9 @@ export class UsersService {
     private afs: AngularFirestore) {
       
     this.userCollectionRef = this.afs.doc("allUsers/"+ this.auth.afAuth.auth.currentUser.email);
-   }
+    
+    
+  }
 
   getEvents(){
     console.log("RIRI");
@@ -25,8 +27,30 @@ export class UsersService {
     //get user's orgs from database here
   }
 
-  getUserName(){
-    //do this.userCollectionRef.get().then(snapshot => ..... 
+  async getUserName(){
+    //do this.userCollectionRef.get().then(snapshot => .....
+    var userNameString: string;
+    /*
+    var doc = await this.userCollectionRef.ref.get();
+    userNameString = doc.get('name');
+    console.log("WTF Type: ", typeof userNameString);
+    */
+
+   await this.userCollectionRef.ref.get().then(doc => {
+      if (doc.exists) {
+        console.log("Name please: ", typeof doc.get('name'))
+      userNameString = String(doc.get('name'));
+      } else {
+        console.log("Either no name or error!");
+        return;
+      }
+
+    }).catch(err => {
+      console.log("Error getting doc: ", err)
+    });
+    
+    return userNameString;
   }
+  
 }
 

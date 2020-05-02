@@ -40,12 +40,17 @@ export class ProfileComponent implements OnInit {
   
   // where i use the AuthService for the email.
   constructor(private auth: AuthService,
-    private usersService: UsersService) { 
+    private users: UsersService) { 
 
     this.userEmail = auth.afAuth.auth.currentUser.email;
-    //this.userName = auth.afAuth.auth.currentUser.displayName;
+    // this.userName = this.getUserName();
 
-    this.usersService.getEvents();
+    console.log("logging: ", typeof this.users.getUserName() );
+
+    this.users.getEvents();
+    this.users.getUserName().then(res => {
+      this.userName = res;
+    });
   }
 
   ngOnInit(): void {
@@ -53,15 +58,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getEvents(){
-    this.usersService.getEvents();
+    this.users.getEvents();
   }
 
   getOrgs(){
-    this.usersService.getOrgs();
+    this.users.getOrgs();
   }
 
-  getUserName(){
-    this.usersService.getUserName();
-  }
+  /*getUserName(){
+    this.users.getUserName();
+  }*/
 
 }
