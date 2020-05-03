@@ -4,9 +4,6 @@
 
 <body>
 <div class = calendar-container>
-<button class="btn btn-primary pull-right" (click)="openAddDialog()">
-  Add New Event
-</button>
 <div class="row text-center">
     <div class="col-md-4">
       <div class="btn-group">
@@ -40,30 +37,10 @@
     <div class="col-md-4">
       <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
     </div>
-    <div class="col-md-4">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Month)"
-          [class.active]="view === CalendarView.Month"
-        >
-          Month
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Week)"
-          [class.active]="view === CalendarView.Week"
-        >
-          Week
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Day)"
-          [class.active]="view === CalendarView.Day"
-        >
-          Day
-        </div>
-      </div>
+    <div class="col-md-4" style="align-self: right;">
+      <button class="btn btn-primary pull-right" (click)="openAddDialog()">
+        Add New Event
+      </button>
     </div>
   </div>
   <br />
@@ -227,10 +204,11 @@
   <ng-template #modalContent let-close="close" >
     <mat-dialog-content>
       <div class="dialog-header">
-        Event action occurred
+        <mat-card-title display="inline">{{modalData.event.title}}</mat-card-title>
         <button mat-button class="close-icon" [mat-dialog-close]="true">
           <mat-icon>close</mat-icon>
         </button>
+        <!-- <mat-card-subtitle>{{modalData.event.startString}}</mat-card-subtitle> -->
       </div>
       <div class="dialog-body">
         <div>

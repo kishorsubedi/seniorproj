@@ -82,6 +82,8 @@ export class CalendarViewComponent {
   modalData: {
     action: string;
     event: CalendarEvent;
+    startString? : string;
+    startEnd? : string;
   };
 
   adminActions: CalendarEventAction[] = [
@@ -165,13 +167,17 @@ export class CalendarViewComponent {
           else{
             event.actions.push(this.cancelRsvpAction);
           }
+          event.startString = event.start
           event.start = new Date(event.start);
+          console.log(event)
           if(event.end){
+            event.endString = event.end
             event.end = new Date(event.end);
           }
         }
 
         this.events =duplicateEvents;
+        console.log(this.events)
       })
     }
   }

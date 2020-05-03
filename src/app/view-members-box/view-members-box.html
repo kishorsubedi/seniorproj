@@ -118,7 +118,6 @@
 
             <!-- lists -->
             <mat-card [ngStyle]="(Admin | async) && {'height': '285px'}" class = "list-card grid-card">
-                {{Admin}}
                 <mat-grid-list cols="1" rowHeight="30px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let admin of adminsInDisplay'
                         (click)="handleUserClick(admin)"
