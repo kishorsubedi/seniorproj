@@ -29,6 +29,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../services/auth.service';
 import { ActionSequence } from 'protractor';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { MatDialog } from '@angular/material/dialog';
 
 const colors: any = {
   red: {
@@ -140,7 +141,7 @@ export class CalendarViewComponent {
   editEventLocation: string = "";
   editEventDescription: string= "";
 
-  constructor(private modal: NgbModal, private afs:AngularFirestore, private auth:AuthService) {
+  constructor(private modal: NgbModal, private afs:AngularFirestore, private auth:AuthService, private dialog:MatDialog) {
     //console.log("Current user", auth.currentUser.email);
   }
 
@@ -249,7 +250,7 @@ export class CalendarViewComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    this.dialog.open(this.modalContent);
   }
 
   addEvent(): void {
