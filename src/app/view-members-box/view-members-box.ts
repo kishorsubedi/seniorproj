@@ -41,6 +41,11 @@ export class ViewMembersBox implements OnInit {
     if(this.orgInView){
       this.isAdmin(this.orgInView);
     }
+    console.log("Admin", this.Admin);
+    // if(document.getElementById('adminList')){
+    //   console.log("Adminlist element fetched")
+    //   document.getElementById('adminList').style.height = '100px';
+    // }
   }
  
   ngOnInit(){
@@ -289,7 +294,6 @@ export class ViewMembersBox implements OnInit {
         }
       });
   }
-
 }
 
 

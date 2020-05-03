@@ -29,6 +29,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../services/auth.service';
 import { ActionSequence } from 'protractor';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { MatDialog } from '@angular/material/dialog';
 
 const colors: any = {
   red: {
@@ -81,6 +82,8 @@ export class CalendarViewComponent {
   modalData: {
     action: string;
     event: CalendarEvent;
+    startString? : string;
+    startEnd? : string;
   };
 
   adminActions: CalendarEventAction[] = [
@@ -140,7 +143,7 @@ export class CalendarViewComponent {
   editEventLocation: string = "";
   editEventDescription: string= "";
 
-  constructor(private modal: NgbModal, private afs:AngularFirestore, private auth:AuthService) {
+  constructor(private modal: NgbModal, private afs:AngularFirestore, private auth:AuthService, private dialog:MatDialog) {
     //console.log("Current user", auth.currentUser.email);
   }
 
@@ -164,13 +167,17 @@ export class CalendarViewComponent {
           else{
             event.actions.push(this.cancelRsvpAction);
           }
+          event.startString = event.start
           event.start = new Date(event.start);
+          console.log(event)
           if(event.end){
+            event.endString = event.end
             event.end = new Date(event.end);
           }
         }
 
         this.events =duplicateEvents;
+        console.log(this.events)
       })
     }
   }
@@ -227,11 +234,11 @@ export class CalendarViewComponent {
     this.editEventLocation = event.location;
     this.editEventDescription = event.description;
 
-    this.modal.open(this.modalEdit, { size: 'lg' });
+    this.dialog.open(this.modalEdit);
   }
 
   openAddDialog(){
-    this.modal.open(this.modalAdd, {size: 'lg'});
+    this.dialog.open(this.modalAdd);
   }
 
   async confirmEdit(){
@@ -249,7 +256,7 @@ export class CalendarViewComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    this.dialog.open(this.modalContent);
   }
 
   addEvent(): void {
@@ -264,7 +271,7 @@ export class CalendarViewComponent {
         location: this.newEventLocation,
         description: this.newEventDescription,
         creator: this.auth.currentUser.email,
-        rsvpedMembers: [this.auth.currentUser.email],
+        rsvpedMembers: [],
       })
     }
     this.newEventTitle = "";
@@ -285,6 +292,7 @@ export class CalendarViewComponent {
         await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
           rsvpedMembers: event.rsvpedMembers
         });
+        await this.afs.collection('allUsers/'+ this.auth.currentUser.email + '/orgs/' + this.orgInView + '/rsvpEvents').doc(event.id).set({});
         window.alert("Your RSVP is received");
       }
     }
@@ -302,6 +310,8 @@ export class CalendarViewComponent {
         await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
           rsvpedMembers: event.rsvpedMembers
         });
+        await this.afs.collection('allUsers/'+ this.auth.currentUser.email + '/orgs/' + this.orgInView + '/rsvpEvents').doc(event.id).delete();
+        console.log("Entering allUseres")
         window.alert("Your RSVP is canceled");
      }
    }

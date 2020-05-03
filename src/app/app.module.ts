@@ -55,6 +55,7 @@ import { CalendarViewComponent } from './calendar-view/calendar-view.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 
 const firebaseConfig = {
@@ -117,6 +118,10 @@ const firebaseConfig = {
     NgbModalModule,
     FlatpickrModule.forRoot(),
     FontAwesomeModule,
+    MatDialogModule,
+    ContextMenuModule.forRoot({
+      useBootstrap4: true,
+    }),
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]

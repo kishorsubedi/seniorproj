@@ -1,10 +1,9 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<link href="https://unpkg.com/bootstrap-css-only@4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
 
 <body>
 <div class = calendar-container>
-<button class="btn btn-primary pull-right" (click)="openAddDialog()">
-  Add New Event
-</button>
 <div class="row text-center">
     <div class="col-md-4">
       <div class="btn-group">
@@ -38,30 +37,10 @@
     <div class="col-md-4">
       <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
     </div>
-    <div class="col-md-4">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Month)"
-          [class.active]="view === CalendarView.Month"
-        >
-          Month
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Week)"
-          [class.active]="view === CalendarView.Week"
-        >
-          Week
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Day)"
-          [class.active]="view === CalendarView.Day"
-        >
-          Day
-        </div>
-      </div>
+    <div class="col-md-4" style="align-self: right;">
+      <button class="btn btn-primary pull-right" (click)="openAddDialog()">
+        Add New Event
+      </button>
     </div>
   </div>
   <br />
@@ -98,14 +77,15 @@
   </div>
   
   <ng-template #modalAdd let-close="close">
-    <mat-card class="dialog" style="height:auto; width:500px; margin-left:auto; margin-right:auto; margin-top:150px;">
-      <mat-card-header>
-        <mat-card-title>Add Events </mat-card-title>
-        <button type="button" class="close" (click)="close()">
-          <span aria-hidden="true">&times;</span>
+    <mat-dialog-content>
+      <div class = "dialog-header">
+        Add Events 
+        <button mat-button class="close-icon" [mat-dialog-close]="true">
+          <mat-icon>close</mat-icon>
         </button>
-      </mat-card-header>  
-      <mat-card-content>
+        
+      </div>  
+      <div class = "dialog-content">
         Title
         <input
           type="text"
@@ -150,21 +130,21 @@
           Add new
         </button>
         <div class="clearfix"></div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </mat-dialog-content>
   </ng-template>
 </div>
 
   <!-- Dialog Box for Edit -->
   <ng-template #modalEdit let-close="close">
-    <mat-card class="dialog" style="height:auto; width:500px; margin-left:auto; margin-right:auto; margin-top:150px;">
-      <mat-card-header>
-        <mat-card-title> Edit Event</mat-card-title>
-        <button type="button" class="close" (click)="close()">
-          <span aria-hidden="true">&times;</span>
+    <mat-dialog-content>
+      <div class = "dialog-header">
+        <mat-card-title style="display:inline"> Edit Event</mat-card-title>
+        <button mat-button class="close-icon" [mat-dialog-close]="true" style="align-self:right">
+          <mat-icon>close</mat-icon>
         </button>
-      </mat-card-header>
-      <mat-card-content>
+      </div>
+      <div class = "dialog-content">
         <h3>
           Title
           <input
@@ -211,37 +191,84 @@
           </button>
           <div class="clearfix"></div>
         </h3>
-      </mat-card-content> 
+
     <!-- <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary" (click)="close()">
         OK
       </button>
     </div> -->
-    </mat-card>
+      </div>
+    </mat-dialog-content>
   </ng-template>
 
   <ng-template #modalContent let-close="close" >
-    <div class="modal-header">
-      <h5 class="modal-title">Event action occurred</h5>
-      <button type="button" class="close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
+    <mat-dialog-content>
+      <div class="dialog-header">
+        <mat-card-title display="inline">{{modalData.event.title}}</mat-card-title>
+        <button mat-button class="close-icon" [mat-dialog-close]="true">
+          <mat-icon>close</mat-icon>
+        </button>
+        <!-- <mat-card-subtitle>{{modalData.event.startString}}</mat-card-subtitle> -->
       </div>
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
+      <div class="dialog-body">
+        <div>
+          Action:
+          <pre>{{ modalData?.action }}</pre>
+        </div>
+        <div>
+          Event:
+          <pre>{{ modalData?.event | json }}</pre>
+        </div>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="close()">
-        OK
-      </button>
-    </div>
+      <mat-dialog-actions>
+        <button class="mat-raised-button"(click)="close()">Close</button>
+        <!-- <button class="mat-raised-button mat-primary"(click)="save()">Save</button> -->
+      </mat-dialog-actions>
+    </mat-dialog-content>
   </ng-template>
 
+  <context-menu #basicMenu>
+    <ng-template contextMenuItem (execute)="openAddDialog()">
+      Add event
+    </ng-template>
+  </context-menu>
+
+  <ng-template
+  #monthCellTemplate
+  let-day="day"
+  let-openDay="openDay"
+  let-locale="locale"
+  let-tooltipPlacement="tooltipPlacement"
+  let-highlightDay="highlightDay"
+  let-unhighlightDay="unhighlightDay"
+  let-eventClicked="eventClicked"
+>
+  <div
+    class="fill-height"
+    [contextMenu]="basicMenu"
+    [contextMenuSubject]="day.date"
+  >
+    <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
+        >{{ day.badgeTotal }}</span
+      >
+      <span class="cal-day-number"
+        >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
+      >
+    </div>
+    <div class="cal-events">
+      <div
+        class="cal-event"
+        *ngFor="let event of day.events"
+        [style.backgroundColor]="event.color.primary"
+        [ngClass]="event?.cssClass"
+        (mouseenter)="highlightDay.emit({event: event})"
+        (mouseleave)="unhighlightDay.emit({event: event})"
+        [mwlCalendarTooltip]="event.title | calendarEventTitle:'monthTooltip':event"
+        [tooltipPlacement]="tooltipPlacement"
+        (click)="$event.stopPropagation(); eventClicked.emit({event: event})"
+      ></div>
+    </div>
+  </div>
+</ng-template>
 </body>
