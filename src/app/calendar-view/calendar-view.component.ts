@@ -232,7 +232,7 @@ export class CalendarViewComponent {
   }
 
   openAddDialog(){
-    this.modal.open(this.modalAdd, {size: 'lg'});
+    this.dialog.open(this.modalAdd);
   }
 
   async confirmEdit(){
