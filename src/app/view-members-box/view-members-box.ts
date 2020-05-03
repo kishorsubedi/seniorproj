@@ -40,7 +40,9 @@ export class ViewMembersBox implements OnInit {
     //observable to allusers/userEmail/orgs/org . once it changes, call isAdmin. it hides the admin view itself
     if(this.orgInView){
       this.isAdmin(this.orgInView);
+      //console.log("view-members in construct: ", this.orgInView);
     }
+    //console.log("view-members out construct: ", this.orgInView);
     console.log("Admin", this.Admin);
     // if(document.getElementById('adminList')){
     //   console.log("Adminlist element fetched")
