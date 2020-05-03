@@ -228,7 +228,7 @@ export class CalendarViewComponent {
     this.editEventLocation = event.location;
     this.editEventDescription = event.description;
 
-    this.modal.open(this.modalEdit, { size: 'lg' });
+    this.dialog.open(this.modalEdit);
   }
 
   openAddDialog(){

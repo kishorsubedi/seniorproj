@@ -160,14 +160,14 @@
 
   <!-- Dialog Box for Edit -->
   <ng-template #modalEdit let-close="close">
-    <mat-card class="dialog" style="height:auto; width:500px; margin-left:auto; margin-right:auto; margin-top:150px;">
-      <mat-card-header>
-        <mat-card-title> Edit Event</mat-card-title>
-        <button type="button" class="close" (click)="close()">
-          <span aria-hidden="true">&times;</span>
+    <mat-dialog-content>
+      <div class = "dialog-header">
+        <mat-card-title style="display:inline"> Edit Event</mat-card-title>
+        <button mat-button class="close-icon" [mat-dialog-close]="true" style="align-self:right">
+          <mat-icon>close</mat-icon>
         </button>
-      </mat-card-header>
-      <mat-card-content>
+      </div>
+      <div class = "dialog-content">
         <h3>
           Title
           <input
@@ -214,13 +214,14 @@
           </button>
           <div class="clearfix"></div>
         </h3>
-      </mat-card-content> 
+
     <!-- <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary" (click)="close()">
         OK
       </button>
     </div> -->
-    </mat-card>
+      </div>
+    </mat-dialog-content>
   </ng-template>
 
   <ng-template #modalContent let-close="close" >
@@ -247,4 +248,49 @@
       </mat-dialog-actions>
     </mat-dialog-content>
   </ng-template>
+
+  <context-menu #basicMenu>
+    <ng-template contextMenuItem (execute)="openAddDialog()">
+      Add event
+    </ng-template>
+  </context-menu>
+
+  <ng-template
+  #monthCellTemplate
+  let-day="day"
+  let-openDay="openDay"
+  let-locale="locale"
+  let-tooltipPlacement="tooltipPlacement"
+  let-highlightDay="highlightDay"
+  let-unhighlightDay="unhighlightDay"
+  let-eventClicked="eventClicked"
+>
+  <div
+    class="fill-height"
+    [contextMenu]="basicMenu"
+    [contextMenuSubject]="day.date"
+  >
+    <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
+        >{{ day.badgeTotal }}</span
+      >
+      <span class="cal-day-number"
+        >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
+      >
+    </div>
+    <div class="cal-events">
+      <div
+        class="cal-event"
+        *ngFor="let event of day.events"
+        [style.backgroundColor]="event.color.primary"
+        [ngClass]="event?.cssClass"
+        (mouseenter)="highlightDay.emit({event: event})"
+        (mouseleave)="unhighlightDay.emit({event: event})"
+        [mwlCalendarTooltip]="event.title | calendarEventTitle:'monthTooltip':event"
+        [tooltipPlacement]="tooltipPlacement"
+        (click)="$event.stopPropagation(); eventClicked.emit({event: event})"
+      ></div>
+    </div>
+  </div>
+</ng-template>
 </body>
