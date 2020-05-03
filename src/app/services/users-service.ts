@@ -1,26 +1,32 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { User } from '../models/user';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  orgAdminsCollectionRef = this.afs.collection('orgs/acm/admins');
-  constructor(private afs: AngularFirestore) { }
-  //Returns all admins as observables
-   getAdmins(){
-    return this.orgAdminsCollectionRef.valueChanges();
-    //return this.afs.collection('admins').valueChanges();
-   }
-   //Returns all members in an array
-   getMembers(){
-    return this.afs.collection('users').valueChanges();
+  
+  userCollectionRef:AngularFirestoreDocument;
+
+  constructor(private auth: AuthService, 
+    private afs: AngularFirestore) {
+      
+    this.userCollectionRef = this.afs.doc("allUsers/"+ this.auth.afAuth.auth.currentUser.email);
    }
 
-   //Returns all invited users in an array
-   getInvitedUsers(){
-    return this.afs.collection('invitedMembers').valueChanges();
-   }
+  getEvents(){
+    console.log("RIRI");
+    //get user's events from database(use this.this.userCollectionRef.collection) here
+  }
+
+  getOrgs(){
+    //get user's orgs from database here
+  }
+
+  getUserName(){
+    //do this.userCollectionRef.get().then(snapshot => ..... 
+  }
 }
 

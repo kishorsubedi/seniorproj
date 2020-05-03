@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
@@ -34,6 +35,8 @@ import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.compo
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
 
 //CalendarModules
 import { CommonModule } from '@angular/common';
@@ -91,6 +94,7 @@ const firebaseConfig = {
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features 
     AngularFirestoreModule.enablePersistence(), BrowserAnimationsModule,
+    AngularFireStorageModule,
     FormsModule,
     // Angular Material Modules
     MatSliderModule, 
@@ -105,6 +109,10 @@ const firebaseConfig = {
     MatToolbarModule, 
     MatGridListModule,
     MatListModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSortModule,
+
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     CommonModule,
     NgbModalModule,
