@@ -3,6 +3,9 @@ import { AuthService } from '../services/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { UsersService } from '../services/users-service';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { Url } from 'url';
+import { Observable } from 'rxjs';
 
 export interface AttendedEvents {
   date: string;
@@ -30,6 +33,7 @@ const EVENT_DATA: AttendedEvents[] = [
 })
 export class ProfileComponent implements OnInit {
 
+  downloadURL: Observable<any[]>;
   displayedColumns: string[] = ['date', 'title', 'org'];
   dataSource = new MatTableDataSource(EVENT_DATA);
   userName: string;
@@ -40,12 +44,14 @@ export class ProfileComponent implements OnInit {
   
   // where i use the AuthService for the email.
   constructor(private auth: AuthService,
-    private usersService: UsersService) { 
+    private usersService: UsersService,
+    private afStorage: AngularFireStorage) { 
 
     this.userEmail = auth.afAuth.auth.currentUser.email;
     //this.userName = auth.afAuth.auth.currentUser.displayName;
 
     this.usersService.getEvents();
+    this.downloadImage();
   }
 
   ngOnInit(): void {
@@ -62,6 +68,20 @@ export class ProfileComponent implements OnInit {
 
   getUserName(){
     this.usersService.getUserName();
+  }
+
+  async downloadImage(){
+    this.downloadURL = await this.afStorage.ref("profilePictures/"+this.auth.currentUser.email).getDownloadURL();
+  }
+
+  async upload(event) {
+    if(event.target.files[0]){
+      var ref = this.afStorage.ref("profilePictures/"+this.auth.currentUser.email);
+      // the put method creates an AngularFireUploadTask
+      // and kicks off the upload
+      await ref.put(event.target.files[0]); //upload
+      this.downloadImage();
+    }
   }
 
 }

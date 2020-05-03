@@ -3,15 +3,18 @@
     <div class="pic-name">
         <mat-card class = "detail-view-card sub-card" >
             <div class="details-header">
-                <img src="../../assets/images/photo.png" style="width:100px;height:100px">
+                    <div *ngIf="downloadURL | async; let url" >
+                            <img [src]="url" alt="Image from AngularFireStorage" style="width:140px;height:120px">
+                    </div>`
+                <!-- <img src="../../assets/images/photo.png" style="width:100px;height:100px" id="profilePic"> -->
                 <h2>{{this.userName}}</h2>    
             </div>
 
             <!-- The change profile pic button. Needs a function -->
             <div class="change-pic">
                 <!-- Unlinked button. Needs to link to profile function-->
-                <button mat-button> Change profile picture</button>
-                
+                <button mat-button onClick="changeProfilePicture()"> Change profile picture</button>
+                <input type="file" (change)="upload($event)" accept=".png,.jpg" />
             </div>
             <hr>
             
@@ -21,7 +24,7 @@
                     Email
                 </label>
                 <h3 id="user-email"> {{this.userEmail}} </h3>
-                <h3>Password: </h3><input type="password" value="FakePSW">
+                <h3>Password: </h3><input type="password">
                 <button mat-button> Change Password </button>
                 <br>
                 <h3>Join Date: Date Joined</h3>
