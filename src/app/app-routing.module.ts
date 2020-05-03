@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'about', component: AboutUsBoxComponent},
   {path: 'calendar', component: CalendarComponent},
-  { path: 'dashboard', component: DashboardComponent },
+ { path: 'dashboard', component: DashboardComponent },
   { path: '',      component: HomepageComponent },
   { path: '**', component: PageNotFoundComponent }
 ];

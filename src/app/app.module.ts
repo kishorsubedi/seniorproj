@@ -50,7 +50,6 @@ import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
-import { OrgProDashboardComponent } from './org-pro-dashboard/org-pro-dashboard.component';
 import { CalendarViewComponent } from './calendar-view/calendar-view.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -82,7 +81,6 @@ const firebaseConfig = {
     ViewMembersBox,
     ProfileComponent,
     LoginComponent,
-    OrgProDashboardComponent,
     CalendarViewComponent,
   ],
   imports: [

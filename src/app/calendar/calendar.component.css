@@ -9,6 +9,6 @@
 }
 .calendar-container {
     margin: auto;
-    width: 50%;
+    width: auto;
     padding: 10px;
 }

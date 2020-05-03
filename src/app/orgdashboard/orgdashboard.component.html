@@ -3,15 +3,16 @@
     <app-view-members-box [orgInView]="orgInView"></app-view-members-box>
 </div> -->
 
-
-<mat-tab-group>
-    <mat-tab label="Membership">
-        <app-view-members-box [orgInView]="orgInView"></app-view-members-box>
-    </mat-tab>
-    <mat-tab label="Events">
-        <app-calendar-view [orgInView]="orgInView"></app-calendar-view>
-    </mat-tab>
-    <mat-tab label="Profile">
-
-    </mat-tab>
-</mat-tab-group>
+<div class="full-container">
+    <mat-tab-group > 
+        <mat-tab label="Membership" class="mat-tab-label">
+            <app-view-members-box [orgInView]="orgInView"></app-view-members-box>
+        </mat-tab>
+        <mat-tab label="Events">
+            <app-calendar-view [orgInView]="orgInView"></app-calendar-view>
+        </mat-tab>
+        <mat-tab label="Profile">
+    
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,36 +1,33 @@
-<mat-toolbar color="primary">
-  
-  <span class="fill-remaining-space">
-    <div *ngIf="userLoggedIn">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>menu</mat-icon>
-          </button>
-    </div>
 
-    <mat-menu #menu="matMenu" [overlapTrigger]="false">
-      <button mat-menu-item routerLink="/dashboard" routerLinkActive="active">
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
-      </button>
-      <button mat-menu-item routerLink = "/about" routerLinkActive="active">
-        <mat-icon>people_outline</mat-icon>
-        <span>About</span>
-      </button>
-      <button mat-menu-item routerLink = "/calendar" routerLinkActive="active">
-        <mat-icon>calendar_today</mat-icon>
-        <span>Events</span>
-      </button>
-    
-      <button mat-menu-item routerLink = "/profile" routerLinkActive="active">
-        <mat-icon>account_box</mat-icon>
-        <span>Profile</span>
-      </button>
-      <button mat-menu-item (click)="signOut()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
-  </span>
-  <span class="fill-remaining-space">HOWARD <B>ACM</B></span>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<nav mat-tab-nav-bar class="mat-tab-navbar">
+  <button mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
+      <a mat-tab-link disabled class="fill-remaining-space">ORG <B>PRO</B></a>
+     <a mat-tab-link routerLink="/dashboard" routerLinkActive="active">Home</a>
+     <a mat-tab-link routerLink="/about" routerLinkActive="active">About</a>
+     <a mat-tab-link routerLink="/calendar" routerLinkActive="active">Events</a>
+     <a mat-tab-link (click)="signOut()">Logout</a>
+</nav>
+
+<mat-sidenav-container class="example-container" autosize *ngIf="isHomeRoute()">
+	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
+		<mat-nav-list>
+			<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+				<span class="full-width" *ngIf="isExpanded || isShowing">My Organizations</span>
+				<mat-icon mat-list-icon>home</mat-icon>
+				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+			</mat-list-item>
+			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+				<a mat-list-item  *ngFor="let org of orgs" (click)="handleOrgClick(org.id)"> {{org.id}} {{org.role}} </a>
+				
+				
+			</div>
+		</mat-nav-list>
+    <mat-nav-list>
+</mat-nav-list>
+	</mat-sidenav>
+
+	<div class="example-sidenav-content" >
+		<app-orgdashboard [orgInView]="currentOrg"> </app-orgdashboard>
+		</div>
+	
+</mat-sidenav-container>
