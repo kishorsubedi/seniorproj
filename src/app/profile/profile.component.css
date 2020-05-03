@@ -10,7 +10,7 @@
     background-color: rgb(245, 245, 245);
 }
 .pic-name{
-    height: calc(100% - 45px);
+    height: calc(100% - 5px);
     border: 0px;
     padding: 0;
     display:flex;
@@ -20,6 +20,11 @@
     height: 130px;
     text-align: center;
     margin: 10px;
+}
+.change-pic {
+    margin: 5px;
+    padding: 2px;
+    text-align: center;
 }
 
 .astext {
@@ -88,10 +93,14 @@ th.mat-sort-header-sorted {
     height: 20px;
     padding: 8px;
 }
+.view-past-event {
+    text-align: left;
+}
+
 .event-card {
     height: auto;
-    padding:5px;
-    margin-top:5px;
+    padding: 10px;
+    margin-top: 15px;
 }
 .boxed {
     border: 1px solid green ;
