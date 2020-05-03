@@ -3,6 +3,9 @@ import { AuthService } from '../services/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { UsersService } from '../services/users-service';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { Url } from 'url';
+import { Observable } from 'rxjs';
 
 export interface AttendedEvents {
   date: string;
@@ -30,6 +33,7 @@ const EVENT_DATA: AttendedEvents[] = [
 })
 export class ProfileComponent implements OnInit {
 
+  downloadURL: Observable<any[]>;
   displayedColumns: string[] = ['date', 'title', 'org'];
   dataSource = new MatTableDataSource(EVENT_DATA);
   userName: string;
@@ -40,17 +44,19 @@ export class ProfileComponent implements OnInit {
   
   // where i use the AuthService for the email.
   constructor(private auth: AuthService,
-    private users: UsersService) { 
+    private usersService: UsersService,
+    private afStorage: AngularFireStorage) { 
 
     this.userEmail = auth.afAuth.auth.currentUser.email;
     // this.userName = this.getUserName();
 
-    console.log("logging: ", typeof this.users.getUserName() );
+    console.log("logging: ", typeof this.usersService.getUserName() );
 
-    this.users.getEvents();
-    this.users.getUserName().then(res => {
+    this.usersService.getEvents();
+    this.usersService.getUserName().then(res => {
       this.userName = res;
     });
+    this.downloadImage();
   }
 
   ngOnInit(): void {
@@ -58,15 +64,29 @@ export class ProfileComponent implements OnInit {
   }
 
   getEvents(){
-    this.users.getEvents();
+    this.usersService.getEvents();
   }
 
   getOrgs(){
-    this.users.getOrgs();
+    this.usersService.getOrgs();
   }
 
   /*getUserName(){
     this.users.getUserName();
   }*/
+
+  async downloadImage(){
+    this.downloadURL = await this.afStorage.ref("profilePictures/"+this.auth.currentUser.email).getDownloadURL();
+  }
+
+  async upload(event) {
+    if(event.target.files[0]){
+      var ref = this.afStorage.ref("profilePictures/"+this.auth.currentUser.email);
+      // the put method creates an AngularFireUploadTask
+      // and kicks off the upload
+      await ref.put(event.target.files[0]); //upload
+      this.downloadImage();
+    }
+  }
 
 }
