@@ -70,6 +70,7 @@ export class ViewMembersBox implements OnInit {
         this.membersInDisplay = this.searchInArray(this.members);
         this.userInView = this.members[0];
       }
+      //console.log("This.members: ",this.members);
     })
 
     await adminsValueChangesRef.subscribe(admins=>{

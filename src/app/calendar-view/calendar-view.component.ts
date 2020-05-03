@@ -14,6 +14,7 @@ import {
   isSameDay,
   isSameMonth,
   addHours,
+  format,
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -156,28 +157,26 @@ export class CalendarViewComponent {
           var duplicateEvents = [];
           duplicateEvents = events;
         } 
-        
         for(var event of duplicateEvents){
-          event.actions = [...this.adminActions];  //Add an if(admin)
-          // If the user has not rsvped yet
-          if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) == -1){
-            //console.log("Entered if")
-            event.actions.push(this.rsvpAction);
-          }
-          else{
-            event.actions.push(this.cancelRsvpAction);
-          }
-          event.startString = event.start
-          event.start = new Date(event.start);
-          console.log(event)
-          if(event.end){
-            event.endString = event.end
-            event.end = new Date(event.end);
-          }
+            event.actions = [...this.adminActions];  //Add an if(admin)
+            // If the user has not rsvp yet
+            if(event.rsvpMembers.indexOf(this.auth.currentUser.email) == -1){
+              //console.log("Entered if")
+              event.actions.push(this.rsvpAction);
+            }
+            else{
+              event.actions.push(this.cancelRsvpAction);
+            }
+            event.startString = event.start
+            event.start = new Date(event.start);
+            if(event.end){
+              event.endString = event.end
+              event.end = new Date(event.end);
+            }
         }
-
+      if(events){
         this.events =duplicateEvents;
-        console.log(this.events)
+      }
       })
     }
   }
@@ -271,7 +270,7 @@ export class CalendarViewComponent {
         location: this.newEventLocation,
         description: this.newEventDescription,
         creator: this.auth.currentUser.email,
-        rsvpedMembers: [],
+        rsvpMembers: [],
       })
     }
     this.newEventTitle = "";
@@ -282,15 +281,16 @@ export class CalendarViewComponent {
   }
 
   async rsvpToEvent(event){
-     // If the user has already RSVPed
-    if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) > -1){
+     // If the user has already rsvp
+    console.log("event.rsvpMembers: ")
+    if(event.rsvpMembers.indexOf(this.auth.currentUser.email) > -1){
       window.alert("You have already registered to this event");
     }
     else{
       if(window.confirm("Please confirm that you want to RSVP to this event")){
-        event.rsvpedMembers.push(this.auth.currentUser.email);
+        event.rsvpMembers.push(this.auth.currentUser.email);
         await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
-          rsvpedMembers: event.rsvpedMembers
+          rsvpMembers: event.rsvpMembers
         });
         await this.afs.collection('allUsers/'+ this.auth.currentUser.email + '/orgs/' + this.orgInView + '/rsvpEvents').doc(event.id).set({});
         window.alert("Your RSVP is received");
@@ -299,19 +299,19 @@ export class CalendarViewComponent {
   }
 
   async cancelRsvpToEvent(event){
-    // If the user has already RSVPed
-   if(event.rsvpedMembers.indexOf(this.auth.currentUser.email) == -1){
+    // If the user has already rsvp
+   if(event.rsvpMembers.indexOf(this.auth.currentUser.email) == -1){
      window.alert("You have not registered for this event yet");
    }
    else{
      if(window.confirm("Please confirm that you want to cancel RSVP to this event")){
-        event.rsvpedMembers.splice(event.rsvpedMembers.indexOf(this.auth.currentUser.email),1);
-        console.log("event.rsvpedMembers: ", event.rsvpedMembers)
+        event.rsvpMembers.splice(event.rsvpMembers.indexOf(this.auth.currentUser.email),1);
+        //console.log("event.rsvpMembers: ", event.rsvpMembers)
         await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
-          rsvpedMembers: event.rsvpedMembers
+          rsvpMembers: event.rsvpMembers
         });
         await this.afs.collection('allUsers/'+ this.auth.currentUser.email + '/orgs/' + this.orgInView + '/rsvpEvents').doc(event.id).delete();
-        console.log("Entering allUseres")
+        //console.log("Entering allUseres")
         window.alert("Your RSVP is canceled");
      }
    }
