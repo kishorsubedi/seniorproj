@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
@@ -31,13 +32,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageTopbarComponent } from './homepage-topbar/homepage-topbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+
+//CalendarModules
+import { CommonModule } from '@angular/common';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AboutUsBoxComponent } from './about-us-box/about-us-box.component';
-import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+import { orgdashboardComponent } from './orgdashboard/orgdashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { from } from 'rxjs';
 import { ViewMembersBox } from './view-members-box/view-members-box';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+import { OrgProDashboardComponent } from './org-pro-dashboard/org-pro-dashboard.component';
+import { CalendarViewComponent } from './calendar-view/calendar-view.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 const firebaseConfig = {
@@ -60,11 +76,13 @@ const firebaseConfig = {
     HomepageComponent,
     HomepageTopbarComponent,
     AboutUsBoxComponent,
-    DashboardAdminComponent,
+    orgdashboardComponent,
     CalendarComponent,
     ViewMembersBox,
     ProfileComponent,
-    LoginComponent
+    LoginComponent,
+    OrgProDashboardComponent,
+    CalendarViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +91,7 @@ const firebaseConfig = {
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features 
     AngularFirestoreModule.enablePersistence(), BrowserAnimationsModule,
+    AngularFireStorageModule,
     FormsModule,
     // Angular Material Modules
     MatSliderModule, 
@@ -85,7 +104,17 @@ const firebaseConfig = {
     MatInputModule,
     MatButtonModule,
     MatToolbarModule, 
-    MatGridListModule
+    MatGridListModule,
+    MatListModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSortModule,
+
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    CommonModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
+    FontAwesomeModule,
   ],
   providers: [AuthService, AngularFirestore, UsersService],
   bootstrap: [AppComponent]
