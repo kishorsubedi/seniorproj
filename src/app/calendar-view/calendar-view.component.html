@@ -83,7 +83,7 @@
         <button mat-stroked-button class="close-icon" [mat-dialog-close]="true" style="margin-left:57%; padding:0">
           <mat-icon>close</mat-icon>
         </button>
-        
+      <br>
       </div>  
       <div class = "dialog-content">
         <table>
@@ -119,6 +119,30 @@
               (keyup)="refresh.next()"
               size="30"
               placeholder="Optional"
+            />
+            </td>
+          </tr>
+          <tr>
+            <td>Start Time (with AM/PM)</td>
+            <td>
+              <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newEventStartTime"
+              (keyup)="refresh.next()"
+              size="30"
+            />
+            </td>
+          </tr>
+          <tr>
+            <td>End Time (with AM/PM)</td>
+            <td>
+              <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newEventEndTime"
+              (keyup)="refresh.next()"
+              size="30"
             />
             </td>
           </tr>

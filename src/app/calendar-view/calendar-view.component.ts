@@ -134,6 +134,8 @@ export class CalendarViewComponent {
   newEventTitle: string = "";
   newEventStart: string = this.viewDate.toISOString().slice(0,10).replace(new RegExp("-", "g"),'/');;
   newEventEnd: string = "";
+  newEventStartTime: string = "";
+  newEventEndTime: string = "";
   newEventLocation: string = "";
   newEventDescription: string= "";
 
@@ -273,6 +275,8 @@ export class CalendarViewComponent {
           title: this.newEventTitle,
           start: this.newEventStart,
           end: this.newEventEnd,
+          startTime: this.newEventStartTime,
+          endTime: this.newEventEndTime,
           location: this.newEventLocation,
           description: this.newEventDescription,
           creator: this.auth.currentUser.email,
@@ -284,6 +288,8 @@ export class CalendarViewComponent {
     this.newEventTitle = "";
     this.newEventStart = "";
     this.newEventEnd = "";
+    this.newEventStartTime = "";
+    this.newEventEndTime = "";
     this.newEventLocation = "";
     this.newEventDescription = "";
   }
