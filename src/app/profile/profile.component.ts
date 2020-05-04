@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { UsersService } from '../services/users-service';
 import { AngularFireStorage } from 'angularfire2/storage';
@@ -13,6 +13,11 @@ export interface AttendedEvents {
   org: string;
 }
 
+const SAMPLE_DATA: AttendedEvents[] = [
+  {date: "Sample Date", title: "Sample Title", org: "Sample Org"},
+  {date: "Sample Date2", title: "Sample Title2", org: "Sample Org2"},
+];
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -20,19 +25,44 @@ export interface AttendedEvents {
 })
 export class ProfileComponent implements OnInit {
 
+  @Input() orgInView: string;
+
+  ngOnChanges(changes: any) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'orgInView': {
+            if (this.orgInView){
+              console.log("Type of OIV ngOnChan: ", this.orgInView);
+              console.log("atEvents be nOC:  ", this.atEvents);
+              this.getEvents(this.orgInView);
+              //this.dataSource = new MatTableDataSource(this.atEvents);
+              console.log("atEvents af nOC:  ", this.atEvents);
+            }
+            console.log("case be del:  ", this.atEvents);
+            this.dataSource = new MatTableDataSource(this.atEvents);
+            this.atEvents = [];
+            console.log("case af del:  ",this.atEvents);
+          }
+        }
+      }
+    }
+  }
+
   downloadURL: Observable<any[]>;
   atEvents: AttendedEvents[] = [];
   displayedColumns: string[] = ['date', 'title', 'org'];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<AttendedEvents>();
   userName: string;
   userEmail: string;
   currEven: AttendedEvents;
 
-  @Input() orgInView: string = '';
+  isFirstDataLoaded = false;
+
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  
+  //@ViewChild('eventTable',{static:true}) table: MatTable<AttendedEvents>;
+   
   // where i use the AuthService for the email.
   constructor(private auth: AuthService,
     private usersService: UsersService,
@@ -41,50 +71,51 @@ export class ProfileComponent implements OnInit {
     this.userEmail = auth.afAuth.auth.currentUser.email;
     //this.userName = auth.afAuth.auth.currentUser.displayName;
 
-    this.getEvents();
+    if(this.orgInView) {
+      this.printOrg();
+    }
+    console.log("Be con: ");
+    //this.getEvents(this.orgInView);
+    console.log("atEvents be con:  ", this.atEvents);
     this.dataSource = new MatTableDataSource(this.atEvents);
+    console.log("atEvents af con:  ", this.atEvents);
+
     this.getUserName();
     this.downloadImage();
+    console.log("OIV ConS: ", this.orgInView);
   }
 
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit() {    
+  ngOnInit() {
+    //this.getEvents(this.orgInView);
     this.dataSource.sort = this.sort;
   }
 
-  /* 
-  ngOnChanges(changes: any) {
-    for (const propName in changes) {
-      if (changes.hasOwnProperty(propName)) {
-        switch (propName) {
-          case 'orgInView': {
-            if (this.orgInView){
-              this.getEvents(this.orgInView);
-              this.dataSource = new MatTableDataSource(this.atEvents);
-            }
-          }
-        }
-      }
-    }
-  } */
+  printOrg() {
+    console.log("print Org func: ", this.orgInView);
+  }
 
-  async getEvents(){
-    this.usersService.getEvents().then(events => {       
+  ngAfterViewInit() {
+    //this.getEvents(this.orgInView);
+    //this.dataSource.sort = this.sort;
+  }
+
+  async getEvents(org: string){
+    await this.usersService.getEvents(org).then(events => {       
       for (var key in events) {
-        console.log("type of date: ", events[key].date );
         this.currEven = {date: events[key].date,
                         title: events[key].title,
                         org: events[key].org};
 
-        console.log("curr even in getEvents: ", this.currEven);
-        console.log("in get events: orginal" );        
+        console.log("curr even in getEvents: ", this.currEven);       
         this.atEvents.push(this.currEven);        
       }
     });
     // Testing ngAfterViewInit
-    this.dataSource.data = this.atEvents;
+    
+    //this.dataSource = new MatTableDataSource(this.atEvents);
+    //this.table.renderRows();
+    //this.atEvents = [];
+    //console.log("cleared events");
   }
 
   getOrgs(){

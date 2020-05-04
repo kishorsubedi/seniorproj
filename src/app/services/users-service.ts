@@ -19,15 +19,18 @@ export class UsersService {
     private afs: AngularFirestore) {
       
       this.userCollectionRef = this.afs.doc("allUsers/"+ this.auth.afAuth.auth.currentUser.email);
-      this.rsvpedEventsCollectRef = 
-          this.afs.collection(`allUsers/${this.auth.afAuth.auth.currentUser.email}/orgs/testorg/rsvpEvents`);
+      //this.rsvpedEventsCollectRef = 
+          //this.afs.collection(`allUsers/${this.auth.afAuth.auth.currentUser.email}/orgs/testorg/rsvpEvents`);
         
   }
 
-  async getEvents(){
+  async _getEvents(){
     console.log("RIRI");
     //get user's events from database(use this.this.userCollectionRef.collection) here
     var rsvpedEvents = [];
+    this.rsvpedEventsCollectRef = 
+          this.afs.collection(`allUsers/${this.auth.afAuth.auth.currentUser.email}/orgs/testorg/rsvpEvents`);
+
     const snapshot = this.rsvpedEventsCollectRef
     ;(await snapshot.ref.get()).forEach(doc => { 
       rsvpedEvents[doc.id] = doc.data();
@@ -35,16 +38,19 @@ export class UsersService {
     return rsvpedEvents;
   }
 
-  async _getEvents(org: string){
+  async getEvents(org: string){
     console.log("RIRI");
     //get user's events from database(use this.this.userCollectionRef.collection) here
     this.rsvpedEventsCollectRef = 
         this.afs.collection(`allUsers/${this.auth.afAuth.auth.currentUser.email}/orgs/${org}/rsvpEvents`);
     var rsvpedEvents = [];
+    var lastDoc;
     const snapshot = this.rsvpedEventsCollectRef
     ;(await snapshot.ref.get()).forEach(doc => { 
       rsvpedEvents[doc.id] = doc.data();
+      lastDoc = doc.id;
     });
+    console.log("The Last Doc: ", rsvpedEvents[lastDoc]);
     return rsvpedEvents;
   }
 
