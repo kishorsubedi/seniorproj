@@ -5,16 +5,14 @@
         <mat-card class = "detail-view-card sub-card" >
             <!-- The header: Photo and name -->
             <div class="details-header">
-                <img src="../../assets/images/photo.png" style="width:100px;height:100px">
-
-                <h1 *ngIf="this.userInView">{{this.userInView.name}}    </h1>
-                
+                <div *ngIf="downloadURL | async; let url" >
+                    <img [src]="url" alt="Image from AngularFireStorage" style="display:inline-block;max-width:120px;max-height:120px;width: auto;height: auto;">
+                </div>
             </div>
-            <hr class="solid">
             <!-- Details -->
             <mat-card class="details-card">
                 
-                <div *ngIf="this.userInView" >Contact Info:    {{this.userInView.email}}  </div>
+                <div style="font-size: x-large;" *ngIf="this.userInView" >{{this.userInView.name}}         <div style="font-weight: normal;font-size: small;"> {{this.userInView.email}} </div>  </div>
                 <br>
                 <div *ngIf="this.userInView" >Joined:    Date joined  </div>
                 <br>
@@ -118,7 +116,7 @@
 
             <!-- lists -->
             <mat-card [ngStyle]="(Admin | async) && {'height': '285px'}" class = "list-card grid-card">
-                <mat-grid-list cols="1" rowHeight="30px" gutterSize="3px" >
+                <mat-grid-list cols="1" rowHeight="50px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let admin of adminsInDisplay'
                         (click)="handleUserClick(admin)"
                         [colspan]="1"
@@ -128,7 +126,7 @@
                 </mat-grid-list>
             </mat-card>
             <mat-card [ngStyle]="(Admin | async) && {'height': '285px'}" class = "list-card grid-card">
-                <mat-grid-list cols="2" rowHeight="30px" gutterSize="3px" >
+                <mat-grid-list cols="2" rowHeight="50px" gutterSize="3px" >
                     <mat-grid-tile *ngFor='let member of membersInDisplay'
                         (click)="handleUserClick(member)"
                         [colspan]="1"

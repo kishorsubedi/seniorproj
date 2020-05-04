@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service'; 
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 @Component({
   selector: 'app-view-members-box',
@@ -11,6 +12,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./view-members-box.css']
 })
 export class ViewMembersBox implements OnInit {
+
+  downloadURL: Observable<any[]>;
   @Input()  orgInView: string ;
   
   ngOnChanges(changes: any) {
@@ -36,11 +39,15 @@ export class ViewMembersBox implements OnInit {
   adminsInDisplay: User[];
   searchText: string = '';
 
-  constructor(private auth: AuthService, private afs: AngularFirestore) {
+  constructor(private auth: AuthService, private afs: AngularFirestore, private afStorage: AngularFireStorage) {
     //observable to allusers/userEmail/orgs/org . once it changes, call isAdmin. it hides the admin view itself
     if(this.orgInView){
       this.isAdmin(this.orgInView);
     }
+    if(this.userInView){
+      this.downloadImage();
+    }
+   
     console.log("Admin", this.Admin);
     // if(document.getElementById('adminList')){
     //   console.log("Adminlist element fetched")
@@ -53,14 +60,21 @@ export class ViewMembersBox implements OnInit {
 
   handleUserClick(user: User){
     this.userInView = user;
+    this.downloadImage();
   }
+
+  async downloadImage(){
+    console.log("dsd");
+    this.downloadURL = await this.afStorage.ref("profilePictures/"+this.userInView.email).getDownloadURL();
+  }
+
 
   // Updates the users and members list
   async updateUsersList(){
     var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
     var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
     
-    await usersValueChangesRef.subscribe(async members=>{
+    await usersValueChangesRef.subscribe(async members => {
       if(members){
         // eha garne ho 
         this.members = members;
@@ -68,19 +82,18 @@ export class ViewMembersBox implements OnInit {
 
       if(this.members){
         this.membersInDisplay = this.searchInArray(this.members);
-        this.userInView = this.members[0];
       }
       //console.log("This.members: ",this.members);
     })
 
-    await adminsValueChangesRef.subscribe(admins=>{
+    await adminsValueChangesRef.subscribe(async admins=>{
+      admins = admins as User[];
       if(admins){
         this.admins = admins;
       }
       if(this.admins){
-        console.log(this.admins);
         this.userInView = admins[0];
-        console.log(this.admins);
+        await this.downloadImage();
         this.adminsInDisplay = this.searchInArray(this.admins);
       }
     })

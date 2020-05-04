@@ -4,8 +4,8 @@
         <mat-card class = "detail-view-card sub-card" >
             <div class="details-header">
                     <div *ngIf="downloadURL | async; let url" >
-                            <img [src]="url" alt="Image from AngularFireStorage" style="width:140px;height:120px">
-                    </div>`
+                            <img [src]="url" alt="Image from AngularFireStorage" style="display:inline-block;max-width:160px;max-height:140px;width: auto;height: auto;">
+                    </div>
                 <!-- <img src="../../assets/images/photo.png" style="width:100px;height:100px" id="profilePic"> -->
                 <h2>{{this.userName}}</h2>    
             </div>
