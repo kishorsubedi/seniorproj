@@ -31,6 +31,7 @@ import { AuthService } from '../services/auth.service';
 import { ActionSequence } from 'protractor';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { MatDialog } from '@angular/material/dialog';
+import { WindowScrollController } from '@fullcalendar/core';
 
 const colors: any = {
   red: {
@@ -145,7 +146,6 @@ export class CalendarViewComponent {
   editEventDescription: string= "";
 
   constructor(private modal: NgbModal, private afs:AngularFirestore, private auth:AuthService, private dialog:MatDialog) {
-    //console.log("Current user", auth.currentUser.email);
   }
 
   // Gets events of current org from the database
@@ -161,7 +161,6 @@ export class CalendarViewComponent {
             event.actions = [...this.adminActions];  //Add an if(admin)
             // If the user has not rsvp yet
             if(event.rsvpMembers.indexOf(this.auth.currentUser.email) == -1){
-              //console.log("Entered if")
               event.actions.push(this.rsvpAction);
             }
             else{
@@ -169,7 +168,6 @@ export class CalendarViewComponent {
             }
             event.startString = event.start
             event.start = new Date(event.start);
-            console.log("Date String", event.start.toISOString().slice(0,10))
             if(event.end){
               event.endString = event.end
               event.end = new Date(event.end);
@@ -265,20 +263,23 @@ export class CalendarViewComponent {
     this.dialog.open(this.modalContent);
   }
 
-  addEvent(): void {
+  async addEvent() {
     if(this.orgInView){
-      var randomId = UUID.UUID();
-      var eventsCollectionRef = this.afs.firestore.collection("orgs").doc(this.orgInView).collection("events")
-      eventsCollectionRef.doc(randomId).set({
-        id: randomId,
-        title: this.newEventTitle,
-        start: this.newEventStart,
-        end: this.newEventEnd,
-        location: this.newEventLocation,
-        description: this.newEventDescription,
-        creator: this.auth.currentUser.email,
-        rsvpMembers: [],
-      })
+      if(window.confirm("Please confirm you want to add this event.")){
+        var randomId = UUID.UUID();
+        var eventsCollectionRef = this.afs.firestore.collection("orgs").doc(this.orgInView).collection("events")
+        await eventsCollectionRef.doc(randomId).set({
+          id: randomId,
+          title: this.newEventTitle,
+          start: this.newEventStart,
+          end: this.newEventEnd,
+          location: this.newEventLocation,
+          description: this.newEventDescription,
+          creator: this.auth.currentUser.email,
+          rsvpMembers: [],
+        })
+        window.alert("The event is successfully added.")
+      }
     }
     this.newEventTitle = "";
     this.newEventStart = "";
@@ -289,7 +290,6 @@ export class CalendarViewComponent {
 
   async rsvpToEvent(event){
      // If the user has already rsvp
-    console.log("event.rsvpMembers: ")
     if(event.rsvpMembers.indexOf(this.auth.currentUser.email) > -1){
       window.alert("You have already registered to this event");
     }
@@ -313,12 +313,10 @@ export class CalendarViewComponent {
    else{
      if(window.confirm("Please confirm that you want to cancel RSVP to this event")){
         event.rsvpMembers.splice(event.rsvpMembers.indexOf(this.auth.currentUser.email),1);
-        //console.log("event.rsvpMembers: ", event.rsvpMembers)
         await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
           rsvpMembers: event.rsvpMembers
         });
         await this.afs.collection('allUsers/'+ this.auth.currentUser.email + '/orgs/' + this.orgInView + '/rsvpEvents').doc(event.id).delete();
-        //console.log("Entering allUseres")
         window.alert("Your RSVP is canceled");
      }
    }
