@@ -1,12 +1,10 @@
 <div class="dashbaord-container">
-  HI {{this.userEmail}}
-<mat-list>
-  <h1>My orgs</h1>
-  <mat-list-item *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
+<mat-list style="text-align: center;">
+  Hello, {{this.userEmail}}
+  <h1 style="font-family: 'Montserrat', sans-serif;">My orgs</h1>
+  <mat-list-item style="text-align: center;" *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
     {{ org.id }}
     {{org.role}}
   </mat-list-item>
 </mat-list>
-
-
 </div>
