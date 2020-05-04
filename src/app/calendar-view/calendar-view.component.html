@@ -140,63 +140,82 @@
     <mat-dialog-content>
       <div class = "dialog-header">
         <mat-card-title style="display:inline"> Edit Event</mat-card-title>
-        <button mat-button class="close-icon" [mat-dialog-close]="true" style="align-self:right">
-          <mat-icon>close</mat-icon>
+        <button mat-stroked-button class="close-icon" [mat-dialog-close]="true" style="margin-left:58%; padding:0">
+          X
         </button>
       </div>
+      <br>
       <div class = "dialog-content">
-        <h3>
-          Title
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="editEventTitle"
-            (keyup)="refresh.next()"
-          /> 
-          <br>
-          Start Date (YYYY/MM/DD)
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="editEventStart"
-            (keyup)="refresh.next()"
-          />
-          <br>
-          End Date (YYYY/MM/DD)
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="editEventEnd"
-            (keyup)="refresh.next()"
-          />
-          <br>
-          Location
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="editEventLocation"
-            (keyup)="refresh.next()"
-          />
-          <br>
-          Description
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="editEventDescription"
-            (keyup)="refresh.next()"
-          />
+        <table>
+          <tr>
+            <td>Title: </td>
+            <td>
+              <input
+              type="text"
+              class="form-control input-area"
+              [(ngModel)]="editEventTitle"
+              (keyup)="refresh.next()"
+              size = "30"
+            />
+            </td>
+          </tr> 
+          <tr>
+            <td>Start Date (YYYY/MM/DD):    </td>
+            <td>
+              <input
+              type="text"
+              class="form-control input-area"
+              [(ngModel)]="editEventStart"
+              (keyup)="refresh.next()"
+              size = "30"
+            />
+            </td>
+          </tr>
+          <tr>
+            <td>End Date (YYYY/MM/DD): </td>
+            <td>
+              <input
+              type="text"
+              class="form-control input-area"
+              [(ngModel)]="editEventEnd"
+              (keyup)="refresh.next()"
+              size = "30"
+              placeholder="Optional"
+            />
+            </td>
+          </tr>
+          <tr>
+            <td>Location: </td>
+            <td>
+              <input
+                type="text"
+                class="form-control input-area"
+                [(ngModel)]="editEventLocation"
+                (keyup)="refresh.next()"
+                size = "30"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Description: </td>
+            <td>
+              <textarea
+              type="text"
+              class="form-control"
+              [(ngModel)]="editEventDescription"
+              (keyup)="refresh.next()"
+              rows = "10"
+              cols= "29.5"
+              placeholder = "Short Description of the Event"
+              > </textarea>
+            </td>
+          </tr>
+        </table>
       
-          <button class="btn btn-primary pull-right" (click)="confirmEdit()"  [mat-dialog-close]="true">
-            Edit Event
-          </button>
-          <div class="clearfix"></div>
-        </h3>
-
-    <!-- <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="close()">
-        OK
-      </button>
-    </div> -->
+        <button mat-raised-button class="btn btn-primary pull-right" (click)="confirmEdit()"  [mat-dialog-close]="true" style="margin-left: 42%; background-color:black; color:white">
+          Edit Event
+        </button>
+        <br>
       </div>
     </mat-dialog-content>
   </ng-template>

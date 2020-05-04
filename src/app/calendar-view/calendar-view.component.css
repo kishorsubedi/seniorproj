@@ -24,3 +24,7 @@ pre {
 .dialog{
   height: 300px;
 }
+
+input {
+  text-align:right !important;
+}
