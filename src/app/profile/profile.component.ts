@@ -27,28 +27,17 @@ export class ProfileComponent implements OnInit {
 
   @Input() orgInView: string;
 
+  // Updates the event table when the organization's are changed.
   async ngOnChanges(changes: any) {
     for (const propName in changes) {
       if (changes.hasOwnProperty(propName)) {
         switch (propName) {
           case 'orgInView': {
             if (this.orgInView){
-              console.log("Type of OIV ngOnChan: ", this.orgInView);
-              console.log("atEvents be nOC:  ", this.atEvents);
-              this.isFirstDataLoaded = false;
-              console.log("val of first Num 1: ", this.isFirstDataLoaded);
               await this.getEvents(this.orgInView);
               this.dataSource = new MatTableDataSource(this.atEvents);
-              console.log("atEvents af nOC:  ", this.atEvents);
-
-              this.isFirstDataLoaded = true;
-              console.log("case be del:  ", this.atEvents);
-              console.log("val of first Num 2: ", this.isFirstDataLoaded);
               this.atEvents = [];
               
-              console.log("case af del:  ", this.atEvents);
-
-
             }
           }
         }
@@ -68,7 +57,6 @@ export class ProfileComponent implements OnInit {
 
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  //@ViewChild('eventTable',{static:true}) table: MatTable<AttendedEvents>;
    
   // where i use the AuthService for the email.
   constructor(private auth: AuthService,
@@ -89,30 +77,31 @@ export class ProfileComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  // loops through each event, creates an eventClass, and addds it to the event list. 
   async getEvents(org: string){
     await this.usersService.getEvents(org).then(async events => {       
       for (var key in events) {
-
         await this.usersService._getEvents(key, org).then(res => {
           this.currEven = res;
-        })       
-
-        console.log("curr even in getEvents: ", this.currEven);       
+        })      
         this.atEvents.push(this.currEven);        
       }
     });
   }
 
+  // gets the display username from the database
   getUserName(){
     this.usersService.getUserName().then(res => {
       this.userName = res;
     });
   }
 
+  // gets the profile pic from the database
   async downloadImage(){
     this.downloadURL = await this.afStorage.ref("profilePictures/"+this.userEmail).getDownloadURL();
   }
 
+  // uploads a profile pic to the database.
   async upload(event) {
     if(event.target.files[0]){
       var ref = this.afStorage.ref("profilePictures/"+this.userEmail);
