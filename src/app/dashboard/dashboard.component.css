@@ -19,22 +19,3 @@ h3 {
     text-align: center;
 }
 
-.pageContainer {
-  
-  display: flex;
-  flex-flow: row nowrap;
-  height: 100%;
-  
-}
-
-.sideNavContainer {
-  display: flex;
-  width: 30%;
-  background-color: grey;
- 
-}
-
-.pageContent {
-  display: flex;
-  width: 70%;
-}

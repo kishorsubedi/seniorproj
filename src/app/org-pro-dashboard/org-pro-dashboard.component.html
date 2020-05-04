@@ -1,10 +1,8 @@
-<div class="dashbaord-container">
-<mat-list style="text-align: center;">
-  Hello, {{this.userEmail}}
-  <h1 style="font-family: 'Montserrat', sans-serif;">My orgs</h1>
+<mat-card class="card-container">
+  <h2 style="text-align: center; font-family: 'Montserrat', sans-serif;">Hello, {{this.userEmail}}</h2>
+  <h2 style="font-family: 'Montserrat', sans-serif; text-align: center;">Your Organizations </h2>
   <mat-list-item style="text-align: center;" *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
     {{ org.id }}
     {{org.role}}
   </mat-list-item>
-</mat-list>
-</div>
+</mat-card>

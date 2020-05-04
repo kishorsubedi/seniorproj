@@ -1,9 +1,8 @@
-.dashboard-container {
-    
-    font-family: 'Montserrat', sans-serif;
-
-}
-.mat-list {
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
+.card-container {
+    border: black;
+    padding: 5px;
+    background-color: black;
+    color: white;
+    height: auto;
+    margin: 0;
 }
