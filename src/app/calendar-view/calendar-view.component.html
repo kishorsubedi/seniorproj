@@ -88,7 +88,7 @@
       <div class = "dialog-content">
         <table>
           <tr>
-            <td>Title</td>
+            <td>Title:</td>
             <td><input
               type="text"
               class="form-control"
@@ -98,7 +98,7 @@
             /> </td>
           </tr>
           <tr>
-            <td>Start Date (YYYY/MM/DD)</td>
+            <td>Start Date (YYYY/MM/DD):</td>
             <td>
               <input
               type="text"
@@ -110,7 +110,7 @@
             </td>
           </tr>
           <tr>
-            <td>End Date (YYYY/MM/DD)</td>
+            <td>End Date (YYYY/MM/DD):</td>
             <td>
               <input
               type="text"
@@ -123,7 +123,7 @@
             </td>
           </tr>
           <tr>
-            <td>Start Time (with AM/PM)</td>
+            <td>Start Time (with AM/PM):</td>
             <td>
               <input
               type="text"
@@ -135,7 +135,7 @@
             </td>
           </tr>
           <tr>
-            <td>End Time (with AM/PM)</td>
+            <td>End Time (with AM/PM):</td>
             <td>
               <input
               type="text"
@@ -148,7 +148,7 @@
           </tr>
           <tr>
             <td>
-              Location
+              Location:
             </td>
             <td>
               <input
@@ -160,7 +160,7 @@
             />
             </td>
           </tr>
-          <td style="vertical-align:middle;">Description</td>
+          <td style="vertical-align:middle;">Description:</td>
           <td>
             <textarea
               type="text"
@@ -232,6 +232,30 @@
             </td>
           </tr>
           <tr>
+            <td>Start Time (with AM/PM):</td>
+            <td>
+              <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="editEventStartTime"
+              (keyup)="refresh.next()"
+              size="30"
+            />
+            </td>
+          </tr>
+          <tr>
+            <td>End Time (with AM/PM):</td>
+            <td>
+              <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="editEventEndTime"
+              (keyup)="refresh.next()"
+              size="30"
+            />
+            </td>
+          </tr>
+          <tr>
             <td>Location: </td>
             <td>
               <input
@@ -251,7 +275,7 @@
               class="form-control"
               [(ngModel)]="editEventDescription"
               (keyup)="refresh.next()"
-              rows = "10"
+              rows = "9"
               cols= "29.5"
               placeholder = "Short Description of the Event"
               > </textarea>
@@ -268,13 +292,10 @@
   </ng-template>
 
   <ng-template #modalContent let-close="close" >
-    <mat-dialog-content>
+    <mat-dialog-content style="display: flex; flex-direction: column;text-align: center;">
       <div class="dialog-header">
-        <mat-card-title display="inline">{{modalData.event.title}}</mat-card-title>
-        <button mat-button class="close-icon" [mat-dialog-close]="true">
-          <mat-icon>close</mat-icon>
-        </button>
-        <!-- <mat-card-subtitle>{{modalData.event.startString}}</mat-card-subtitle> -->
+        <mat-card-title>{{modalData.event.title}}</mat-card-title>
+        <mat-card-subtitle>{{modalData.event.startTime}} - {{modalData.event.endTime}}</mat-card-subtitle>
       </div>
       <div class="dialog-body">
         <div>
@@ -287,8 +308,9 @@
         </div>
       </div>
       <mat-dialog-actions>
-        <button class="mat-raised-button"(click)="close()">Close</button>
-        <!-- <button class="mat-raised-button mat-primary"(click)="save()">Save</button> -->
+        <button mat-raised-button class="btn btn-primary pull-right" (click)="confirmEdit()"  [mat-dialog-close]="true" style="margin-left: 42%; background-color:black; color:white">
+          OK
+        </button>
       </mat-dialog-actions>
     </mat-dialog-content>
   </ng-template>

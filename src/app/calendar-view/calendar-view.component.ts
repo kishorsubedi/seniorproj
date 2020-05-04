@@ -144,6 +144,8 @@ export class CalendarViewComponent {
   editEventTitle: string = "";
   editEventStart: string = "";
   editEventEnd: string = "";
+  editEventStartTime: string = "";
+  editEventEndTime: string = "";
   editEventLocation: string = "";
   editEventDescription: string= "";
 
@@ -237,6 +239,8 @@ export class CalendarViewComponent {
     else{
       this.editEventEnd = event.end;
     }
+    this.editEventStartTime = event.startTime;
+    this.editEventEndTime = event.endTime;
     this.editEventLocation = event.location;
     this.editEventDescription = event.description;
 
@@ -253,6 +257,8 @@ export class CalendarViewComponent {
         title: this.editEventTitle,
         start: this.editEventStart,
         end: this.editEventEnd,
+        startTime: this.editEventStartTime,
+        endTime: this.editEventEndTime,
         location: this.editEventLocation,
         description: this.editEventDescription
       });
