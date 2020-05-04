@@ -22,8 +22,6 @@ export class UsersService {
 
   // helper function that makes FB call to get the info about each event
   async _getEvents(eventId: string, org: string){
-    console.log("RIRI");
-    //get user's events from database(use this.this.userCollectionRef.collection) here
     
     var eventInfo: AttendedEvents;
     this.rsvpEventsDocument = this.afs.collection(`orgs/${org}/events/`).doc(eventId);
