@@ -131,7 +131,7 @@ export class CalendarViewComponent {
 
   // For adding events
   newEventTitle: string = "";
-  newEventStart: string = "";
+  newEventStart: string = this.viewDate.toISOString().slice(0,10).replace(new RegExp("-", "g"),'/');;
   newEventEnd: string = "";
   newEventLocation: string = "";
   newEventDescription: string= "";
@@ -169,6 +169,7 @@ export class CalendarViewComponent {
             }
             event.startString = event.start
             event.start = new Date(event.start);
+            console.log("Date String", event.start.toISOString().slice(0,10))
             if(event.end){
               event.endString = event.end
               event.end = new Date(event.end);
@@ -193,6 +194,7 @@ export class CalendarViewComponent {
         this.activeDayIsOpen = true;
       }
       this.viewDate = date;
+      this.newEventStart = this.viewDate.toISOString().slice(0,10).replace(new RegExp("-", "g"),'/');
     }
   }
 
@@ -228,8 +230,13 @@ export class CalendarViewComponent {
   openEditDialog(event){
     this.editEventTitle  = event.title;
     this.editEventId = event.id;
-    this.editEventStart = event.start;
-    this.editEventEnd = event.end;
+    this.editEventStart = event.start.toISOString().slice(0,10).replace(new RegExp("-", "g"),'/');
+    if(event.end){
+      this.editEventEnd = event.end.toISOString().slice(0,10).replace(new RegExp("-", "g"),'/');
+    }
+    else{
+      this.editEventEnd = event.end;
+    }
     this.editEventLocation = event.location;
     this.editEventDescription = event.description;
 
