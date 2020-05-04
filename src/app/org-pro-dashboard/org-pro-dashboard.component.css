@@ -1,8 +1,30 @@
 .dashboard-container {
     height: 100%;
-    width: 30%; 
+    width: auto;
     border: 1px solid rgba(0, 0, 0, 0.5);
     position: sticky;
     position: -webkit-sticky;
     z-index: -1;
+    background-color: black;
+  
+}
+.dashboard-container .h1 {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+.mat-list{
+
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.mat-list-item {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }

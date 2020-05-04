@@ -1,7 +1,6 @@
 <div class="dashbaord-container">
-  HI {{this.userEmail}}
-<mat-list>
-  <h1>My orgs</h1>
+<mat-list class="mat-list">
+  <h2>My Organizations</h2>
   <mat-list-item *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
     {{ org.id }}
     {{org.role}}
