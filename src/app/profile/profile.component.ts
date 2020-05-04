@@ -50,11 +50,6 @@ export class ProfileComponent implements OnInit {
 
 
             }
-            /* console.log("case be del:  ", this.atEvents);
-            this.dataSource = new MatTableDataSource(this.atEvents);
-            console.log("val of first Num 2: ", this.isFirstDataLoaded);
-            this.atEvents = [];
-            console.log("case af del:  ", this.atEvents); */
           }
         }
       }
@@ -81,57 +76,31 @@ export class ProfileComponent implements OnInit {
     private afStorage: AngularFireStorage) { 
 
     this.userEmail = auth.afAuth.auth.currentUser.email;
-    //this.userName = auth.afAuth.auth.currentUser.displayName;
-
-    if(this.orgInView) {
-      this.printOrg();
-    }
-    console.log("Be con: ");
-    //this.getEvents(this.orgInView);
-    console.log("atEvents be con:  ", this.atEvents);
-    //this.dataSource = new MatTableDataSource(this.atEvents);
-    console.log("atEvents af con:  ", this.atEvents);
 
     this.getUserName();
     this.downloadImage();
-    console.log("OIV ConS: ", this.orgInView);
   }
 
   ngOnInit() {
-    //this.getEvents(this.orgInView);
     this.dataSource.sort = this.sort;
   }
 
-  printOrg() {
-    console.log("print Org func: ", this.orgInView);
-  }
-
   ngAfterViewInit() {
-    //this.getEvents(this.orgInView);
     this.dataSource.sort = this.sort;
   }
 
   async getEvents(org: string){
-    await this.usersService.getEvents(org).then(events => {       
+    await this.usersService.getEvents(org).then(async events => {       
       for (var key in events) {
-        this.currEven = {date: events[key].date,
-                        title: events[key].title,
-                        org: events[key].org};
+
+        await this.usersService._getEvents(key, org).then(res => {
+          this.currEven = res;
+        })       
 
         console.log("curr even in getEvents: ", this.currEven);       
         this.atEvents.push(this.currEven);        
       }
     });
-    // Testing ngAfterViewInit
-    
-    //this.dataSource = new MatTableDataSource(this.atEvents);
-    //this.table.renderRows();
-    //this.atEvents = [];
-    //console.log("cleared events");
-  }
-
-  getOrgs(){
-    this.usersService.getOrgs();
   }
 
   getUserName(){

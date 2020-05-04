@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
+import { AttendedEvents } from '../profile/profile.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class UsersService {
   // need to figure out how to get the doc ID from rsvpedEvent col
   rsvpedEventsCollectRef: AngularFirestoreCollection;
 
+  rsvpEventsDocument: AngularFirestoreDocument;
+
   constructor(private auth: AuthService, 
     private afs: AngularFirestore) {
       
@@ -24,18 +27,26 @@ export class UsersService {
         
   }
 
-  async _getEvents(){
+  async _getEvents(eventId: string, org: string){
     console.log("RIRI");
     //get user's events from database(use this.this.userCollectionRef.collection) here
-    var rsvpedEvents = [];
-    this.rsvpedEventsCollectRef = 
-          this.afs.collection(`allUsers/${this.auth.afAuth.auth.currentUser.email}/orgs/testorg/rsvpEvents`);
+    
+    var eventInfo: AttendedEvents;
+    "/orgs/abc/events/95b0102a-bdc6-02c7-34dd-26537d95583e"
+    this.rsvpEventsDocument = 
+          this.afs.collection(`orgs/${org}/events/`).doc(eventId);
 
-    const snapshot = this.rsvpedEventsCollectRef
-    ;(await snapshot.ref.get()).forEach(doc => { 
-      rsvpedEvents[doc.id] = doc.data();
-    });
-    return rsvpedEvents;
+    await this.rsvpEventsDocument.ref.get().then(doc => {
+      if(doc.exists) { 
+        eventInfo = {date: String(doc.get('start')),
+                    title: String(doc.get('title')),
+                    org: org};
+      } else {
+        console.log("Doc doesn't exist!");
+        return;
+      }
+    })
+    return eventInfo;
   }
 
   async getEvents(org: string){
@@ -44,22 +55,13 @@ export class UsersService {
     this.rsvpedEventsCollectRef = 
         this.afs.collection(`allUsers/${this.auth.afAuth.auth.currentUser.email}/orgs/${org}/rsvpEvents`);
     var rsvpedEvents = [];
-    var lastDoc;
-    const snapshot = this.rsvpedEventsCollectRef
-    ;(await snapshot.ref.get()).forEach(doc => { 
+    const snapshot = this.rsvpedEventsCollectRef;
+    (await snapshot.ref.get()).forEach(doc => { 
       rsvpedEvents[doc.id] = doc.data();
-      lastDoc = doc.id;
     });
-    console.log("The Last Doc: ", rsvpedEvents[lastDoc]);
     return rsvpedEvents;
   }
-
-
-
-  getOrgs(){
-    //get user's orgs from database here
-  }
-
+  
   async getUserName(){
     //do this.userCollectionRef.get().then(snapshot => .....
     var userNameString: string;
