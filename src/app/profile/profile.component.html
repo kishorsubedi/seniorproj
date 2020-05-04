@@ -5,7 +5,7 @@
             <div class="details-header">
                     <div *ngIf="downloadURL | async; let url" >
                             <img [src]="url" alt="Image from AngularFireStorage" style="width:140px;height:120px">
-                    </div>`
+                    </div>
                 <!-- <img src="../../assets/images/photo.png" style="width:100px;height:100px" id="profilePic"> -->
                 <h2>{{this.userName}}</h2>    
             </div>
@@ -13,8 +13,9 @@
             <!-- The change profile pic button. Needs a function -->
             <div class="change-pic">
                 <!-- Unlinked button. Needs to link to profile function-->
-                <button mat-button onClick="changeProfilePicture()"> Change profile picture</button>
-                <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+                <!-- <button mat-button onClick="changeProfilePicture()"> Change profile picture</button> -->
+                <p><input type="file" (change)="upload($event)" accept=".png,.jpg" id="proPic" style="display: none;"/></p>
+                <p><button mat-button><label for="proPic" style="cursor: poointer;">Change Image</label></button></p>
             </div>
             <hr>
             
@@ -24,24 +25,24 @@
                     Email
                 </label>
                 <h3 id="user-email"> {{this.userEmail}} </h3>
-                <h3>Password: </h3><input type="password">
+                <label for="user-pass">
+                    Password
+                </label>
+                <h3 id="user-pass">**********</h3>
                 <button mat-button> Change Password </button>
-                <br>
-                <h3>Join Date: Date Joined</h3>
                 <br>
             </div>
 
         </mat-card>
 
         <mat-card class= "list-view-card sub-card">
-            <div>
-                <mat-card class="attended-title-card">                    
-                    <h1>Attended Events</h1>
-                </mat-card>
+            <div class="attended-title-card">                 
+                <div class="view-past-event">
+                    <button mat-raised-button >View Attended Events</button>
+                </div>
             </div>
-            <hr>
 
-            <div class="event-table example-container">
+            <div class="event-table">
                 <mat-card class="event-card">
                     <table mat-table [dataSource]="dataSource" matSort>
 

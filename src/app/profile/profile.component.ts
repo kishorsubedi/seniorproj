@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -13,19 +13,6 @@ export interface AttendedEvents {
   org: string;
 }
 
-const EVENT_DATA: AttendedEvents[] = [
-  {date:'04/03/2020', title: 'Bit Awards', org: 'ACM'},
-  {date:'10/15/2020', title: 'Byte@Night', org: 'ACM'},
-  {date:'08/27/2020', title: 'GBM', org: 'ACM'},
-  {date:'09/03/2020', title: 'Git Work Shop', org: 'ACM'},
-  {date:'04/25/2020', title: 'Meet&Greet', org: 'ACM'},
-  {date:'05/18/2020', title: 'Networking Workshop', org: 'ACM'},
-  {date:'07/25/2020', title: 'Eminado', org: 'ACM'},
-  {date:'11/18/2020', title: 'Ma Lo', org: 'ACM'},
-  {date:'12/25/2020', title: 'sici', org: 'ACM'},
-  {date:'02/18/2020', title: 'soco Lo', org: 'ACM'},
-]
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -34,11 +21,15 @@ const EVENT_DATA: AttendedEvents[] = [
 export class ProfileComponent implements OnInit {
 
   downloadURL: Observable<any[]>;
+  atEvents: AttendedEvents[] = [];
   displayedColumns: string[] = ['date', 'title', 'org'];
-  dataSource = new MatTableDataSource(EVENT_DATA);
+  dataSource = new MatTableDataSource();
   userName: string;
   userEmail: string;
-  
+  currEven: AttendedEvents;
+
+  @Input() orgInView: string = '';
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   
@@ -50,16 +41,50 @@ export class ProfileComponent implements OnInit {
     this.userEmail = auth.afAuth.auth.currentUser.email;
     //this.userName = auth.afAuth.auth.currentUser.displayName;
 
-    this.usersService.getEvents();
+    this.getEvents();
+    this.dataSource = new MatTableDataSource(this.atEvents);
+    this.getUserName();
     this.downloadImage();
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {    
     this.dataSource.sort = this.sort;
   }
 
-  getEvents(){
-    this.usersService.getEvents();
+  /* 
+  ngOnChanges(changes: any) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'orgInView': {
+            if (this.orgInView){
+              this.getEvents(this.orgInView);
+              this.dataSource = new MatTableDataSource(this.atEvents);
+            }
+          }
+        }
+      }
+    }
+  } */
+
+  async getEvents(){
+    this.usersService.getEvents().then(events => {       
+      for (var key in events) {
+        console.log("type of date: ", events[key].date );
+        this.currEven = {date: events[key].date,
+                        title: events[key].title,
+                        org: events[key].org};
+
+        console.log("curr even in getEvents: ", this.currEven);
+        console.log("in get events: orginal" );        
+        this.atEvents.push(this.currEven);        
+      }
+    });
+    // Testing ngAfterViewInit
+    this.dataSource.data = this.atEvents;
   }
 
   getOrgs(){
@@ -67,7 +92,9 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserName(){
-    this.usersService.getUserName();
+    this.usersService.getUserName().then(res => {
+      this.userName = res;
+    });
   }
 
   async downloadImage(){
