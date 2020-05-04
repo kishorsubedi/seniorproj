@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import { Observable, timer } from 'rxjs';
 import { stringify } from 'querystring';
 import { EmailValidator } from '@angular/forms';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   private authState: Observable<firebase.User>
   public currentUser: firebase.User = null;
 
-  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, private router: Router) {
+  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, private router: Router, private afStorage: AngularFireStorage) {
     this.authState = this.afAuth.authState;
 
     this.authState.subscribe(user => {
@@ -75,7 +76,18 @@ export class AuthService {
     usersOrgCollectionRef.doc(org).update({ role: 'member' });
   }
 
-  signUpWithEmailPassword(email: string, password:string, signupOrgName:string, name:string) {
+  async upload(file:File, userEmail: string) {
+    if(file){
+      console.log(file);
+      var ref = this.afStorage.ref("profilePictures/"+userEmail);
+      
+      // the put method creates an AngularFireUploadTask
+      // and kicks off the upload
+      await ref.put(file[0]); //upload
+    }
+  }
+
+  signUpWithEmailPassword(email: string, password:string, signupOrgName:string, name:string, file:any) {
     //shouldn't be in allUsers. 
     // if in admin already, first time creator. org -> creator, allUsers.orgs -> org
     // else, if in invitedMembers, org -> creator, allUsers.orgs -> org
@@ -130,6 +142,12 @@ export class AuthService {
                       await orgAdminsCollectionRef.doc(email).set({ email: email, name:name });
                       await this.afs.collection("orgs/"+ signupOrgName + "/invitedMembers").doc(email).delete();                     
                     }
+
+                    var ref = this.afStorage.ref("profilePictures/"+email);
+      
+                    // the put method creates an AngularFireUploadTask
+                    // and kicks off the upload
+                    await ref.put(file); //upload
                   
                     this.router.navigateByUrl('/dashboard');
                     return;

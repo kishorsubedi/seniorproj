@@ -141,12 +141,12 @@ export class ProfileComponent implements OnInit {
   }
 
   async downloadImage(){
-    this.downloadURL = await this.afStorage.ref("profilePictures/"+this.auth.currentUser.email).getDownloadURL();
+    this.downloadURL = await this.afStorage.ref("profilePictures/"+this.userEmail).getDownloadURL();
   }
 
   async upload(event) {
     if(event.target.files[0]){
-      var ref = this.afStorage.ref("profilePictures/"+this.auth.currentUser.email);
+      var ref = this.afStorage.ref("profilePictures/"+this.userEmail);
       // the put method creates an AngularFireUploadTask
       // and kicks off the upload
       await ref.put(event.target.files[0]); //upload
