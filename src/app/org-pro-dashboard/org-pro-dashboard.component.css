@@ -1,6 +1,5 @@
 .dashboard-container {
     height: 100%;
-    width: 30%; 
     border: 1px solid rgba(0, 0, 0, 0.5);
     position: sticky;
     position: -webkit-sticky;

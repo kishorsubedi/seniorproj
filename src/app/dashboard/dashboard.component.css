@@ -42,3 +42,19 @@ h3 {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
 }
+
+.pageContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+}
+
+.sideNavContainer {
+  display: flex;
+  width: 30%;
+}
+
+.pageContent {
+  display: flex;
+  width: 70%;
+}
