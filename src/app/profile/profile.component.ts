@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
 
   @Input() orgInView: string;
 
-  ngOnChanges(changes: any) {
+  async ngOnChanges(changes: any) {
     for (const propName in changes) {
       if (changes.hasOwnProperty(propName)) {
         switch (propName) {
@@ -35,14 +35,26 @@ export class ProfileComponent implements OnInit {
             if (this.orgInView){
               console.log("Type of OIV ngOnChan: ", this.orgInView);
               console.log("atEvents be nOC:  ", this.atEvents);
-              this.getEvents(this.orgInView);
-              //this.dataSource = new MatTableDataSource(this.atEvents);
+              this.isFirstDataLoaded = false;
+              console.log("val of first Num 1: ", this.isFirstDataLoaded);
+              await this.getEvents(this.orgInView);
+              this.dataSource = new MatTableDataSource(this.atEvents);
               console.log("atEvents af nOC:  ", this.atEvents);
+
+              this.isFirstDataLoaded = true;
+              console.log("case be del:  ", this.atEvents);
+              console.log("val of first Num 2: ", this.isFirstDataLoaded);
+              this.atEvents = [];
+              
+              console.log("case af del:  ", this.atEvents);
+
+
             }
-            console.log("case be del:  ", this.atEvents);
+            /* console.log("case be del:  ", this.atEvents);
             this.dataSource = new MatTableDataSource(this.atEvents);
+            console.log("val of first Num 2: ", this.isFirstDataLoaded);
             this.atEvents = [];
-            console.log("case af del:  ",this.atEvents);
+            console.log("case af del:  ", this.atEvents); */
           }
         }
       }
@@ -57,7 +69,7 @@ export class ProfileComponent implements OnInit {
   userEmail: string;
   currEven: AttendedEvents;
 
-  isFirstDataLoaded = false;
+  isFirstDataLoaded = true;
 
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -77,7 +89,7 @@ export class ProfileComponent implements OnInit {
     console.log("Be con: ");
     //this.getEvents(this.orgInView);
     console.log("atEvents be con:  ", this.atEvents);
-    this.dataSource = new MatTableDataSource(this.atEvents);
+    //this.dataSource = new MatTableDataSource(this.atEvents);
     console.log("atEvents af con:  ", this.atEvents);
 
     this.getUserName();
@@ -96,7 +108,7 @@ export class ProfileComponent implements OnInit {
 
   ngAfterViewInit() {
     //this.getEvents(this.orgInView);
-    //this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;
   }
 
   async getEvents(org: string){
