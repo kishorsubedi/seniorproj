@@ -1,8 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { orgdashboardComponent } from '../orgdashboard/orgdashboard.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { OrgProDashboardComponent } from '../org-pro-dashboard/org-pro-dashboard.component';
+import { MatSidenav } from '@angular/material/sidenav';
+import { AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+import { User } from 'firebase';
+import { org } from '../models/org';
+
+export interface OrgRole{
+  id: string,
+  name: string
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +20,44 @@ import { OrgProDashboardComponent } from '../org-pro-dashboard/org-pro-dashboard
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild('sidenav') sidenav: MatSidenav;
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+  
+
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
+  }
   currentOrg : string;
+  userLoggedIn: boolean = false
+
+  private orgsCollection: AngularFirestoreCollection<OrgRole>;
+  items: Observable<OrgRole[]>;
+
+  @Output() orgChanged = new EventEmitter<string>();
+  user: User;
+  orgs: org[];
+  userEmail: string;
 
   constructor(private auth: AuthService, private router: Router) { 
+    if (this.auth.afAuth.auth.currentUser != null)
+    this.userLoggedIn = true
+  
+    this.userEmail = auth.afAuth.auth.currentUser.email;
+    this.orgs = [];
+    
+    this.orgsCollection = this.auth.afs.collection<OrgRole>('allUsers/'+this.userEmail+'/orgs');
 
+    this.getOrgs();
   }
   loadStripe() {
      
@@ -29,6 +73,42 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.loadStripe()
   }
+  handleOrgClick(orgName: string){
+    this.orgChanged.emit(orgName);
+  }
+
+  navigateToOrgDashboard() {  
+    console.log("Lets navigate to specific org");
+  }
+
+  orgsWatcher(){
+    return this.auth.afs.doc('allUsers/'+this.userEmail).valueChanges();
+  }
+
+async getOrgs(){
+
+    // const x = await this.auth.afs.firestore.doc('/allUsers/'+ this.userEmail + '/orgs/neworg').get()
+    // const data = x.data();
+    // console.log(data);
+    // console.log("LAAMO");
+
+    this.auth.afs.collection<OrgRole>('allUsers/' + this.userEmail + '/orgs')
+     .valueChanges()
+     .subscribe(data=>{
+          this.orgs = data;
+          this.orgChanged.emit(this.orgs[0].id);
+        })
+  }
+
+  handleOrgChange(orgName){
+    console.log("Kishor");
+    this.currentOrg = orgName
+    console.log("org change event reached dashboard " + this.currentOrg);
+  }
+  isHomeRoute() {
+    return this.router.url === '/dashboard'
+  }
+  
   pay(amount) {    
  
     var handler = (<any>window).StripeCheckout.configure({
@@ -51,15 +131,11 @@ export class DashboardComponent implements OnInit {
 }
 
 
-  handleOrgChange(orgName){
-    console.log("Kishor");
-    this.currentOrg = orgName
-    console.log("org change event reached dashboard " + this.currentOrg);
-  }
   
   signOut(){
     this.auth.signOut();
   }
 }
+
 
 

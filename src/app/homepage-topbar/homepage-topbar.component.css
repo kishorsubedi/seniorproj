@@ -1,14 +1,16 @@
-  :host{
-      display: block;
-      height: 40px;
-      width: 100%;
-      margin-bottom:75px; 
-     
+
+  :host {
+    height: 100%;
+    margin: 0; padding: 0; border: 0;
+}
+
+  .mat-tab-navbar {
+    background-color: black;
   }
 
-  .mat-toolbar.mat-primary {
+  .mat-tab-link { 
+    color: white;
     font-family: 'Montserrat', sans-serif;
+    text-align: center;
 
-    background-color: black;
-    color: white; 
   }
