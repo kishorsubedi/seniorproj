@@ -53,7 +53,6 @@ export class DashboardComponent implements OnInit {
     if (this.auth.afAuth.auth.currentUser != null){
       this.needToChooseOrg = true;
 
-      console.log("kii");
       this.userLoggedIn = true
   
       this.userEmail = auth.afAuth.auth.currentUser.email;

@@ -18,6 +18,23 @@ export interface OrgRole{
   styleUrls: ['./org-pro-dashboard.component.css']
 })
 export class OrgProDashboardComponent implements OnInit {
+  userName: any;
+
+  async getUserName(userEmail: string){
+    var userDocRef = this.auth.afs.firestore.doc("allUsers/"+userEmail);
+    this.userName = await userDocRef.get().then(await function(doc) {
+      if (doc.exists) {
+          return doc.data().name;
+      }
+      else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+      }).catch(function(error) {
+          console.log("Error getting document:", error);
+      });
+  }
+
   @ViewChild('sidenav') sidenav: MatSidenav;
   isExpanded = true;
   showSubmenu: boolean = false;
@@ -53,6 +70,7 @@ export class OrgProDashboardComponent implements OnInit {
     this.orgsCollection = this.auth.afs.collection<OrgRole>('allUsers/'+this.userEmail+'/orgs');
 
     this.getOrgs();
+    this.userName = this.getUserName(this.userEmail);
     // if(this.orgs){
     //   this.orgChanged.emit(this.orgs[0].id);
     // }
