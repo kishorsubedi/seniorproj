@@ -13,8 +13,9 @@
             <!-- The change profile pic button. Needs a function -->
             <div class="change-pic">
                 <!-- Unlinked button. Needs to link to profile function-->
-                <button mat-button onClick="changeProfilePicture()"> Change profile picture</button>
-                <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+                <!-- <button mat-button onClick="changeProfilePicture()"> Change profile picture</button> -->
+                <p><input type="file" (change)="upload($event)" accept=".png,.jpg" id="proPic" style="display: none;"/></p>
+                <p><button mat-button><label for="proPic" style="cursor: poointer;">Change Image</label></button></p>
             </div>
             <hr>
             
@@ -24,51 +25,53 @@
                     Email
                 </label>
                 <h3 id="user-email"> {{this.userEmail}} </h3>
-                <h3>Password: </h3><input type="password">
+                <label for="user-pass">
+                    Password
+                </label>
+                <h3 id="user-pass">**********</h3>
                 <button mat-button> Change Password </button>
-                <br>
-                <h3>Join Date: Date Joined</h3>
                 <br>
             </div>
 
         </mat-card>
 
         <mat-card class= "list-view-card sub-card">
-            <div>
-                <mat-card class="attended-title-card">                    
-                    <h1>Attended Events</h1>
-                </mat-card>
+            <div class="attended-title-card">                 
+                <div class="view-past-event">
+                    <h2 class="mat-h2 mat-title">Attended Events</h2>
+                </div>
             </div>
-            <hr>
 
-            <div class="event-table example-container">
+            <div class="event-table">
                 <mat-card class="event-card">
-                    <table mat-table [dataSource]="dataSource" matSort>
+                    <div>
+                        <table mat-table #eventTable [dataSource]="dataSource" matSort>
 
-                        <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
-                      
-                        <!-- Date Column -->
-                        <ng-container matColumnDef="date">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                          <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-                        </ng-container>
-                      
-                        <!-- Title Column -->
-                        <ng-container matColumnDef="title">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Event Title </th>
-                          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-                        </ng-container>
-                      
-                        <!-- Org Column -->
-                        <ng-container matColumnDef="org">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Organization </th>
-                          <td mat-cell *matCellDef="let element"> {{element.org}} </td>
-                        </ng-container>
-                      
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
+                            <!--- Note that these columns can be defined in any order.
+                                The actual rendered columns are set as a property on the row definition" -->
+                        
+                            <!-- Date Column -->
+                            <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                            </ng-container>
+                        
+                            <!-- Title Column -->
+                            <ng-container matColumnDef="title">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Event Title </th>
+                            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                            </ng-container>
+                        
+                            <!-- Org Column -->
+                            <ng-container matColumnDef="org">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Organization </th>
+                            <td mat-cell *matCellDef="let element"> {{element.org}} </td>
+                            </ng-container>
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
                 </mat-card>
             </div>
 
