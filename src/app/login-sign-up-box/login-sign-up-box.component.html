@@ -44,7 +44,7 @@
     
     <!-- The Signup Tab -->
     <mat-tab label="Sign Up"> 
-      <form>
+      <form action="">
         <div>
             <br>
             <mat-form-field appearance="fill" >
@@ -53,35 +53,47 @@
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
           </div>
-      <div>
+        <div>
         <br>
         <mat-form-field appearance="fill" >
           <mat-label style="font-family: 'Montserrat', sans-serif;" >Email</mat-label>
           <input matInput #signupEmail required>
           <mat-icon matSuffix>email</mat-icon>
         </mat-form-field>
-      </div>
-      <div>
+        </div>
+        <div>
         <mat-form-field appearance="fill">
           <mat-label style="font-family: 'Montserrat', sans-serif;" >Password</mat-label>
           <input matInput #signupPassword type="password" required>
         </mat-form-field>
-      </div>
-      <div style="display:inline-block">
+        </div>
+        <div style="display:inline-block">
           <mat-form-field appearance="50%">
             <mat-label style="font-family: 'Montserrat', sans-serif;" >First Name</mat-label>
             <input matInput #signupFirstName type="name" required>
           </mat-form-field>
         </div>
-      <div style="display:inline-block">
+        <div style="display:inline-block">
             <mat-form-field appearance="50%">
               <mat-label style="font-family: 'Montserrat', sans-serif;" >Last Name</mat-label>
               <input matInput #signupLastName type="name" required>
             </mat-form-field>
-      </div>
-      <div> 
-        <input type="submit" placeholder="Sign Up" mat-stroked-button color="black" (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value, signupOrgName.value, signupFirstName.value + ' ' + signupLastName.value)"  > 
-      </div>
+        </div>
+        <div style="border-color: black; width:100%;border-style: solid;">
+          <div style="display: inline;">
+            Set Profile Picture  
+          </div>
+          
+          <div style="display: inline;float:right;">
+            <input type="file" (change)="uploadFile($event)" accept=".png,.jpg" />
+          </div>
+         
+        </div>
+
+        <br>
+        <div style="text-align: center"> 
+        <input type="submit" style="background-color: #ffb500; font-size: 15px; color: black; border-radius: 50%;" value="Sign Up" mat-stroked-button color="black" (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value, signupOrgName.value, signupFirstName.value + ' ' + signupLastName.value)"  > 
+        </div>
     </form>
     </mat-tab>
   </mat-tab-group>

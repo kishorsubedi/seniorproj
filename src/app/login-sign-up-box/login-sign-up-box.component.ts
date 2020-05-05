@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login-sign-up-box.component.css']
 })
 export class LoginSignUpBoxComponent implements OnInit {
+  file:any;
 
   constructor(private auth: AuthService) { }
 
@@ -17,12 +18,21 @@ export class LoginSignUpBoxComponent implements OnInit {
     this.auth.signInWithEmailPassword(email, password);
   }
 
+  uploadFile(event){
+    this.file = event.target.files[0];
+  }
+
   signUpWithEmailPassword(email:string, password:string, signupOrgName:string, name:string) {
-    this.auth.signUpWithEmailPassword(email, password, signupOrgName, name);
+    if(email == '' || password == '' || signupOrgName == '' || name == '' || !this.file)
+    {
+      window.alert("All fields required");
+      return;
+    }
+    this.auth.signUpWithEmailPassword(email, password, signupOrgName, name, this.file);
   }
 
   loginWithGoogle(){
     this.auth.loginWithGoogle();
   }
-  
+
 }
