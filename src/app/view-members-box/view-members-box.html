@@ -80,19 +80,19 @@
         </mat-card>
 
         <!-- The card that contains search, options and lists -->
-        <mat-card class = "list-view-card sub-card">
+        <mat-card class="list-view-card sub-card" style="background-color: black">
             
             <!-- The search box -->
-            <input class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search People in this Org">
+            <input style="width:100%;height:30px;"class="form-control serach-bar-text-area" type="text" name="search" [(ngModel)]="searchText" (ngModelChange)="updateInDisplay()" autocomplete="off" placeholder="Search People in this Org">
             
             <!-- Make admin and invite options -->
             <mat-card  *ngIf="Admin | async" class = 'grid-card'>
-                <input #adminEmail type="text" placeholder="Search Admin Email">
+                <input style="height:30px" #adminEmail type="text" placeholder="Search Admin Email">
                 <br>
                 <button (click)="confirmMakeAdmin(adminEmail.value)"> Make Admin </button>
             </mat-card>
             <mat-card *ngIf="Admin | async" class = 'grid-card'>
-                <input #inviteEmail type="text" placeholder="Search Member Email"> 
+                <input style="height:30px" #inviteEmail type="text" placeholder="Search Member Email"> 
                 <br>
                 <button (click)="confirmInviteMember(inviteEmail.value)" > Invite </button>
             </mat-card>
