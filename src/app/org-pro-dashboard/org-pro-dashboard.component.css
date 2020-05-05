@@ -1,0 +1,8 @@
+.card-container {
+    border: black;
+    padding: 5px;
+    background-color: black;
+    color: white;
+    height: auto;
+    margin: 0;
+}

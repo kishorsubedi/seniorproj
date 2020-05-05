@@ -5,3 +5,8 @@ div.page-contents{
     justify-content: center;
     background-color:rgb(39, 152, 160);
 }
+.mat-toolbar.mat-primary {
+    font-family: 'Montserrat', sans-serif;
+    background-color: black;
+    color: white; 
+}

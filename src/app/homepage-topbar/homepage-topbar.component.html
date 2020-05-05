@@ -1,36 +1,7 @@
-<mat-toolbar color="primary">
-  
-  <span class="fill-remaining-space">
-    <div *ngIf="userLoggedIn">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>menu</mat-icon>
-          </button>
-    </div>
 
-    <mat-menu #menu="matMenu" [overlapTrigger]="false">
-      <button mat-menu-item routerLink="/dashboard" routerLinkActive="active">
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
-      </button>
-      <button mat-menu-item routerLink = "/about" routerLinkActive="active">
-        <mat-icon>people_outline</mat-icon>
-        <span>About</span>
-      </button>
-      <button mat-menu-item routerLink = "/calendar" routerLinkActive="active">
-        <mat-icon>calendar_today</mat-icon>
-        <span>Events</span>
-      </button>
-    
-      <button mat-menu-item routerLink = "/profile" routerLinkActive="active">
-        <mat-icon>account_box</mat-icon>
-        <span>Profile</span>
-      </button>
-      <button mat-menu-item (click)="signOut()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
-  </span>
-  <span class="fill-remaining-space">ORG <B>PRO</B></span>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<nav mat-tab-nav-bar class="mat-tab-navbar">
+		<a mat-tab-link disabled class="fill-remaining-space">ORG <B>PRO</B></a>
+	   <a mat-tab-link routerLink="/dashboard" routerLinkActive="active">Home</a>
+	   <a mat-tab-link routerLink="/about" routerLinkActive="active">About</a>
+	   <a mat-tab-link (click)="signOut()">Logout</a>
+  </nav>

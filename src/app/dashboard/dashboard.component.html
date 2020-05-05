@@ -2,22 +2,14 @@
     <app-homepage-topbar></app-homepage-topbar>
 </div>
 
-
-<table style="width:100%">
-    <tr>
-      <th>
-            <div>
-                <app-org-pro-dashboard (orgChanged)="handleOrgChange($event)"></app-org-pro-dashboard>
-            </div>
-        </th>
-      <th>
-            <div>
-                <app-orgdashboard [orgInView]="currentOrg"> </app-orgdashboard>
-            </div>
-                
-      </th>
-    </tr>
-  </table>
+<div class="pageContainer">
+  <div class="sideNavContainer">
+    <app-org-pro-dashboard (orgChanged)="handleOrgChange($event)"></app-org-pro-dashboard>
+  </div>
+  <div class="pageContent" >
+    <app-orgdashboard [orgInView]="currentOrg"> </app-orgdashboard>
+  </div>
+</div>
 
 
 

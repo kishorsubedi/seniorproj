@@ -1,10 +1,11 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { org } from '../models/org'
 import { User } from '../models/user'
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { MatSidenav } from '@angular/material/sidenav';
 
 export interface OrgRole{
   id: string,
@@ -17,7 +18,24 @@ export interface OrgRole{
   styleUrls: ['./org-pro-dashboard.component.css']
 })
 export class OrgProDashboardComponent implements OnInit {
+  @ViewChild('sidenav') sidenav: MatSidenav;
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
   
+
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
+  }
+
   private orgsCollection: AngularFirestoreCollection<OrgRole>;
   items: Observable<OrgRole[]>;
 

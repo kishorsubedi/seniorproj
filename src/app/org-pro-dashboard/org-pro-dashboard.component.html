@@ -1,8 +1,8 @@
-HI {{this.userEmail}}
-<mat-list>
-  <h1>My orgs</h1>
-  <mat-list-item *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
+<mat-card class="card-container">
+  <h2 style="text-align: center; font-family: 'Montserrat', sans-serif;">Hello, {{this.userEmail}}</h2>
+  <h2 style="font-family: 'Montserrat', sans-serif; text-align: center;">Your Organizations </h2>
+  <mat-list-item style="text-align: center;" *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
     {{ org.id }}
     {{org.role}}
   </mat-list-item>
-</mat-list>
+</mat-card>

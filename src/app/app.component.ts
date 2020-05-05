@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   calendarPlugins = [dayGridPlugin];
 constructor(
     private auth: AuthService) { }
-
+  
 ngOnInit() {
     this.auth.getAuthState().subscribe(
       (user) => this.user = user);

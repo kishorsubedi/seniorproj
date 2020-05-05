@@ -1,8 +1,25 @@
-.dashboard-title {
-    
+
+h3 {
     font-family: 'Montserrat', sans-serif;
 }
 
 h1{
     margin-bottom:5px;
 }
+.pay-dues .title{
+    margin: auto;
+    max-width: 400px;
+    position: relative;
+    top: -50px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+.feedback .title{
+    top: -50px;
+    margin: auto;
+    max-width: 400px;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
