@@ -7,7 +7,7 @@
     flex-direction: row;
     justify-content: flex-start;
     flex-shrink: 1;
-    background-color: rgb(245, 245, 245);
+    background-color: #202020;
 }
 
 .mat-card-header{
@@ -144,3 +144,28 @@ ul {
     text-align: left;
     font-size: 3vw;
 }
+
+.darkBlackBackground {
+    background-color: #202020;
+}
+
+.lightBlackBackground {
+    background-color: #404040;
+}
+
+.whiteText{
+    color: white;
+}
+
+.greyText{
+    color:#808080;
+}
+
+.darkYellow{
+    color: #f4c430;
+}
+
+.lightYellow{
+    color:#FFD12f;
+}
+
