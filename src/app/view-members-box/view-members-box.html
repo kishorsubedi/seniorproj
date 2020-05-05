@@ -99,17 +99,17 @@
 
 
             <!-- Titles -->
-            <mat-card class="title-cards grid-card">
+            <mat-card class="title-cards grid-card" style="color: yellow">
                 Admins
             </mat-card>
-            <mat-card class="title-cards grid-card">
+            <mat-card class="title-cards grid-card"  style="color: yellow">
                 Users
             </mat-card>
 
             <!-- lists -->
-            <mat-card [ngStyle]="(Admin | async) && {'height': '505px'}" class = "list-card grid-card">
-                <mat-grid-list cols="1" rowHeight="50px" gutterSize="3px" >
-                    <mat-grid-tile *ngFor='let admin of adminsInDisplay'
+            <mat-card style="background-color: black" [ngStyle]="(Admin | async) && {'height': '505px'}" class = "list-card grid-card">
+                <mat-grid-list class="lightBlackBackground" cols="1" rowHeight="50px" gutterSize="3px" >
+                    <mat-grid-tile style="color:white;font-size: 16px" *ngFor='let admin of adminsInDisplay'
                         (click)="handleUserClick(admin)"
                         [colspan]="1"
                         [rowspan]="1">
@@ -117,9 +117,9 @@
                     </mat-grid-tile>
                 </mat-grid-list>
             </mat-card>
-            <mat-card [ngStyle]="(Admin | async) && {'height': '505px'}" class = "list-card grid-card">
+            <mat-card style="background-color: black" [ngStyle]="(Admin | async) && {'height': '505px'}" class = "list-card grid-card">
                 <mat-grid-list cols="2" rowHeight="50px" gutterSize="3px" >
-                    <mat-grid-tile *ngFor='let member of membersInDisplay'
+                    <mat-grid-tile class="lightBlackBackground" style="color:white;font-size: 16px" *ngFor='let member of membersInDisplay'
                         (click)="handleUserClick(member)"
                         [colspan]="1"
                         [rowspan]="1">
