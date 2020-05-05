@@ -29,7 +29,7 @@ export class UsersService {
       if(doc.exists) { 
         eventInfo = {date: String(doc.get('start')),
                     title: String(doc.get('title')),
-                    org: org};
+                    location: String(doc.get('location'))};
       } else {
         console.log("Doc doesn't exist!");
         return;
@@ -39,9 +39,12 @@ export class UsersService {
   }
 
   // gets every event from the users/org/rsvpEvents collection on firebase
-  async getEvents(org: string){
+  async getEvents(org: string, userEmail?: string){
+    if(!userEmail){
+      userEmail = this.auth.afAuth.auth.currentUser.email;
+    }
     this.rsvpedEventsCollectRef = 
-        this.afs.collection(`allUsers/${this.auth.afAuth.auth.currentUser.email}/orgs/${org}/rsvpEvents`);
+        this.afs.collection(`allUsers/${userEmail}/orgs/${org}/rsvpEvents`);
     var rsvpedEvents = [];
     const snapshot = this.rsvpedEventsCollectRef;
     (await snapshot.ref.get()).forEach(doc => { 

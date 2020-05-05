@@ -5,6 +5,14 @@ import { User } from '../models/user';
 import { AuthService } from '../services/auth.service'; 
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AngularFireStorage } from 'angularfire2/storage';
+import { MatTableDataSource } from '@angular/material/table';
+import { UsersService } from '../services/users-service';
+
+export interface AttendedEvents {
+  date: string;
+  title: string;
+  location: string;
+}
 
 @Component({
   selector: 'app-view-members-box',
@@ -38,8 +46,13 @@ export class ViewMembersBox implements OnInit {
   membersInDisplay: User[];
   adminsInDisplay: User[];
   searchText: string = '';
+  currEven: AttendedEvents;
 
-  constructor(private auth: AuthService, private afs: AngularFirestore, private afStorage: AngularFireStorage) {
+  atEvents: AttendedEvents[] = [];
+  displayedColumns: string[] = ['date', 'title', 'org'];
+  dataSource = new MatTableDataSource<AttendedEvents>();
+
+  constructor(private auth: AuthService, private afs: AngularFirestore, private afStorage: AngularFireStorage, private usersService: UsersService) {
     //observable to allusers/userEmail/orgs/org . once it changes, call isAdmin. it hides the admin view itself
     if(this.orgInView){
       this.isAdmin(this.orgInView);
@@ -58,9 +71,25 @@ export class ViewMembersBox implements OnInit {
   ngOnInit(){
   }
 
-  handleUserClick(user: User){
+  async handleUserClick(user: User){
     this.userInView = user;
+
+    await this.getEvents(this.userInView.email);
+    this.dataSource = new MatTableDataSource(this.atEvents);
+    this.atEvents = [];
+
     this.downloadImage();
+  }
+
+  async getEvents(userEmail: string){
+    await this.usersService.getEvents(this.orgInView, userEmail).then(async events => {       
+      for (var key in events) {
+        await this.usersService._getEvents(key, this.orgInView).then(res => {
+          this.currEven = res;
+        })      
+        this.atEvents.push(this.currEven);        
+      }
+    });
   }
 
   async downloadImage(){
@@ -94,6 +123,11 @@ export class ViewMembersBox implements OnInit {
         for(let admin of this.admins){
           if(admin.name){
             this.userInView = admin;
+
+            await this.getEvents(this.userInView.email);
+            this.dataSource = new MatTableDataSource(this.atEvents);
+            this.atEvents = [];
+
             break;
           }
         }

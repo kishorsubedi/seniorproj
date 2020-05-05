@@ -19,47 +19,49 @@
             </div>
 
             <!-- Details -->
-            <mat-card class="details-card">
+            <mat-card>
                 <br>
                 Events Attended:
                 <br>
-                <table style="width:100%; border: 1px solid black;">
-                    <tr>
-                        <td>
-                            Event Date
-                        </td>
-                        <td>
-                            Event Title
-                        </td>
-                        <td>
-                            Event Location
-                        </td>
-                    </tr>
-                </table>   
-                <table style="width:100%; border: 1px dotted black;">
-                        <tr>
-                            <td>
-                                Event Date
-                            </td>
-                            <td>
-                                Event Title
-                            </td>
-                            <td>
-                                Event Location
-                            </td>
-                        </tr>
-                        <tr>
-                                <td>
-                                    Event Date
-                                </td>
-                                <td>
-                                    Event Title
-                                </td>
-                                <td>
-                                    Event Location
-                                </td>
-                            </tr>
-                    </table>
+                <div style="margin: 10px;
+                padding:5px;
+                width : auto;
+                display:flex; /* Needs check*/
+                flex-direction: column;
+                justify-content: flex-start;
+                flex-shrink: 1;
+                background-color: rgb(245, 245, 245);">
+                        <mat-card>
+                            <div style="width: 100%">
+                                <table mat-table #eventTable [dataSource]="dataSource" matSort>
+        
+                                    <!--- Note that these columns can be defined in any order.
+                                        The actual rendered columns are set as a property on the row definition" -->
+                                
+                                    <!-- Date Column -->
+                                    <ng-container matColumnDef="date" >
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 45%"> Date </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                                    </ng-container>
+                                
+                                    <!-- Title Column -->
+                                    <ng-container matColumnDef="title" style="width: 33%">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Event Title </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                                    </ng-container>
+                                
+                                    <!-- Org Column -->
+                                    <ng-container matColumnDef="org" style="width: 33%">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                                    </ng-container>
+                                
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+                            </div>
+                        </mat-card>
+                    </div>
             </mat-card>
             
             <!-- Options -->

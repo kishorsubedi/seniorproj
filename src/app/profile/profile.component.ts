@@ -10,13 +10,13 @@ import { Observable } from 'rxjs';
 export interface AttendedEvents {
   date: string;
   title: string;
-  org: string;
+  location: string;
 }
 
-const SAMPLE_DATA: AttendedEvents[] = [
-  {date: "Sample Date", title: "Sample Title", org: "Sample Org"},
-  {date: "Sample Date2", title: "Sample Title2", org: "Sample Org2"},
-];
+// const SAMPLE_DATA: AttendedEvents[] = [
+//   {date: "Sample Date", title: "Sample Title", org: "Sample Org"},
+//   {date: "Sample Date2", title: "Sample Title2", org: "Sample Org2"},
+// ];
 
 @Component({
   selector: 'app-profile',
