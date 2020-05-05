@@ -22,7 +22,7 @@
             <!-- Details -->
             <mat-card class="lightBlackBackground">
                 <br>
-                <div class="darkYellow" style="font-size: 22px;"> Events Attended: </div>
+                <div class="white" style="font-size: 22px;"> Events Attended: </div>
                 <br>
                 <div class style="margin: 10px;
                 padding:5px;
@@ -40,20 +40,20 @@
                                 
                                     <!-- Date Column -->
                                     <ng-container matColumnDef="date" >
-                                    <th style= "font-size : 22px" class="darkYellow" mat-header-cell *matHeaderCellDef mat-sort-header style="width: 45%;"> Date </th>
-                                    <td style= "font-size : 22px" class="darkYellow" mat-cell *matCellDef="let element"> {{element.date}} </td>
+                                    <th style= "font-size : 22px" class="white" mat-header-cell *matHeaderCellDef mat-sort-header style="width: 45%;"> Date </th>
+                                    <td style= "font-size : 22px" class="white" mat-cell *matCellDef="let element"> {{element.date}} </td>
                                     </ng-container>
                                 
                                     <!-- Title Column -->
                                     <ng-container matColumnDef="title" style="width: 33%">
-                                    <th class="darkYellow" mat-header-cell *matHeaderCellDef mat-sort-header> Event Title </th>
-                                    <td class="darkYellow" mat-cell *matCellDef="let element"> {{element.title}} </td>
+                                    <th class="white" mat-header-cell *matHeaderCellDef mat-sort-header> Event Title </th>
+                                    <td class="white" mat-cell *matCellDef="let element"> {{element.title}} </td>
                                     </ng-container>
                                 
                                     <!-- Org Column -->
                                     <ng-container matColumnDef="org" style="width: 33%">
-                                    <th class="darkYellow" mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
-                                    <td class="darkYellow" mat-cell *matCellDef="let element"> {{element.location}} </td>
+                                    <th class="white" mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+                                    <td class="white" mat-cell *matCellDef="let element"> {{element.location}} </td>
                                     </ng-container>
                                 
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
