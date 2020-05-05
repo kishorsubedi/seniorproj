@@ -121,3 +121,26 @@ ul {
  .active{
     background-color: #4CAF50;
  }
+
+ #parent {
+    display: flex;
+  }
+  #narrow {
+    width: 200px;
+    /* Just so it's visible */
+  }
+  #wide {
+    flex: 1;
+    /* Grow to rest of container */
+    /* Just so it's visible */
+  }
+
+  /* .event-card {
+    height: auto;
+    padding: 10px;
+    margin-top: 15px;
+}
+.event-table {
+    text-align: left;
+    font-size: 3vw;
+} */

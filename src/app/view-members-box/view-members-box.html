@@ -4,72 +4,62 @@
         <!-- Card that shows members detail -->
         <mat-card class = "detail-view-card sub-card" >
             <!-- The header: Photo and name -->
-            <div class="details-header">
-                <div *ngIf="downloadURL | async; let url" >
-                    <img [src]="url" alt="Image from AngularFireStorage" style="display:inline-block;max-width:120px;max-height:120px;width: auto;height: auto;">
+            <div id="parent">
+                <div id="wide">
+                    <div *ngIf="downloadURL | async; let url">
+                        <img [src]="url" alt="Image from AngularFireStorage" style="display:block;margin:auto;max-width:120px;max-height:120px;width: auto;height: auto;border:1px solid black;">
+                    </div>
+                </div>
+                <div id="narrow" style="border:1px solid black;">
+                    <br>
+                    <div style="font-size: x-large;text-align: center" *ngIf="this.userInView" >   {{this.userInView.name}}         <div style="font-weight: normal;font-size: small;"> {{this.userInView.email}} </div>  </div>
+                    <br>
+                    <div *ngIf="this.userInView" style="font-size: small;text-align: center" >     Joined:    Date joined  </div>
                 </div>
             </div>
+
             <!-- Details -->
             <mat-card class="details-card">
-                
-                <div style="font-size: x-large;" *ngIf="this.userInView" >{{this.userInView.name}}         <div style="font-weight: normal;font-size: small;"> {{this.userInView.email}} </div>  </div>
-                <br>
-                <div *ngIf="this.userInView" >Joined:    Date joined  </div>
                 <br>
                 Events Attended:
                 <br>
                 <table style="width:100%; border: 1px solid black;">
                     <tr>
-                      <td>
-                            <div>
-                                Kishor
-                            </div>
-                            <div>
-                                Subedi
-                            </div>
-                            <div>
-                                Subedi
-                            </div>
+                        <td>
+                            Event Date
                         </td>
-                      <td>
-                            <div>
-                                Bijesh
-                            </div>
-                            <div>
-                                Subedi
-                            </div>
-                            <div>
-                                Subedi
-                            </div>
-                      </td>
-                      <td>
-                        <div>
-                            Kishor
-                        </div>
-                        <div>
-                            Subedi
-                        </div>
-                        <div>
-                            Subedi
-                        </div>
-                    </td>
-                  <td>
-                        <div>
-                            
-                        </div>
-                        <div>
-                            ==>>
-                        </div>
-                        <div>
-                            
-                        </div>
-                  </td>
-
+                        <td>
+                            Event Title
+                        </td>
+                        <td>
+                            Event Location
+                        </td>
                     </tr>
-
-                </table>  
-
-                
+                </table>   
+                <table style="width:100%; border: 1px dotted black;">
+                        <tr>
+                            <td>
+                                Event Date
+                            </td>
+                            <td>
+                                Event Title
+                            </td>
+                            <td>
+                                Event Location
+                            </td>
+                        </tr>
+                        <tr>
+                                <td>
+                                    Event Date
+                                </td>
+                                <td>
+                                    Event Title
+                                </td>
+                                <td>
+                                    Event Location
+                                </td>
+                            </tr>
+                    </table>
             </mat-card>
             
             <!-- Options -->
