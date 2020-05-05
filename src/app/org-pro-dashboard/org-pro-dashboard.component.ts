@@ -40,6 +40,8 @@ export class OrgProDashboardComponent implements OnInit {
   items: Observable<OrgRole[]>;
 
   @Output() orgChanged = new EventEmitter<string>();
+  @Output() orgChangedClicked = new EventEmitter<string>();
+
   user: User;
   orgs: org[];
   userEmail: string;
@@ -62,6 +64,7 @@ export class OrgProDashboardComponent implements OnInit {
 
   // For switching orgs
   handleOrgClick(orgName: string){
+    this.orgChangedClicked.emit(orgName);
     this.orgChanged.emit(orgName);
   }
 

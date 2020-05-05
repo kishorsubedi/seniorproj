@@ -119,9 +119,12 @@ async getOrgs(){
   }
 
   handleOrgChange(orgName){
-    console.log("Kishor");
     this.currentOrg = orgName
     console.log("org change event reached dashboard " + this.currentOrg);
+  }
+
+  handleOrgChangeClicked(orgName){
+    this.orgChose();
   }
 
   isHomeRoute() {
