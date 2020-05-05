@@ -85,7 +85,7 @@ export class CalendarViewComponent {
     action: string;
     event: CalendarEvent;
     startString? : string;
-    startEnd? : string;
+    endString? : string;
   };
 
   adminActions: CalendarEventAction[] = [
@@ -268,6 +268,15 @@ export class CalendarViewComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
+    if(action == 'Clicked')
+    {
+      if(event.start){
+        this.modalData.startString = event.start.toISOString().slice(0,10).replace(new RegExp("-", "g"),'/')
+      }
+      if(event.end){
+        this.modalData.endString = event.end.toISOString().slice(0,10).replace(new RegExp("-", "g"),'/')
+      }
+    }
     this.dialog.open(this.modalContent);
   }
 
