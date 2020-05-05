@@ -62,14 +62,14 @@ export class CalendarViewComponent {
 
   @Input() orgInView: string = '';
 
-  ngOnChanges(changes: any) {
+  async ngOnChanges(changes: any) {
     for (const propName in changes) {
       if (changes.hasOwnProperty(propName)) {
         switch (propName) {
           case 'orgInView': {
             if (this.orgInView){
+              await this.isAdmin(this.orgInView);
               this.getEvents();
-              this.isAdmin(this.orgInView);
             }
           }
         }
@@ -166,7 +166,12 @@ export class CalendarViewComponent {
           duplicateEvents = events;
         } 
         for(var event of duplicateEvents){
-            event.actions = [...this.adminActions];  //Add an if(admin)
+            if(this.Admin){
+              event.actions = [...this.adminActions];  
+            }
+            else{
+              event.actions = [];
+            }
             // If the user has not rsvp yet
             if(event.rsvpMembers.indexOf(this.auth.currentUser.email) == -1){
               event.actions.push(this.rsvpAction);
@@ -348,21 +353,19 @@ export class CalendarViewComponent {
    }
  }
 
- isAdmin(org:string){
-  // var currUid = this.auth.afAuth.auth.currentUser.uid;
-  var currEmail = this.auth.afAuth.auth.currentUser.email;
-  this.auth.afs.firestore.doc('/orgs/'+ org +'/admins/'+currEmail).get()
-    .then(docSnapshot => {
-      if (docSnapshot.exists) {
-        this.Admin = true;
-        console.log("From calendar: this is an admin!");
-      }
-      else{
-        this.Admin = false;
-        console.log("From calendar: this is not an admin!");
-      }
-    });
-}
+ async isAdmin(org:string){
+  var orgAdminRef = this.auth.afs.firestore.doc("orgs/"+org+"/admins/"+this.auth.afAuth.auth.currentUser.email);
+  var doc = await orgAdminRef.get();
+  if(doc.data()){
+    this.Admin = true;
+    console.log("From calendar: this is an admin")
+  }
+  else{
+    this.Admin = false;
+    console.log("From calendar: this is not an adimn")
+  }
+
+  }
 
   setView(view: CalendarView) {
     this.view = view;
