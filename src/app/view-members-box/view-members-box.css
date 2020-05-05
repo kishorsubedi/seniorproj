@@ -155,6 +155,8 @@ ul {
 
 .whiteText{
     color: white;
+    background-color: #f4c430;
+    font-size: 20px;
 }
 
 .greyText{

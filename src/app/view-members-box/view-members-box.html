@@ -17,23 +17,23 @@
                     <div class ="greyText" *ngIf="this.userInView" style="font-size: small;text-align: center" >     Joined:    Date joined  </div>
                 </div>
             </div>
-
+            <br>
+            <br>
             <!-- Details -->
-            <mat-card>
+            <mat-card class="lightBlackBackground">
                 <br>
                 <div class="darkYellow"> Events Attended: </div>
                 <br>
-                <div style="margin: 10px;
+                <div class style="margin: 10px;
                 padding:5px;
                 width : auto;
                 display:flex; /* Needs check*/
                 flex-direction: column;
                 justify-content: flex-start;
-                flex-shrink: 1;
-                background-color: rgb(245, 245, 245);">
-                        <mat-card>
-                            <div style="width: 100%">
-                                <table mat-table #eventTable [dataSource]="dataSource" matSort>
+                flex-shrink: 1;">
+                        <mat-card class="lightBlackBackground">
+                            <div class="lightBlackBackground" style="width: 100%">
+                                <table class="lightBlackBackground" mat-table #eventTable [dataSource]="dataSource" matSort>
         
                                     <!--- Note that these columns can be defined in any order.
                                         The actual rendered columns are set as a property on the row definition" -->
@@ -68,11 +68,11 @@
             <!-- <div *ngIf="Admin | async"> -->
             <div *ngIf="Admin | async">
 
-                    <mat-card class="option-buttons-card">
+                    <mat-card class="option-buttons-card lightBlackBackground">
                             <!-- If the this.userInView is in this.members, show "Make this member an admin button" -->
-                            <button class = "darkYellow" *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmMakeAdmin()"> Make this member an admin </button>
-                            <button class = "darkYellow" *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmRemoveMember()" style="background-color: #EE310C ">Remove their membership</button>
-                            <button class = "darkYellow" *ngIf="this.admins && this.admins.indexOf(this.userInView) >= 0" (click)="confirmDemoteAdmin()"> Demote this admin to member</button>
+                            <button class = "whiteText" *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmMakeAdmin()"> Make this member an admin </button>
+                            <button class = "whiteText" *ngIf="this.members && this.members.indexOf(this.userInView) >= 0" (click)="confirmRemoveMember()" style="background-color: #EE310C ">Remove their membership</button>
+                            <button class = "whiteText" *ngIf="this.admins && this.admins.indexOf(this.userInView) >= 0" (click)="confirmDemoteAdmin()"> Demote this admin to member</button>
             
                         </mat-card>
             </div>
