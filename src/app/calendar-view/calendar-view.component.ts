@@ -32,6 +32,7 @@ import { ActionSequence } from 'protractor';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { MatDialog } from '@angular/material/dialog';
 import { WindowScrollController } from '@fullcalendar/core';
+import { UsersService } from '../services/users-service';
 
 const colors: any = {
   red: {
@@ -68,6 +69,7 @@ export class CalendarViewComponent {
           case 'orgInView': {
             if (this.orgInView){
               this.getEvents();
+              this.isAdmin(this.orgInView);
             }
           }
         }
@@ -80,6 +82,8 @@ export class CalendarViewComponent {
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
+
+  Admin = false;
 
   modalData: {
     action: string;
@@ -149,7 +153,7 @@ export class CalendarViewComponent {
   editEventLocation: string = "";
   editEventDescription: string= "";
 
-  constructor(private modal: NgbModal, private afs:AngularFirestore, private auth:AuthService, private dialog:MatDialog) {
+  constructor(private user:UsersService, private modal: NgbModal, private afs:AngularFirestore, private auth:AuthService, private dialog:MatDialog) {
   }
 
   // Gets events of current org from the database
@@ -311,11 +315,12 @@ export class CalendarViewComponent {
 
   async rsvpToEvent(event){
      // If the user has already rsvp
-    if(event.rsvpMembers.indexOf(this.auth.currentUser.email) > -1){
+    if(event.rsvpMembers.indexOf(this.auth.currentUser) > -1){
       window.alert("You have already registered to this event");
     }
     else{
       if(window.confirm("Please confirm that you want to RSVP to this event")){
+        console.log("Name is ",this.user.getUserName())
         event.rsvpMembers.push(this.auth.currentUser.email);
         await this.afs.collection('orgs/'+this.orgInView + "/events").doc(event.id).update({
           rsvpMembers: event.rsvpMembers
@@ -343,11 +348,21 @@ export class CalendarViewComponent {
    }
  }
 
-
-
-  // deleteEvent(eventToDelete: CalendarEvent) {
-  //   this.events = this.events.filter((event) => event !== eventToDelete);
-  // }
+ isAdmin(org:string){
+  // var currUid = this.auth.afAuth.auth.currentUser.uid;
+  var currEmail = this.auth.afAuth.auth.currentUser.email;
+  this.auth.afs.firestore.doc('/orgs/'+ org +'/admins/'+currEmail).get()
+    .then(docSnapshot => {
+      if (docSnapshot.exists) {
+        this.Admin = true;
+        console.log("From calendar: this is an admin!");
+      }
+      else{
+        this.Admin = false;
+        console.log("From calendar: this is not an admin!");
+      }
+    });
+}
 
   setView(view: CalendarView) {
     this.view = view;
