@@ -1,6 +1,5 @@
-export interface User{
-    email? : string;
-    orgRole?: Map<string, string>;
-    name?: string;
+export class User{
+    email: string;
+    name: string;
   }
 

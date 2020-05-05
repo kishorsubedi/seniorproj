@@ -71,8 +71,8 @@ export class ViewMembersBox implements OnInit {
 
   // Updates the users and members list
   async updateUsersList(){
-    var adminsValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/admins').valueChanges();
-    var usersValueChangesRef = this.afs.collection('orgs/'+this.orgInView+'/users').valueChanges();
+    var adminsValueChangesRef = this.afs.collection <User>('orgs/'+this.orgInView+'/admins').valueChanges();
+    var usersValueChangesRef = this.afs.collection <User>('orgs/'+this.orgInView+'/users').valueChanges();
     
     await usersValueChangesRef.subscribe(async members => {
       if(members){
@@ -87,12 +87,18 @@ export class ViewMembersBox implements OnInit {
     })
 
     await adminsValueChangesRef.subscribe(async admins=>{
-      admins = admins as User[];
       if(admins){
         this.admins = admins;
       }
       if(this.admins){
-        this.userInView = admins[0];
+        for(let admin of this.admins){
+          if(admin.name){
+            this.userInView = admin;
+            break;
+          }
+        }
+        //console.log(admins);
+        //this.userInView = admins[0];
         await this.downloadImage();
         this.adminsInDisplay = this.searchInArray(this.admins);
       }
