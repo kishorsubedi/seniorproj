@@ -3,5 +3,7 @@
 		<a mat-tab-link disabled class="fill-remaining-space">ORG <B>PRO</B></a>
 	   <a mat-tab-link routerLink="/dashboard" routerLinkActive="active">Home</a>
 	   <a mat-tab-link routerLink="/about" routerLinkActive="active">About</a>
-	   <a mat-tab-link (click)="signOut()">Logout</a>
+	   <button class = "btn btn-primary"style = "margin-left:45%; margin-top:5px; margin-right:10px" mat-tab-link (click)="signOut()">
+			Logout
+	   </button>
   </nav>
