@@ -37,7 +37,6 @@ export class ProfileComponent implements OnInit {
               await this.getEvents(this.orgInView);
               this.dataSource = new MatTableDataSource(this.atEvents);
               this.atEvents = [];
-              
             }
           }
         }

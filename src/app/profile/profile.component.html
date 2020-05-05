@@ -7,9 +7,9 @@
                             <img [src]="url" alt="Image from AngularFireStorage" style="display:inline-block;max-width:160px;max-height:140px;width: auto;height: auto;">
                     </div>
                 <!-- <img src="../../assets/images/photo.png" style="width:100px;height:100px" id="profilePic"> -->
-                <h2>{{this.userName}}</h2>    
+                <div style="font-size: x-large;">{{this.userName}}         <div style="font-weight: normal;font-size: small;"> {{this.userEmail}} </div>  </div>  
             </div>
-
+            <br>
             <!-- The change profile pic button. Needs a function -->
             <div class="change-pic">
                 <!-- Unlinked button. Needs to link to profile function-->
@@ -17,7 +17,7 @@
                 <p><input type="file" (change)="upload($event)" accept=".png,.jpg" id="proPic" style="display: none;"/></p>
                 <p><button mat-button><label for="proPic" style="cursor: poointer;">Change Image</label></button></p>
             </div>
-            <hr>
+            
             
             <!-- The email section. Needs to be linked to FB -->
             <div class="contact-info">
