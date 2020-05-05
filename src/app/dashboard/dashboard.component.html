@@ -35,13 +35,19 @@
         </div>
     </div>
 
-    <div *ngIf="needToChooseOrg" style="position: absolute;background-color: #FFD400;width: 600px;height: 600px;z-index: 2;top:27%;left: 35%;">
-        <button mat-stroked-button style="margin-left:0%; padding:0" (click)="orgChose()">
+    <div *ngIf="needToChooseOrg" style="position: absolute;background-color: #202020;width: 600px;height: 600px;z-index: 2;top:27%;left: 35%;">
+        <button mat-stroked-button style="margin-left:0%; padding:0;color:white" (click)="orgChose()">
             <mat-icon>close</mat-icon>
         </button>
 
         <app-org-pro-dashboard (orgChanged)="handleOrgChange($event)" (orgChangedClicked)="handleOrgChangeClicked($event)"></app-org-pro-dashboard>  
-    </div>
+        <br>
+        <br>
+
+        <div style="background-color:#404040;margin-left:15%;margin-right: 15%;border-radius: 20px;height:200px"> 
+            <h2 style="font-family: 'Montserrat', sans-serif; text-align: center;color:#f4c430"> Pending Invites </h2>
+        </div>
+      </div>
 </div>
 
 
