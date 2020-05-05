@@ -1,4 +1,4 @@
-<div class="container full-page-container">
+<!-- <div class="container full-page-container">
     <app-homepage-topbar></app-homepage-topbar>
 </div>
 
@@ -9,8 +9,39 @@
   <div class="pageContent" >
     <app-orgdashboard [orgInView]="currentOrg"> </app-orgdashboard>
   </div>
+</div> -->
+
+
+
+
+<div style="position: relative;">
+    <div style="width:100%;z-index: 1; opacity: 0.2;" id="orgdashboard">
+        <div class="container full-page-container">
+            <app-homepage-topbar></app-homepage-topbar>
+        </div>
+        
+        <div class="pageContainer">
+            <div style="width: 250px;height:120px;margin:auto;margin-top: 5px; background-color: black;text-align: center;color: white">
+              <button (click)="orgToChoose()"> Switch Org</button>
+              <div style="width: 150px;height:100%;margin:auto;margin-top: 5px; background-color: #FFD12f">
+                ORG LOGO
+              </div>
+            </div>
+            
+            
+          <div class="pageContent" >
+            <app-orgdashboard [orgInView]="currentOrg"> </app-orgdashboard>
+          </div>
+        </div>
+    </div>
+
+    <div *ngIf="needToChooseOrg" style="position: absolute;background-color: #FFD400;width: 600px;height: 600px;z-index: 2;top:27%;left: 35%;">
+        <button mat-stroked-button style="margin-left:0%; padding:0" (click)="orgChose()">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <app-org-pro-dashboard (orgChanged)="handleOrgChange($event)"></app-org-pro-dashboard>  
+    </div>
 </div>
-
-
 
 

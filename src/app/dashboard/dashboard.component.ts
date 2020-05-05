@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { OrgProDashboardComponent } from '../org-pro-dashboard/org-pro-dashboard.component';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from 'firebase';
 import { org } from '../models/org';
 
@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
   private orgsCollection: AngularFirestoreCollection<OrgRole>;
   items: Observable<OrgRole[]>;
+  needToChooseOrg: boolean;
 
   @Output() orgChanged = new EventEmitter<string>();
   user: User;
@@ -49,16 +50,32 @@ export class DashboardComponent implements OnInit {
   userEmail: string;
 
   constructor(private auth: AuthService, private router: Router) { 
-    if (this.auth.afAuth.auth.currentUser != null)
-    this.userLoggedIn = true
-  
-    this.userEmail = auth.afAuth.auth.currentUser.email;
-    this.orgs = [];
-    
-    this.orgsCollection = this.auth.afs.collection<OrgRole>('allUsers/'+this.userEmail+'/orgs');
+    if (this.auth.afAuth.auth.currentUser != null){
+      this.needToChooseOrg = true;
 
-    this.getOrgs();
+      console.log("kii");
+      this.userLoggedIn = true
+  
+      this.userEmail = auth.afAuth.auth.currentUser.email;
+      this.orgs = [];
+      
+      this.orgsCollection = this.auth.afs.collection<OrgRole>('allUsers/'+this.userEmail+'/orgs');
+  
+      this.getOrgs();
+    }
+    
   }
+
+  orgToChoose(){
+    this.needToChooseOrg = true;
+    document.getElementById("orgdashboard").style.opacity = "0.2";
+  }
+
+  orgChose(){
+    this.needToChooseOrg = false;
+    document.getElementById("orgdashboard").style.opacity = "1";
+  }
+
   loadStripe() {
      
     if(!window.document.getElementById('stripe-script')) {
@@ -73,6 +90,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.loadStripe()
   }
+
   handleOrgClick(orgName: string){
     this.orgChanged.emit(orgName);
   }
@@ -105,6 +123,7 @@ async getOrgs(){
     this.currentOrg = orgName
     console.log("org change event reached dashboard " + this.currentOrg);
   }
+
   isHomeRoute() {
     return this.router.url === '/dashboard'
   }
@@ -129,8 +148,6 @@ async getOrgs(){
     });
  
 }
-
-
   
   signOut(){
     this.auth.signOut();

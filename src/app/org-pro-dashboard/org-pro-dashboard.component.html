@@ -1,8 +1,9 @@
-<mat-card class="card-container">
+<mat-card class="card-container" style="background-color:green;margin-left:15%;margin-right: 15%">
   <h2 style="text-align: center; font-family: 'Montserrat', sans-serif;">Hello, {{this.userEmail}}</h2>
   <h2 style="font-family: 'Montserrat', sans-serif; text-align: center;">Your Organizations </h2>
   <mat-list-item style="text-align: center;" *ngFor="let org of orgs" (click)="handleOrgClick(org.id)">
     {{ org.id }}
     {{org.role}}
+    <br>
   </mat-list-item>
 </mat-card>
