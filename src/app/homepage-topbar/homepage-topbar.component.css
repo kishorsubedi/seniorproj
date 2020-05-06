@@ -12,5 +12,15 @@
     color: gold;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
+    font-size: 27px;
 
+  }
+
+  .btn-primary{
+    background-color: rgb(58, 54, 54) !important;
+    color: white;
+    background-color: rgb(219, 70, 70) !important;
+    border-color: rgb(48, 15, 15) !important;
+    margin-top: 10px;
+    border-radius :20;
   }
