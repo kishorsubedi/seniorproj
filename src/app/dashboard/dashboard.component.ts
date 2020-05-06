@@ -8,6 +8,7 @@ import { AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable, Subject } from 'rxjs';
 import { User } from 'firebase';
 import { org } from '../models/org';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 export interface OrgRole{
   id: string,
@@ -20,6 +21,7 @@ export interface OrgRole{
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  downloadURL: Observable<any[]>;
   @ViewChild('sidenav') sidenav: MatSidenav;
   isExpanded = true;
   showSubmenu: boolean = false;
@@ -49,7 +51,7 @@ export class DashboardComponent implements OnInit {
   orgs: org[];
   userEmail: string;
 
-  constructor(private auth: AuthService, private router: Router) { 
+  constructor(private auth: AuthService, private router: Router, private afStorage:AngularFireStorage) { 
     if (this.auth.afAuth.auth.currentUser != null){
       this.needToChooseOrg = true;
 
@@ -61,9 +63,16 @@ export class DashboardComponent implements OnInit {
       this.orgsCollection = this.auth.afs.collection<OrgRole>('allUsers/'+this.userEmail+'/orgs');
   
       this.getOrgs();
+
     }
     
   }
+
+  async downloadImage(){
+    console.log("dsd");
+    this.downloadURL = await this.afStorage.ref("orgs/"+this.currentOrg).getDownloadURL();
+  }
+
 
   orgToChoose(){
     this.needToChooseOrg = true;
@@ -118,7 +127,8 @@ async getOrgs(){
   }
 
   handleOrgChange(orgName){
-    this.currentOrg = orgName
+    this.currentOrg = orgName;
+    this.downloadImage();
     console.log("org change event reached dashboard " + this.currentOrg);
   }
 

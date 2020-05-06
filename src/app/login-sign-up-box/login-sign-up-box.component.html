@@ -15,7 +15,7 @@
 
   <!-- The login tab -->
   <mat-tab-group class ="mat-stretch-tabs">
-    <mat-tab label="Login" color="black"> 
+    <mat-tab label="Login" style="color:black"> 
       <div>
         <br>
         <mat-form-field appearance="fill">
@@ -43,7 +43,7 @@
     </mat-tab>
     
     <!-- The Signup Tab -->
-    <mat-tab label="Sign Up"> 
+    <mat-tab label="Sign Up" style="color:black"> 
       <form action="">
         <div>
             <br>
@@ -85,12 +85,27 @@
           </div>
           
           <div style="display: inline;float:right;">
-            <input type="file" (change)="uploadFile($event)" accept=".png,.jpg" />
+            <input type="file" (change)="uploadProfilePic($event)" accept=".png,.jpg" />
           </div>
          
         </div>
 
         <br>
+        <button value="Signing up an org?" (click)="signUpOrgButtonClicked()">Click this button if you're signing up an org</button>
+        <br>
+        <br>
+
+        <div *ngIf="signingUpOrg">
+            <div style="display: inline;">
+                Set Org Logo
+            </div>
+            <div style="display: inline;float:right;">
+                <input type="file" (change)="uploadOrglogo($event)" accept=".png,.jpg" />
+              </div>
+        </div>
+
+        <br>
+
         <div style="text-align: center"> 
         <input type="submit" style="background-color: #ffb500; font-size: 15px; color: black; border-radius: 50%;" value="Sign Up" mat-stroked-button color="black" (click)="signUpWithEmailPassword(signupEmail.value, signupPassword.value, signupOrgName.value, signupFirstName.value + ' ' + signupLastName.value)"  > 
         </div>
