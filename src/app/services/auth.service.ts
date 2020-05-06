@@ -87,7 +87,7 @@ export class AuthService {
     }
   }
 
-  signUpWithEmailPassword(email: string, password:string, signupOrgName:string, name:string, file:any) {
+  signUpWithEmailPassword(email: string, password:string, signupOrgName:string, name:string, file: any[], orgName?:string) {
     //shouldn't be in allUsers. 
     // if in admin already, first time creator. org -> creator, allUsers.orgs -> org
     // else, if in invitedMembers, org -> creator, allUsers.orgs -> org
@@ -143,12 +143,14 @@ export class AuthService {
                       await this.afs.collection("orgs/"+ signupOrgName + "/invitedMembers").doc(email).delete();                     
                     }
 
-                    var ref = this.afStorage.ref("profilePictures/"+email);
-      
-                    // the put method creates an AngularFireUploadTask
-                    // and kicks off the upload
-                    await ref.put(file); //upload
-                  
+                    var profilePicref = this.afStorage.ref("profilePictures/"+email);
+                    await profilePicref.put(file[0]); //upload
+
+                    if(file.length >1){
+                      var orgLogoref = this.afStorage.ref("orgs/"+orgName);
+                      await orgLogoref.put(file[1]); //upload
+                    }
+                    
                     this.router.navigateByUrl('/dashboard');
                     return;
       

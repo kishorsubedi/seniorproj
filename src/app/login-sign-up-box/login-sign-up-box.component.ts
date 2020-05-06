@@ -7,7 +7,9 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login-sign-up-box.component.css']
 })
 export class LoginSignUpBoxComponent implements OnInit {
-  file:any;
+  signingUpOrg:boolean = false; 
+  profilePic:any;
+  orgLogo:any;
 
   constructor(private auth: AuthService) { }
 
@@ -18,17 +20,37 @@ export class LoginSignUpBoxComponent implements OnInit {
     this.auth.signInWithEmailPassword(email, password);
   }
 
-  uploadFile(event){
-    this.file = event.target.files[0];
+  signUpOrgButtonClicked(){
+    this.signingUpOrg = true;
+  }
+
+  uploadProfilePic(event){
+    this.profilePic = event.target.files[0];
+  }
+
+  uploadOrglogo(event){
+    this.orgLogo = event.target.files[0];
   }
 
   signUpWithEmailPassword(email:string, password:string, signupOrgName:string, name:string) {
-    if(email == '' || password == '' || signupOrgName == '' || name == '' || !this.file)
-    {
-      window.alert("All fields required");
-      return;
+    if(!this.signingUpOrg){
+      if(email == '' || password == '' || signupOrgName == '' || name == '' || !this.profilePic)
+      {
+        window.alert("All fields required");
+        return;
+      }
+      this.auth.signUpWithEmailPassword(email, password, signupOrgName, name, [this.profilePic]);
     }
-    this.auth.signUpWithEmailPassword(email, password, signupOrgName, name, this.file);
+    else{
+      console.log(this.orgLogo);
+      if(email == '' || password == '' || signupOrgName == '' || name == '' || !this.profilePic || !this.orgLogo)
+      {
+        window.alert("All fields required");
+        return;
+      }
+      this.auth.signUpWithEmailPassword(email, password, signupOrgName, name, [this.profilePic, this.orgLogo],signupOrgName);
+    }
+
   }
 
   loginWithGoogle(){
