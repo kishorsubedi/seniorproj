@@ -296,19 +296,19 @@
       <div class="dialog-header">
         <h1 style="margin-bottom:0px;">{{modalData.event.title}}</h1>
         <h3 style="margin-bottom:0px;">{{modalData.startString}} <span *ngIf="modalData.event.end">- {{modalData.endString}}</span></h3>
-        <!-- <h3 style="margin-bottom:0px;"><span *ngIf="modalData.event.startTime">{{modalData.event.startTime}}</span> <span *ngIf="modalData.event.endTime">- {{modalData.event.endTime}}</span></h3>
+        <h3 style="margin-bottom:0px;"><span *ngIf="modalData.event.startTime">{{modalData.event.startTime}}</span> <span *ngIf="modalData.event.endTime">- {{modalData.event.endTime}}</span></h3>
         <h3 style="margin-bottom:0px;" *ngIf="modalData.event.location">{{ modalData.event.location }}</h3>
-        <mat-divider></mat-divider> -->
+        <mat-divider></mat-divider>
       </div>
       <br>
       <div class="dialog-body" style="text-align:left">
           <h3 style="margin-bottom:5px;">About:</h3>
-          <!-- <p>{{ modalData.event.description }}</p> -->
+          <p>{{ modalData.event.description }}</p>
           <h3 style="margin-bottom:5px;">Attending Members:</h3>
-          <!-- <p *ngIf="!(modalData.event.rsvpMembers)">No member has registered for this event yet.</p> -->
-          <!-- <mat-list *ngFor="let member of modalData.event.rsvpMembers"> -->
-            <!-- <p>{{member}}</p>
-          </mat-list> -->
+          <p *ngIf="!(modalData.event.rsvpMembers)">No member has registered for this event yet.</p> -->
+          <mat-list *ngFor="let member of modalData.event.rsvpMembers">
+            <p>{{member}}</p>
+          </mat-list>
       </div>
       <mat-dialog-actions>
         <button mat-raised-button class="btn btn-primary pull-right" [mat-dialog-close]="true" style="margin-left: 42%; background-color:black; color:white">

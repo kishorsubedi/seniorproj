@@ -60,7 +60,6 @@ export class UsersService {
     await this.userCollectionRef.ref.get().then(doc => {
       if (doc.exists) {
         userNameString = String(doc.get('name'));
-        return userNameString;
       } else {
         console.log("Either no name or error!");
         return;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { UsersService } from '../services/users-service';
 
 @Component({
   selector: 'app-homepage-topbar',
@@ -9,10 +10,13 @@ import { Router } from '@angular/router';
 })
 export class HomepageTopbarComponent implements OnInit {
   userLoggedIn: boolean = false
+  userName: string;
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(private usersService: UsersService,private auth: AuthService, private router: Router) {
     if (this.auth.afAuth.auth.currentUser != null)
       this.userLoggedIn = true
+      this.getUserName();
+      console.log("Name is: ", this.userName);
    }
 
   ngOnInit(): void {
@@ -20,6 +24,12 @@ export class HomepageTopbarComponent implements OnInit {
 
   signOut(){
     this.auth.signOut();
+  }
+
+ async getUserName(){
+    await this.usersService.getUserName().then(res => {
+      this.userName = res;
+    });
   }
 
 }
